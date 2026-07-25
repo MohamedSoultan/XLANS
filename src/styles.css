@@ -153,3 +153,22 @@
     scroll-behavior: auto !important;
   }
 }
+
+.input {
+  width: 100%;
+  min-height: 3rem;
+  border-radius: 0.75rem;
+  border: 1.5px solid var(--color-border);
+  background: var(--color-background);
+  padding: 0.625rem 1rem;
+  font-size: 0.95rem;
+  color: var(--color-foreground);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+  font-family: inherit;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--gold) 20%, transparent);
+}
+.input::placeholder { color: color-mix(in oklab, var(--foreground) 40%, transparent); }
