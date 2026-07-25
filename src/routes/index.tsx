@@ -1,24 +1,1395 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import {
+  MessageCircle,
+  ArrowLeft,
+  Menu,
+  X,
+  Check,
+  ChevronDown,
+  Rocket,
+  Target,
+  Zap,
+  Shield,
+  Sparkles,
+  Users,
+  Building2,
+  Stethoscope,
+  ShoppingBag,
+  RefreshCw,
+  Globe,
+  Calendar,
+  Store,
+  Wrench,
+  Briefcase,
+  TrendingUp,
+  Clock,
+  Layers,
+  Smartphone,
+  Wallet,
+  Headphones,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Youtube,
+  ExternalLink,
+} from "lucide-react";
+import logo from "@/assets/xlans-logo.png";
+import portrait from "@/assets/mohamed-sultan.png";
+import { BookingWizard } from "@/components/BookingWizard";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "XLANS Web Solutions | تصميم مواقع احترافية للشركات" },
+      {
+        name: "description",
+        content:
+          "XLANS تساعد الشركات وأصحاب المشاريع على إنشاء مواقع سريعة وآمنة ومبنية على أهداف البيزنس، مع مواقع تعريفية ومتاجر وأنظمة حجز بسيطة.",
+      },
+      { property: "og:title", content: "XLANS Web Solutions | تصميم مواقع احترافية للشركات" },
+      {
+        property: "og:description",
+        content: "مواقع أعمال مبنية على فهم البيزنس، مش مجرد تصميم.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "ProfessionalService",
+              name: "XLANS Web Solutions",
+              description:
+                "تصميم وتطوير مواقع احترافية للشركات وأصحاب المشاريع، متاجر إلكترونية وأنظمة حجز.",
+              url: "/",
+              telephone: "+201140226705",
+              founder: { "@type": "Person", name: "Mohamed Sultan" },
+              areaServed: ["EG", "SA", "QA", "US"],
+            },
+            {
+              "@type": "Person",
+              name: "Mohamed Sultan",
+              jobTitle: "Web Solutions Specialist",
+              sameAs: [
+                "https://facebook.com/mo7amadsultan",
+                "https://instagram.com/mo7amadsultan",
+                "https://linkedin.com/in/mo7amadsultan",
+              ],
+            },
+          ],
+        }),
+      },
+    ],
+  }),
+  component: LandingPage,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+const WA_NUMBER = "201140226705";
+const WA_DEFAULT_MSG =
+  "مرحبًا محمد، وصلت ليك من موقع XLANS وعايز أعرف أنسب حل لموقع مشروعي.";
+const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_DEFAULT_MSG)}`;
+
+function LandingPage() {
+  const [wizardOpen, setWizardOpen] = useState(false);
+  const [initialService, setInitialService] = useState<string | undefined>();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenu, setMobileMenu] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const openWizard = (service?: string) => {
+    setInitialService(service);
+    setWizardOpen(true);
+  };
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
+    <div className="min-h-screen bg-background text-foreground">
+      <Header
+        scrolled={scrolled}
+        mobileMenu={mobileMenu}
+        setMobileMenu={setMobileMenu}
+        onBook={() => openWizard()}
+      />
+
+      <main>
+        <Hero onBook={() => openWizard()} />
+        <TrustStrip />
+        <Audience onBook={() => openWizard()} />
+        <Services onBook={openWizard} />
+        <WhyXlans />
+        <CustomerJourney />
+        <Process />
+        <Portfolio />
+        <Founder />
+        <BookingSection onBook={() => openWizard()} />
+        <FAQ />
+        <Social />
+        <FinalCTA onBook={() => openWizard()} />
+      </main>
+
+      <Footer onBook={() => openWizard()} />
+
+      <FloatingWhatsApp />
+      <MobileBottomBar onBook={() => openWizard()} />
+
+      <BookingWizard
+        open={wizardOpen}
+        onClose={() => setWizardOpen(false)}
+        initialService={initialService}
       />
     </div>
+  );
+}
+
+/* ============================================================
+   HEADER
+============================================================ */
+const NAV = [
+  { label: "الرئيسية", href: "#home" },
+  { label: "خدماتنا", href: "#services" },
+  { label: "لماذا XLANS؟", href: "#why" },
+  { label: "أعمالنا", href: "#portfolio" },
+  { label: "خطوات العمل", href: "#process" },
+  { label: "الأسئلة الشائعة", href: "#faq" },
+  { label: "تواصل معنا", href: "#contact" },
+];
+
+function Header({
+  scrolled,
+  mobileMenu,
+  setMobileMenu,
+  onBook,
+}: {
+  scrolled: boolean;
+  mobileMenu: boolean;
+  setMobileMenu: (v: boolean) => void;
+  onBook: () => void;
+}) {
+  return (
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-background/90 py-2 shadow-[0_4px_20px_-8px_rgba(7,29,59,0.15)] backdrop-blur-md"
+            : "bg-background/60 py-4 backdrop-blur-sm"
+        }`}
+      >
+        <div className="container-x flex items-center justify-between gap-4">
+          <a href="#home" className="flex shrink-0 items-center" aria-label="XLANS">
+            <img
+              src={logo}
+              alt="XLANS"
+              width={140}
+              height={44}
+              className="h-10 w-auto sm:h-11"
+            />
+          </a>
+          <nav className="hidden items-center gap-7 lg:flex">
+            {NAV.map((n) => (
+              <a
+                key={n.href}
+                href={n.href}
+                className="text-sm font-medium text-foreground/80 transition hover:text-navy"
+              >
+                {n.label}
+              </a>
+            ))}
+          </nav>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onBook}
+              className="hidden min-h-11 items-center rounded-full navy-gradient px-5 text-sm font-bold text-navy-foreground shadow-md transition hover:brightness-110 md:inline-flex"
+            >
+              احجز استشارة مجانية
+            </button>
+            <a
+              href={WA_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="واتساب"
+              className="grid h-11 w-11 place-items-center rounded-full bg-[#25D366] text-white shadow-md transition hover:brightness-110 md:hidden"
+            >
+              <MessageCircle className="h-5 w-5" />
+            </a>
+            <button
+              onClick={() => setMobileMenu(true)}
+              aria-label="القائمة"
+              className="grid h-11 w-11 place-items-center rounded-full border border-border text-foreground lg:hidden"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {mobileMenu && (
+        <div className="fixed inset-0 z-[70] flex flex-col bg-background lg:hidden">
+          <div className="container-x flex items-center justify-between py-4">
+            <img src={logo} alt="XLANS" className="h-10 w-auto" />
+            <button
+              onClick={() => setMobileMenu(false)}
+              aria-label="إغلاق"
+              className="grid h-11 w-11 place-items-center rounded-full border border-border"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+          <nav className="container-x flex flex-1 flex-col gap-2 pt-6">
+            {NAV.map((n) => (
+              <a
+                key={n.href}
+                href={n.href}
+                onClick={() => setMobileMenu(false)}
+                className="rounded-2xl border border-border px-5 py-4 text-base font-semibold text-foreground transition hover:border-gold hover:bg-cream"
+              >
+                {n.label}
+              </a>
+            ))}
+            <button
+              onClick={() => {
+                setMobileMenu(false);
+                onBook();
+              }}
+              className="mt-4 min-h-14 rounded-2xl navy-gradient text-base font-bold text-navy-foreground"
+            >
+              احجز استشارة مجانية
+            </button>
+          </nav>
+        </div>
+      )}
+    </>
+  );
+}
+
+/* ============================================================
+   HERO
+============================================================ */
+function Hero({ onBook }: { onBook: () => void }) {
+  return (
+    <section
+      id="home"
+      className="relative overflow-hidden bg-cream pt-28 pb-16 sm:pt-32 md:pt-36 md:pb-24"
+    >
+      {/* Decorative giant X */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-40 top-10 select-none text-[28rem] font-black leading-none text-gold/[0.04] md:text-[38rem]"
+      >
+        X
+      </div>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-40"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 20% 30%, color-mix(in oklab, var(--gold) 12%, transparent), transparent 40%), radial-gradient(circle at 80% 70%, color-mix(in oklab, var(--navy) 8%, transparent), transparent 45%)",
+        }}
+      />
+
+      <div className="container-x relative">
+        <div className="grid items-center gap-10 md:grid-cols-[1.15fr_1fr] md:gap-12">
+          {/* Text */}
+          <div className="reveal">
+            <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-white/70 px-4 py-2 text-xs font-semibold text-navy backdrop-blur-sm sm:text-sm">
+              <Sparkles className="h-4 w-4 text-gold" />
+              مواقع احترافية للشركات وأصحاب المشاريع
+            </span>
+
+            <h1 className="mt-5 text-3xl font-black leading-[1.15] text-navy sm:text-4xl md:text-5xl lg:text-6xl">
+              موقع شركتك مش مجرد شكل…
+              <br />
+              لازم <span className="gold-text">يحقق هدفك</span>.
+            </h1>
+
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
+              في XLANS بنبني مواقع سريعة وآمنة ومخصصة، مبنية على فهم البيزنس وسلوك
+              العميل، عشان تساعد زوارك يوصلوا للتواصل أو الحجز أو طلب عرض سعر بأقل
+              خطوات.
+            </p>
+
+            <div className="mt-5 inline-flex items-center gap-2 rounded-2xl border border-gold/30 bg-white/80 px-4 py-3 text-sm text-navy shadow-sm">
+              <Clock className="h-4 w-4 shrink-0 text-gold" />
+              <div>
+                <strong>نسخة أولية V1 خلال 48 ساعة</strong> للمواقع التعريفية القياسية.
+                <span className="mt-0.5 block text-xs text-muted-foreground">
+                  بعد استلام المحتوى وتأكيد نطاق المشروع.
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-7 flex flex-wrap gap-3">
+              <button
+                onClick={onBook}
+                className="group inline-flex min-h-13 items-center gap-2 rounded-full navy-gradient px-7 py-3 text-sm font-bold text-navy-foreground shadow-xl transition hover:brightness-110 sm:text-base"
+              >
+                ابدأ مشروعك
+                <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-1" />
+              </button>
+              <a
+                href="#portfolio"
+                className="inline-flex min-h-13 items-center gap-2 rounded-full border-2 border-navy/15 bg-white px-6 py-3 text-sm font-bold text-navy transition hover:border-gold hover:text-navy sm:text-base"
+              >
+                شاهد أعمالنا
+              </a>
+            </div>
+
+            <p className="mt-5 text-xs text-muted-foreground sm:text-sm">
+              استشارة أولية مجانية • أسعار واضحة • بدون تكاليف مفاجئة
+            </p>
+          </div>
+
+          {/* Portrait */}
+          <div className="relative reveal" style={{ animationDelay: "150ms" }}>
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-sm md:max-w-md">
+              {/* Glow */}
+              <div
+                aria-hidden
+                className="absolute inset-4 rounded-[2.5rem] blur-3xl"
+                style={{
+                  background:
+                    "radial-gradient(closest-side, color-mix(in oklab, var(--gold) 40%, transparent), transparent)",
+                }}
+              />
+              {/* Gold frame */}
+              <div className="absolute inset-0 rounded-[2.5rem] gold-gradient" />
+              <div className="absolute inset-[3px] overflow-hidden rounded-[2.35rem] navy-gradient">
+                <img
+                  src={portrait}
+                  alt="محمد سلطان، مؤسس XLANS Web Solutions"
+                  width={512}
+                  height={640}
+                  className="h-full w-full object-cover object-top"
+                  fetchPriority="high"
+                />
+              </div>
+              {/* Floating badges */}
+              <div className="absolute -bottom-4 -right-3 rounded-2xl border border-gold/30 bg-white p-3 shadow-xl sm:-bottom-6 sm:-right-6">
+                <div className="flex items-center gap-3">
+                  <div className="grid h-10 w-10 place-items-center rounded-full gold-gradient">
+                    <Rocket className="h-5 w-5 text-navy" />
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs text-muted-foreground">التسليم</div>
+                    <div className="text-sm font-bold text-navy">48 ساعة V1</div>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute -left-3 top-8 rounded-2xl border border-navy/10 bg-white p-3 shadow-xl sm:-left-6">
+                <div className="flex items-center gap-3">
+                  <div className="grid h-10 w-10 place-items-center rounded-full bg-cream text-navy">
+                    <Shield className="h-5 w-5" />
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs text-muted-foreground">مواقع</div>
+                    <div className="text-sm font-bold text-navy">آمنة وسريعة</div>
+                  </div>
+                </div>
+              </div>
+              {/* X accent */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -left-8 -top-6 text-6xl font-black gold-text opacity-30 md:text-7xl"
+              >
+                X
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   TRUST STRIP
+============================================================ */
+function TrustStrip() {
+  const items = [
+    { icon: Briefcase, label: "+10 مشاريع تم تنفيذها" },
+    { icon: TrendingUp, label: "+3 سنوات خبرة متخصصة" },
+    { icon: Globe, label: "عملاء في مصر والخليج وأمريكا" },
+    { icon: Zap, label: "مواقع سريعة وآمنة" },
+  ];
+  return (
+    <section className="border-y border-border bg-white py-8">
+      <div className="container-x">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+          {items.map((it) => (
+            <div
+              key={it.label}
+              className="flex items-center gap-3 rounded-2xl bg-mist/60 px-4 py-4 md:bg-transparent md:px-0"
+            >
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-gold/30 bg-cream text-gold">
+                <it.icon className="h-5 w-5" />
+              </div>
+              <p className="text-sm font-semibold leading-tight text-navy md:text-base">
+                {it.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   AUDIENCE
+============================================================ */
+function Audience({ onBook }: { onBook: () => void }) {
+  const cards = [
+    {
+      icon: Briefcase,
+      title: "الشركات الخدمية",
+      desc: "اعرض خدماتك وخلّي العميل يوصل للحجز أو التواصل بسهولة.",
+    },
+    {
+      icon: Building2,
+      title: "الشركات الصناعية",
+      desc: "اعرض الشركة والمنتجات والكتالوجات وسهّل طلب عرض السعر.",
+    },
+    {
+      icon: Stethoscope,
+      title: "العيادات ومراكز الخدمات",
+      desc: "موقع تعريفي مع نظام حجز أو طلب استشارة بسيط.",
+    },
+    {
+      icon: ShoppingBag,
+      title: "المتاجر وأصحاب المنتجات",
+      desc: "متجر سريع وسهل يساعد العميل يكتشف المنتج ويكمل الطلب.",
+    },
+    {
+      icon: RefreshCw,
+      title: "الشركات التي لديها موقع قديم",
+      desc: "إعادة تصميم وتحسين السرعة وتجربة الموبايل ورحلة العميل.",
+    },
+  ];
+  return (
+    <Section eyebrow="لمين الخدمة؟" title="هل الخدمة مناسبة ليك؟" intro="XLANS مناسبة ليك لو أنت صاحب شركة أو مشروع وعايز موقع واضح يخدم هدف حقيقي.">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {cards.map((c) => (
+          <article
+            key={c.title}
+            className="hover-lift group rounded-3xl border border-border bg-white p-6"
+          >
+            <div className="grid h-12 w-12 place-items-center rounded-2xl gold-gradient text-navy">
+              <c.icon className="h-6 w-6" />
+            </div>
+            <h3 className="mt-4 text-lg font-bold text-navy">{c.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.desc}</p>
+          </article>
+        ))}
+      </div>
+      <div className="mt-10 text-center">
+        <button
+          onClick={onBook}
+          className="inline-flex min-h-12 items-center gap-2 rounded-full border-2 border-navy px-6 text-sm font-bold text-navy transition hover:bg-navy hover:text-navy-foreground"
+        >
+          مش متأكد إيه المناسب لنشاطك؟ اسألنا مجانًا
+          <ArrowLeft className="h-4 w-4" />
+        </button>
+      </div>
+    </Section>
+  );
+}
+
+/* ============================================================
+   SERVICES
+============================================================ */
+function Services({ onBook }: { onBook: (s?: string) => void }) {
+  const services = [
+    {
+      icon: Building2,
+      key: "موقع شركة",
+      title: "مواقع الشركات",
+      desc: "موقع احترافي يوضح خدماتك، يبني الثقة، ويسهّل التواصل وطلب عرض السعر.",
+      features: [
+        "تصميم مخصص للنشاط",
+        "متوافق مع الموبايل",
+        "نموذج تواصل أو طلب عرض سعر",
+        "ربط واتساب والسوشيال ميديا",
+      ],
+    },
+    {
+      icon: Zap,
+      key: "موقع تعريفي",
+      title: "مواقع تعريفية سريعة",
+      desc: "حل مناسب للمشاريع الصغيرة والخدمات والـPortfolio.",
+      features: [
+        "صفحات واضحة ومختصرة",
+        "نسخة أولية خلال 48 ساعة",
+        "سرعة وأداء قوي",
+        "سهولة التحديث",
+      ],
+    },
+    {
+      icon: Calendar,
+      key: "نظام حجز بسيط",
+      title: "أنظمة الحجز البسيطة",
+      desc: "ساعد العميل يحجز موعد أو يطلب استشارة بدون تعقيد.",
+      features: [
+        "خطوات حجز سهلة",
+        "اختيار الخدمة",
+        "اختيار الموعد المفضل",
+        "تحويل التفاصيل إلى واتساب",
+      ],
+    },
+    {
+      icon: Store,
+      key: "متجر إلكتروني",
+      title: "المتاجر الإلكترونية",
+      desc: "متجر سريع وآمن بتجربة شراء مناسبة لطبيعة منتجاتك.",
+      features: [
+        "WooCommerce",
+        "إدارة المنتجات",
+        "تحسين رحلة الشراء",
+        "ربط وسائل الدفع والشحن حسب المشروع",
+      ],
+    },
+    {
+      icon: Wrench,
+      key: "تطوير موقع حالي",
+      title: "تطوير وتحسين المواقع",
+      desc: "تحسين موقعك الحالي بدل البدء من الصفر.",
+      features: [
+        "تحسين السرعة",
+        "تحسين الموبايل",
+        "إصلاح تجربة المستخدم",
+        "الحماية والنسخ الاحتياطي",
+      ],
+    },
+  ];
+  return (
+    <Section
+      id="services"
+      eyebrow="خدماتنا"
+      title="حلول مواقع تناسب هدف مشروعك"
+      bg="bg-cream"
+    >
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {services.map((s) => (
+          <article
+            key={s.title}
+            className="hover-lift flex flex-col rounded-3xl border border-border bg-white p-6"
+          >
+            <div className="grid h-12 w-12 place-items-center rounded-2xl navy-gradient text-gold">
+              <s.icon className="h-6 w-6" />
+            </div>
+            <h3 className="mt-4 text-xl font-bold text-navy">{s.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+            <ul className="mt-5 flex-1 space-y-2.5">
+              {s.features.map((f) => (
+                <li key={f} className="flex items-start gap-2 text-sm text-foreground/85">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+            <button
+              onClick={() => onBook(s.key)}
+              className="mt-6 inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-navy/15 bg-cream/60 px-5 text-sm font-bold text-navy transition hover:border-gold hover:bg-gold hover:text-navy"
+            >
+              اعرف المناسب لمشروعك
+              <ArrowLeft className="h-4 w-4" />
+            </button>
+          </article>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ============================================================
+   WHY XLANS (dark)
+============================================================ */
+function WhyXlans() {
+  const items = [
+    {
+      icon: Target,
+      title: "فهم البيزنس والتسويق",
+      desc: "بنبدأ من هدف مشروعك وسلوك عميلك، مش من الألوان والتصميم.",
+    },
+    {
+      icon: Zap,
+      title: "سرعة التنفيذ",
+      desc: "نسلّم بسرعة من غير ما نضحي بالجودة أو وضوح التجربة.",
+    },
+    {
+      icon: Layers,
+      title: "تخصيص حسب النشاط",
+      desc: "كل موقع بيتبني حسب طبيعة شركتك وجمهورك والهدف المطلوب.",
+    },
+    {
+      icon: Smartphone,
+      title: "أداء قوي على الموبايل",
+      desc: "تجربة سريعة وسهلة على الموبايل لأن أغلب عملائك هيشوفوك من خلاله.",
+    },
+    {
+      icon: Wallet,
+      title: "أسعار واضحة",
+      desc: "نطاق عمل وسعر واضح قبل البداية، بدون مفاجآت أثناء المشروع.",
+    },
+    {
+      icon: Headphones,
+      title: "تواصل مباشر",
+      desc: "هتتعامل مباشرة مع الشخص المسؤول عن فهم وتنفيذ مشروعك.",
+    },
+  ];
+  return (
+    <section id="why" className="relative overflow-hidden navy-gradient py-16 sm:py-24">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-20 -top-20 text-[30rem] font-black leading-none text-gold/[0.04] md:text-[40rem]"
+      >
+        X
+      </div>
+      <div className="container-x relative">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-block rounded-full border border-gold/30 px-4 py-1.5 text-xs font-semibold text-gold-light">
+            لماذا XLANS؟
+          </span>
+          <h2 className="mt-4 text-3xl font-black text-navy-foreground sm:text-4xl md:text-5xl">
+            ليه تختار <span className="gold-text">XLANS</span>؟
+          </h2>
+        </div>
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((it) => (
+            <div
+              key={it.title}
+              className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm transition hover:border-gold/40 hover:bg-white/[0.06]"
+            >
+              <div className="grid h-11 w-11 place-items-center rounded-xl gold-gradient text-navy">
+                <it.icon className="h-5 w-5" />
+              </div>
+              <h3 className="mt-4 text-lg font-bold text-navy-foreground">{it.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/70">{it.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   CUSTOMER JOURNEY
+============================================================ */
+function CustomerJourney() {
+  const steps = [
+    "يدخل العميل",
+    "يفهم بتقدم إيه",
+    "يثق في شركتك",
+    "يختار الخدمة",
+    "يتواصل أو يحجز",
+  ];
+  return (
+    <Section
+      eyebrow="فلسفتنا"
+      title="إحنا مش بنعمل موقع شكله حلو وبس"
+      intro="كل قرار في التصميم والمحتوى هدفه يقرّب العميل من الخطوة المطلوبة بأقل مجهود."
+    >
+      <div className="relative mx-auto max-w-5xl">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          {steps.map((s, i) => (
+            <div key={s} className="flex items-center gap-3 md:flex-col md:gap-2">
+              <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full gold-gradient text-sm font-black text-navy shadow-lg">
+                {i + 1}
+              </div>
+              <div className="flex-1 rounded-xl bg-cream px-4 py-3 text-center text-sm font-semibold text-navy md:min-w-[140px]">
+                {s}
+              </div>
+              {i < steps.length - 1 && (
+                <ArrowLeft className="hidden h-5 w-5 shrink-0 text-gold md:block" />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+/* ============================================================
+   PROCESS
+============================================================ */
+function Process() {
+  const steps = [
+    {
+      n: "01",
+      title: "نفهم مشروعك",
+      desc: "نعرف نشاطك، جمهورك، هدفك، والخدمات اللي عايز تركز عليها.",
+    },
+    {
+      n: "02",
+      title: "نحدد الهيكل والمحتوى",
+      desc: "نرتب الصفحات والرسائل ورحلة العميل داخل الموقع.",
+    },
+    {
+      n: "03",
+      title: "نصمم وننفذ",
+      desc: "نبني نسخة احترافية وسريعة ومتوافقة مع الموبايل.",
+    },
+    {
+      n: "04",
+      title: "نراجع ونطلق",
+      desc: "نراجع الموقع معاك، ننفذ التعديلات المتفق عليها، ثم نطلقه.",
+    },
+  ];
+  return (
+    <Section
+      id="process"
+      eyebrow="خطوات العمل"
+      title="خطوات بسيطة من الفكرة للإطلاق"
+      bg="bg-cream"
+    >
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {steps.map((s) => (
+          <div
+            key={s.n}
+            className="hover-lift group relative rounded-3xl border border-border bg-white p-6"
+          >
+            <span className="text-4xl font-black text-gold/40 transition group-hover:text-gold">
+              {s.n}
+            </span>
+            <h3 className="mt-3 text-lg font-bold text-navy">{s.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+      <p className="mt-8 text-center text-sm text-muted-foreground">
+        <Clock className="ml-1 inline h-4 w-4 text-gold" />
+        نسخة V1 خلال 48 ساعة متاحة للمواقع التعريفية القياسية بعد اكتمال المتطلبات.
+      </p>
+    </Section>
+  );
+}
+
+/* ============================================================
+   PORTFOLIO
+============================================================ */
+function Portfolio() {
+  const projects = [
+    {
+      name: "Netsys",
+      category: "شركة صناعية – الولايات المتحدة",
+      desc: "كتالوج منتجات وحلول ألياف ضوئية مع عرض ملفات PDF بسرعة وبدون تحميل الصفحة.",
+      color: "from-[#0a2540] to-[#1a3a5c]",
+    },
+    {
+      name: "Sama Link",
+      category: "خدمات لوجستية – السعودية",
+      desc: "موقع تعريفي احترافي يوضح الخدمات ويسهّل طلب عرض السعر عبر واتساب.",
+      color: "from-[#071D3B] to-[#0e2f5c]",
+    },
+    {
+      name: "Al Wajba Law Firm",
+      category: "مكتب محاماة – قطر",
+      desc: "هوية بصرية راقية مع صفحات خدمات قانونية ونموذج استشارة موجّه.",
+      color: "from-[#1a1a2e] to-[#2d2d4a]",
+    },
+    {
+      name: "Capital Homes",
+      category: "عقارات – مصر",
+      desc: "عرض العقارات والوحدات مع فلترة ذكية وربط مباشر للتواصل.",
+      color: "from-[#2a1810] to-[#4a2e1c]",
+    },
+    {
+      name: "Levant Yarn",
+      category: "شركة صناعية – سوريا",
+      desc: "موقع صناعي متعدد اللغات لعرض خطوط الإنتاج وطلبات التصدير.",
+      color: "from-[#1a2e1a] to-[#2d4a2d]",
+    },
+    {
+      name: "Tuya Tours",
+      category: "سياحة – مصر",
+      desc: "باقات سياحية وحجز رحلات مع رحلة عميل مبسطة على الموبايل.",
+      color: "from-[#3a1a2e] to-[#5c2d4a]",
+    },
+    {
+      name: "Prink Egypt",
+      category: "تجارة – مصر",
+      desc: "متجر أحبار وطابعات مع إدارة منتجات وربط طلبات واتساب.",
+      color: "from-[#1a2a3a] to-[#2d4a6a]",
+    },
+    {
+      name: "Al Afdal Engineering",
+      category: "هندسة ومقاولات – السعودية",
+      desc: "عرض المشاريع والقطاعات الهندسية وطلب عرض تقني.",
+      color: "from-[#2e2a1a] to-[#4a422d]",
+    },
+  ];
+  return (
+    <Section id="portfolio" eyebrow="أعمالنا" title="مشاريع نفذناها لبيزنس حقيقي">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((p) => (
+          <article
+            key={p.name}
+            className="hover-lift group overflow-hidden rounded-3xl border border-border bg-white"
+          >
+            <div
+              className={`relative aspect-[16/10] overflow-hidden bg-gradient-to-br ${p.color}`}
+            >
+              <div className="absolute inset-0 grid place-items-center">
+                <div className="text-center">
+                  <div className="text-5xl font-black text-gold/70">
+                    {p.name.charAt(0)}
+                  </div>
+                  <div className="mt-2 text-lg font-bold text-white/90">{p.name}</div>
+                </div>
+              </div>
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition group-hover:opacity-100"
+              />
+            </div>
+            <div className="p-5">
+              <div className="text-xs font-semibold text-gold">{p.category}</div>
+              <h3 className="mt-1 text-lg font-bold text-navy">{p.name}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
+              <button className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-navy transition hover:text-gold">
+                شاهد المشروع
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div className="mt-10 text-center">
+        <a
+          href={WA_LINK}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-12 items-center gap-2 rounded-full border-2 border-navy px-6 text-sm font-bold text-navy transition hover:bg-navy hover:text-navy-foreground"
+        >
+          شاهد كل الأعمال
+          <ArrowLeft className="h-4 w-4" />
+        </a>
+      </div>
+    </Section>
+  );
+}
+
+/* ============================================================
+   FOUNDER
+============================================================ */
+function Founder() {
+  const chips = [
+    "WordPress",
+    "WooCommerce",
+    "Business Strategy",
+    "Customer Journey",
+    "Performance",
+    "Security",
+    "Technical SEO",
+    "Multilingual Websites",
+  ];
+  return (
+    <Section eyebrow="المؤسس" title="مين المسؤول عن مشروعك؟" bg="bg-cream">
+      <div className="grid items-center gap-10 md:grid-cols-[auto_1fr] md:gap-12">
+        <div className="relative mx-auto w-56 shrink-0 sm:w-64 md:w-72">
+          <div className="absolute inset-0 rounded-[2rem] gold-gradient" />
+          <div className="absolute inset-[3px] overflow-hidden rounded-[1.85rem] navy-gradient">
+            <img
+              src={portrait}
+              alt="محمد سلطان"
+              width={288}
+              height={360}
+              loading="lazy"
+              className="h-full w-full object-cover object-top"
+            />
+          </div>
+        </div>
+        <div>
+          <h3 className="text-2xl font-black text-navy sm:text-3xl">محمد سلطان</h3>
+          <p className="mt-1 text-sm font-semibold text-gold">مؤسس XLANS Web Solutions</p>
+          <p className="mt-4 text-base leading-relaxed text-foreground/85">
+            أنا محمد سلطان، متخصص في WordPress وحلول المواقع للشركات. خبرتي تجمع بين
+            تطوير المواقع، فهم البيزنس والتسويق، تحسين الأداء، الأمان وتجربة المستخدم.
+          </p>
+          <p className="mt-3 text-base leading-relaxed text-foreground/85">
+            اشتغلت على مواقع ومتاجر لشركات في مصر والسعودية وقطر والولايات المتحدة، في
+            قطاعات صناعية وخدمية وعقارية وتجارية.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {chips.map((c) => (
+              <span
+                key={c}
+                className="rounded-full border border-gold/30 bg-white px-3 py-1.5 text-xs font-semibold text-navy"
+              >
+                {c}
+              </span>
+            ))}
+          </div>
+          <a
+            href={WA_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-7 inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
+          >
+            <MessageCircle className="h-5 w-5" />
+            تواصل مع محمد مباشرة
+          </a>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+/* ============================================================
+   BOOKING SECTION (CTA to wizard)
+============================================================ */
+function BookingSection({ onBook }: { onBook: () => void }) {
+  return (
+    <Section
+      id="contact"
+      eyebrow="ابدأ الآن"
+      title="احجز استشارة مجانية في أقل من دقيقة"
+      intro="جاوب على كام سؤال بسيط، وهتتحول مباشرة لواتساب برسالة فيها كل تفاصيل مشروعك."
+    >
+      <div className="mx-auto max-w-2xl overflow-hidden rounded-3xl border border-border bg-white shadow-xl">
+        <div className="navy-gradient p-6 sm:p-8">
+          <div className="flex items-center gap-3 text-navy-foreground">
+            <div className="grid h-12 w-12 place-items-center rounded-2xl gold-gradient text-navy">
+              <Rocket className="h-6 w-6" />
+            </div>
+            <div>
+              <div className="text-sm text-gold-light">4 خطوات فقط</div>
+              <div className="text-lg font-bold">استشارة مجانية بدون التزام</div>
+            </div>
+          </div>
+        </div>
+        <div className="p-6 sm:p-8">
+          <ul className="space-y-3">
+            {[
+              "اختر نوع الخدمة اللي تناسب مشروعك",
+              "اكتب معلومات الشركة وهدف الموقع",
+              "حدد الخصائص المطلوبة وحالة المحتوى",
+              "اترك بياناتك وطريقة التواصل المفضلة",
+            ].map((t, i) => (
+              <li key={t} className="flex items-start gap-3 text-sm">
+                <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full gold-gradient text-xs font-black text-navy">
+                  {i + 1}
+                </span>
+                <span className="text-foreground/85">{t}</span>
+              </li>
+            ))}
+          </ul>
+          <button
+            onClick={onBook}
+            className="mt-7 flex min-h-13 w-full items-center justify-center gap-2 rounded-full navy-gradient text-base font-bold text-navy-foreground shadow-lg transition hover:brightness-110"
+          >
+            ابدأ الحجز الآن
+            <ArrowLeft className="h-4 w-4" />
+          </button>
+          <p className="mt-3 text-center text-xs text-muted-foreground">
+            رد مباشر • عرض واضح • بدون التزام
+          </p>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+/* ============================================================
+   FAQ
+============================================================ */
+function FAQ() {
+  const items = [
+    {
+      q: "الموقع بيتكلف كام؟",
+      a: "التكلفة بتتحدد حسب عدد الصفحات والخصائص والمحتوى. بعد فهم احتياجك هتستلم عرض سعر واضح قبل البداية.",
+    },
+    {
+      q: "هل فعلًا ممكن استلام نسخة خلال 48 ساعة؟",
+      a: "نعم للمواقع التعريفية القياسية، بعد استلام المحتوى وتأكيد النطاق والدفعة المطلوبة. التسليم خلال 48 ساعة يكون للنسخة الأولى V1.",
+    },
+    {
+      q: "هل الموقع هيشتغل كويس على الموبايل؟",
+      a: "نعم، كل المواقع بتتصمم Mobile-first وتتراجع على أحجام شاشات مختلفة.",
+    },
+    {
+      q: "هل أقدر أعدل الموقع بعد التسليم؟",
+      a: "نعم، ويمكن توفير شرح لإدارة المحتوى أو باقة صيانة ودعم حسب احتياجك.",
+    },
+    {
+      q: "هل الدومين والاستضافة مشمولين؟",
+      a: "بيتم توضيح الدومين والاستضافة داخل عرض السعر حسب الباقة ومتطلبات المشروع.",
+    },
+    {
+      q: "هل بتعملوا متاجر إلكترونية؟",
+      a: "نعم، بننفذ متاجر WooCommerce مع تجربة شراء مناسبة وإمكانية ربط وسائل الدفع والشحن حسب المشروع.",
+    },
+    {
+      q: "هل بتطوروا المواقع القديمة؟",
+      a: "نعم، نقدر نراجع الموقع الحالي ونحسن التصميم والسرعة والأمان وتجربة الموبايل.",
+    },
+    {
+      q: "هتعامل مع مين أثناء المشروع؟",
+      a: "هتتعامل مباشرة مع محمد سلطان لفهم المشروع ومتابعة التنفيذ.",
+    },
+  ];
+  const [open, setOpen] = useState<number | null>(0);
+  return (
+    <Section id="faq" eyebrow="FAQ" title="أسئلة غالبًا بتدور في بالك" bg="bg-cream">
+      <div className="mx-auto max-w-3xl space-y-3">
+        {items.map((it, i) => {
+          const isOpen = open === i;
+          return (
+            <div
+              key={it.q}
+              className={`overflow-hidden rounded-2xl border bg-white transition ${
+                isOpen ? "border-gold shadow-md" : "border-border"
+              }`}
+            >
+              <button
+                onClick={() => setOpen(isOpen ? null : i)}
+                aria-expanded={isOpen}
+                className="flex w-full items-center justify-between gap-4 px-5 py-4 text-right"
+              >
+                <span className="text-sm font-bold text-navy sm:text-base">{it.q}</span>
+                <ChevronDown
+                  className={`h-5 w-5 shrink-0 text-gold transition ${
+                    isOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              <div
+                className={`grid transition-all duration-300 ${
+                  isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <p className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">
+                    {it.a}
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-8 text-center">
+        <a
+          href={WA_LINK}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
+        >
+          <MessageCircle className="h-5 w-5" />
+          لسه عندك سؤال؟ ابعته مباشرة على واتساب
+        </a>
+      </div>
+    </Section>
+  );
+}
+
+/* ============================================================
+   SOCIAL
+============================================================ */
+function Social() {
+  const socials = [
+    { icon: Facebook, label: "Facebook", href: "https://facebook.com/mo7amadsultan" },
+    { icon: Instagram, label: "Instagram", href: "https://instagram.com/mo7amadsultan" },
+    { icon: TikTokIcon, label: "TikTok", href: "https://tiktok.com/@mo7amadsultan" },
+    { icon: Youtube, label: "YouTube", href: "https://youtube.com/@mo7amadsultan" },
+    { icon: ThreadsIcon, label: "Threads", href: "https://threads.net/@mo7amadsultan" },
+    { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/mo7amadsultan" },
+  ];
+  return (
+    <Section
+      eyebrow="تابعنا"
+      title="تابع محتوى محمد سلطان"
+      intro="محتوى مبسط عن المواقع، WordPress، البيزنس، التسويق وتجربة المستخدم."
+    >
+      <div className="mx-auto max-w-2xl text-center">
+        <div className="text-lg font-bold text-gold">@mo7amadsultan</div>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          {socials.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={s.label}
+              className="group grid h-14 w-14 place-items-center rounded-2xl border border-border bg-white text-navy transition hover:border-gold hover:bg-navy hover:text-gold"
+            >
+              <s.icon className="h-6 w-6" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function TikTokIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M19.6 6.3a5.4 5.4 0 0 1-3.3-1.1V15a5.5 5.5 0 1 1-5.5-5.5c.3 0 .6 0 .9.1v2.7a2.8 2.8 0 1 0 1.9 2.7V2h2.7a5.4 5.4 0 0 0 3.3 4.3z" />
+    </svg>
+  );
+}
+function ThreadsIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
+      <path d="M12 2a10 10 0 1 0 10 10" />
+      <path d="M8 13c1 2 3 3 5 3s4-1 4-3-2-3-4-3H9c-2 0-3-1-3-3s2-3 4-3 3 1 4 2" />
+    </svg>
+  );
+}
+
+/* ============================================================
+   FINAL CTA
+============================================================ */
+function FinalCTA({ onBook }: { onBook: () => void }) {
+  return (
+    <section className="relative overflow-hidden navy-gradient py-16 sm:py-24">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-40 -right-20 text-[35rem] font-black leading-none text-gold/[0.05] md:text-[45rem]"
+      >
+        X
+      </div>
+      <div className="container-x relative">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl font-black leading-tight text-navy-foreground sm:text-4xl md:text-5xl">
+            جاهز تحوّل فكرة موقعك لحل <span className="gold-text">يخدم البيزنس</span>؟
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-white/75 sm:text-lg">
+            احجز استشارة مجانية وخلينا نحدد أنسب موقع وخطوات تنفيذ واضحة لمشروعك.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <button
+              onClick={onBook}
+              className="inline-flex min-h-13 items-center gap-2 rounded-full gold-gradient px-7 text-sm font-black text-navy shadow-xl transition hover:brightness-105 sm:text-base"
+            >
+              ابدأ مشروعك الآن
+              <ArrowLeft className="h-4 w-4" />
+            </button>
+            <a
+              href={WA_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-13 items-center gap-2 rounded-full border-2 border-white/30 bg-white/5 px-6 text-sm font-bold text-white transition hover:border-gold hover:bg-white/10 sm:text-base"
+            >
+              <MessageCircle className="h-5 w-5" />
+              تواصل واتساب
+            </a>
+          </div>
+          <p className="mt-5 text-xs text-white/60 sm:text-sm">
+            رد مباشر • عرض واضح • بدون التزام
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+function Footer({ onBook }: { onBook: () => void }) {
+  return (
+    <footer className="bg-navy-deep pt-14 pb-24 text-white/80 md:pb-14">
+      <div className="container-x">
+        <div className="grid gap-10 md:grid-cols-4">
+          <div className="md:col-span-2">
+            <div className="flex items-center gap-3">
+              <div className="grid h-12 w-12 place-items-center rounded-xl bg-white/5">
+                <img src={logo} alt="XLANS" className="h-9 w-auto" />
+              </div>
+              <div>
+                <div className="text-lg font-black text-white">XLANS Web Solutions</div>
+                <div className="text-xs text-gold">Mohamed Sultan · Founder</div>
+              </div>
+            </div>
+            <p className="mt-5 max-w-md text-sm leading-relaxed text-white/70">
+              حلول مواقع احترافية تساعد الشركات وأصحاب المشاريع على بناء حضور رقمي واضح
+              وتحقيق أهدافهم.
+            </p>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-bold text-white">روابط سريعة</h4>
+            <ul className="mt-4 space-y-2 text-sm">
+              {[
+                { l: "خدماتنا", h: "#services" },
+                { l: "أعمالنا", h: "#portfolio" },
+                { l: "خطوات العمل", h: "#process" },
+                { l: "الأسئلة الشائعة", h: "#faq" },
+              ].map((l) => (
+                <li key={l.h}>
+                  <a href={l.h} className="text-white/70 transition hover:text-gold">
+                    {l.l}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <button onClick={onBook} className="text-white/70 transition hover:text-gold">
+                  احجز استشارة
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-bold text-white">تواصل</h4>
+            <ul className="mt-4 space-y-3 text-sm">
+              <li>
+                <a
+                  href={WA_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-white/80 transition hover:text-gold"
+                  dir="ltr"
+                >
+                  <MessageCircle className="h-4 w-4 text-[#25D366]" />
+                  +20 114 022 6705
+                </a>
+              </li>
+              <li className="text-white/60">@mo7amadsultan</li>
+              <li className="flex flex-wrap gap-2 pt-2">
+                {[
+                  { I: Facebook, h: "https://facebook.com/mo7amadsultan", l: "Facebook" },
+                  { I: Instagram, h: "https://instagram.com/mo7amadsultan", l: "Instagram" },
+                  { I: Linkedin, h: "https://linkedin.com/in/mo7amadsultan", l: "LinkedIn" },
+                  { I: Youtube, h: "https://youtube.com/@mo7amadsultan", l: "YouTube" },
+                ].map((s) => (
+                  <a
+                    key={s.l}
+                    href={s.h}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.l}
+                    className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 text-white/70 transition hover:border-gold hover:text-gold"
+                  >
+                    <s.I className="h-4 w-4" />
+                  </a>
+                ))}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-white/50 md:flex-row">
+          <div>جميع الحقوق محفوظة © {new Date().getFullYear()} XLANS Web Solutions</div>
+          <div className="flex gap-5">
+            <a href="#" className="hover:text-gold">
+              سياسة الخصوصية
+            </a>
+            <a href="#" className="hover:text-gold">
+              الشروط والأحكام
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ============================================================
+   FLOATING WHATSAPP
+============================================================ */
+function FloatingWhatsApp() {
+  const [pulsed, setPulsed] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setPulsed(true), 6000);
+    return () => clearTimeout(t);
+  }, []);
+  return (
+    <a
+      href={WA_LINK}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() => setPulsed(true)}
+      aria-label="تواصل على واتساب"
+      className={`group fixed bottom-24 left-4 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-2xl transition hover:brightness-110 md:bottom-6 md:left-6 ${
+        pulsed ? "" : "wa-pulse"
+      }`}
+    >
+      <MessageCircle className="h-6 w-6" />
+      <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-lg bg-navy px-3 py-1.5 text-xs font-semibold text-white opacity-0 shadow-lg transition group-hover:opacity-100 md:block">
+        تواصل مباشرة
+      </span>
+    </a>
+  );
+}
+
+/* ============================================================
+   MOBILE BOTTOM BAR
+============================================================ */
+function MobileBottomBar({ onBook }: { onBook: () => void }) {
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-white/95 p-3 shadow-[0_-8px_24px_-12px_rgba(7,29,59,0.2)] backdrop-blur-md md:hidden">
+      <div className="flex items-center gap-2">
+        <button
+          onClick={onBook}
+          className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full navy-gradient text-sm font-bold text-navy-foreground"
+        >
+          ابدأ مشروعك
+          <ArrowLeft className="h-4 w-4" />
+        </button>
+        <a
+          href={WA_LINK}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="واتساب"
+          className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#25D366] text-white"
+        >
+          <MessageCircle className="h-5 w-5" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   SECTION WRAPPER
+============================================================ */
+function Section({
+  id,
+  eyebrow,
+  title,
+  intro,
+  children,
+  bg = "bg-white",
+}: {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  children: React.ReactNode;
+  bg?: string;
+}) {
+  return (
+    <section id={id} className={`${bg} py-16 sm:py-24`}>
+      <div className="container-x">
+        <div className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
+          {eyebrow && (
+            <span className="inline-block rounded-full border border-gold/40 bg-white px-4 py-1.5 text-xs font-semibold text-gold">
+              {eyebrow}
+            </span>
+          )}
+          <h2 className="mt-4 text-3xl font-black text-navy sm:text-4xl md:text-5xl">
+            {title}
+          </h2>
+          {intro && (
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">{intro}</p>
+          )}
+        </div>
+        {children}
+      </div>
+    </section>
   );
 }

@@ -77,21 +77,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "XLANS Web Solutions | تصميم مواقع احترافية للشركات" },
+      {
+        name: "description",
+        content:
+          "XLANS تساعد الشركات وأصحاب المشاريع على إنشاء مواقع سريعة وآمنة ومبنية على أهداف البيزنس، مع مواقع تعريفية ومتاجر وأنظمة حجز بسيطة.",
+      },
+      { name: "author", content: "Mohamed Sultan" },
+      { property: "og:title", content: "XLANS Web Solutions | تصميم مواقع احترافية للشركات" },
+      {
+        property: "og:description",
+        content:
+          "مواقع أعمال مبنية على فهم البيزنس، مش مجرد تصميم. نسخة أولية V1 خلال 48 ساعة للمواقع التعريفية القياسية.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "XLANS Web Solutions" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
@@ -102,7 +113,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="ar" dir="rtl">
       <head>
         <HeadContent />
       </head>
