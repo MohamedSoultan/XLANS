@@ -279,7 +279,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                 rel="noopener noreferrer"
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-bold text-white transition hover:brightness-110"
               >
-                <MessageCircle className="h-5 w-5" />
+                <WhatsAppIcon className="h-5 w-5" />
                 فتح واتساب يدويًا
               </a>
             </div>
@@ -518,7 +518,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                 onClick={submit}
                 className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 sm:flex-none"
               >
-                <MessageCircle className="h-5 w-5" />
+                <WhatsAppIcon className="h-5 w-5" />
                 {submitting ? "جاري التجهيز…" : "إرسال التفاصيل على واتساب"}
               </button>
             )}
