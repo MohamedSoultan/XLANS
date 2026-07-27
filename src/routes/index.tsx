@@ -140,7 +140,7 @@ function LandingPage() {
         <WhyXlans />
         <CustomerJourney />
         <Process />
-        <Portfolio />
+        <PortfolioCTA />
         <Founder />
         <BookingSection onBook={() => openWizard()} />
         <FAQ />
