@@ -788,103 +788,47 @@ function Process() {
 /* ============================================================
    PORTFOLIO
 ============================================================ */
-function Portfolio() {
-  const projects = [
-    {
-      name: "Netsys",
-      category: "شركة صناعية – الولايات المتحدة",
-      desc: "كتالوج منتجات وحلول ألياف ضوئية مع عرض ملفات PDF بسرعة وبدون تحميل الصفحة.",
-      color: "from-[#0a2540] to-[#1a3a5c]",
-    },
-    {
-      name: "Sama Link",
-      category: "خدمات لوجستية – السعودية",
-      desc: "موقع تعريفي احترافي يوضح الخدمات ويسهّل طلب عرض السعر عبر واتساب.",
-      color: "from-[#071D3B] to-[#0e2f5c]",
-    },
-    {
-      name: "Al Wajba Law Firm",
-      category: "مكتب محاماة – قطر",
-      desc: "هوية بصرية راقية مع صفحات خدمات قانونية ونموذج استشارة موجّه.",
-      color: "from-[#1a1a2e] to-[#2d2d4a]",
-    },
-    {
-      name: "Capital Homes",
-      category: "عقارات – مصر",
-      desc: "عرض العقارات والوحدات مع فلترة ذكية وربط مباشر للتواصل.",
-      color: "from-[#2a1810] to-[#4a2e1c]",
-    },
-    {
-      name: "Levant Yarn",
-      category: "شركة صناعية – سوريا",
-      desc: "موقع صناعي متعدد اللغات لعرض خطوط الإنتاج وطلبات التصدير.",
-      color: "from-[#1a2e1a] to-[#2d4a2d]",
-    },
-    {
-      name: "Tuya Tours",
-      category: "سياحة – مصر",
-      desc: "باقات سياحية وحجز رحلات مع رحلة عميل مبسطة على الموبايل.",
-      color: "from-[#3a1a2e] to-[#5c2d4a]",
-    },
-    {
-      name: "Prink Egypt",
-      category: "تجارة – مصر",
-      desc: "متجر أحبار وطابعات مع إدارة منتجات وربط طلبات واتساب.",
-      color: "from-[#1a2a3a] to-[#2d4a6a]",
-    },
-    {
-      name: "Al Afdal Engineering",
-      category: "هندسة ومقاولات – السعودية",
-      desc: "عرض المشاريع والقطاعات الهندسية وطلب عرض تقني.",
-      color: "from-[#2e2a1a] to-[#4a422d]",
-    },
+function PortfolioCTA() {
+  const WA_PORTFOLIO = `https://wa.me/201140226705?text=${encodeURIComponent(
+    "مرحبًا محمد،\nأرغب في الاطلاع على سابقة أعمال XLANS ونماذج من المشاريع اللي نفذتوها.\nشكرًا."
+  )}`;
+  const badges = [
+    "🇸🇦 السعودية",
+    "🇺🇸 الولايات المتحدة",
+    "🇪🇬 مصر",
+    "🇶🇦 قطر",
+    "🇸🇾 سوريا",
   ];
   return (
-    <Section id="portfolio" eyebrow="أعمالنا" title="مشاريع نفذناها لبيزنس حقيقي">
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((p) => (
-          <article
-            key={p.name}
-            className="hover-lift group overflow-hidden rounded-3xl border border-border bg-white"
-          >
-            <div
-              className={`relative aspect-[16/10] overflow-hidden bg-gradient-to-br ${p.color}`}
+    <Section id="portfolio" eyebrow="سابقة الأعمال" title="مشاريع نُفّذت لبيزنس حقيقي حول العالم">
+      <div className="mx-auto max-w-3xl rounded-3xl border border-border bg-white p-6 text-center shadow-sm sm:p-10">
+        <p className="text-base leading-relaxed text-foreground/85 sm:text-lg">
+          نفتخر بتنفيذ مواقع ومتاجر لشركات في قطاعات صناعية وخدمية وقانونية وعقارية
+          وسياحية وتجارية. نرسل لك ملف سابقة الأعمال الكامل بالروابط والتفاصيل مباشرة
+          على واتساب خلال دقائق.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
+          {badges.map((b) => (
+            <span
+              key={b}
+              className="rounded-full border border-gold/30 bg-cream px-3 py-1.5 text-xs font-semibold text-navy"
             >
-              <div className="absolute inset-0 grid place-items-center">
-                <div className="text-center">
-                  <div className="text-5xl font-black text-gold/70">
-                    {p.name.charAt(0)}
-                  </div>
-                  <div className="mt-2 text-lg font-bold text-white/90">{p.name}</div>
-                </div>
-              </div>
-              <div
-                aria-hidden
-                className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition group-hover:opacity-100"
-              />
-            </div>
-            <div className="p-5">
-              <div className="text-xs font-semibold text-gold">{p.category}</div>
-              <h3 className="mt-1 text-lg font-bold text-navy">{p.name}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
-              <button className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-navy transition hover:text-gold">
-                شاهد المشروع
-                <ArrowLeft className="h-4 w-4" />
-              </button>
-            </div>
-          </article>
-        ))}
-      </div>
-      <div className="mt-10 text-center">
+              {b}
+            </span>
+          ))}
+        </div>
         <a
-          href={WA_LINK}
+          href={WA_PORTFOLIO}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-12 items-center gap-2 rounded-full border-2 border-navy px-6 text-sm font-bold text-navy transition hover:bg-navy hover:text-navy-foreground"
+          className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110 sm:text-base"
         >
-          شاهد كل الأعمال
-          <ArrowLeft className="h-4 w-4" />
+          <WhatsAppIcon className="h-5 w-5" />
+          اطلب سابقة الأعمال عبر واتساب
         </a>
+        <p className="mt-4 text-xs text-muted-foreground">
+          رد خلال دقائق في أوقات العمل — التزام كامل بالسرية.
+        </p>
       </div>
     </Section>
   );
