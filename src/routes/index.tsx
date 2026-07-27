@@ -230,7 +230,7 @@ function Header({
               aria-label="واتساب"
               className="grid h-11 w-11 place-items-center rounded-full bg-[#25D366] text-white shadow-md transition hover:brightness-110 md:hidden"
             >
-              <MessageCircle className="h-5 w-5" />
+              <WhatsAppIcon className="h-5 w-5" />
             </a>
             <button
               onClick={() => setMobileMenu(true)}
@@ -892,7 +892,7 @@ function Founder() {
             rel="noopener noreferrer"
             className="mt-7 inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
           >
-            <MessageCircle className="h-5 w-5" />
+            <WhatsAppIcon className="h-5 w-5" />
             تواصل مع محمد مباشرة
           </a>
         </div>
@@ -1041,7 +1041,7 @@ function FAQ() {
           rel="noopener noreferrer"
           className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
         >
-          <MessageCircle className="h-5 w-5" />
+          <WhatsAppIcon className="h-5 w-5" />
           لسه عندك سؤال؟ ابعته مباشرة على واتساب
         </a>
       </div>
@@ -1138,7 +1138,7 @@ function FinalCTA({ onBook }: { onBook: () => void }) {
               rel="noopener noreferrer"
               className="inline-flex min-h-13 items-center gap-2 rounded-full border-2 border-white/30 bg-white/5 px-6 text-sm font-bold text-white transition hover:border-gold hover:bg-white/10 sm:text-base"
             >
-              <MessageCircle className="h-5 w-5" />
+              <WhatsAppIcon className="h-5 w-5" />
               تواصل واتساب
             </a>
           </div>
@@ -1209,7 +1209,7 @@ function Footer({ onBook }: { onBook: () => void }) {
                   className="inline-flex items-center gap-2 text-white/80 transition hover:text-gold"
                   dir="ltr"
                 >
-                  <MessageCircle className="h-4 w-4 text-[#25D366]" />
+                  <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
                   +20 114 022 6705
                 </a>
               </li>
@@ -1273,7 +1273,7 @@ function FloatingWhatsApp() {
         pulsed ? "" : "wa-pulse"
       }`}
     >
-      <MessageCircle className="h-6 w-6" />
+      <WhatsAppIcon className="h-6 w-6" />
       <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-lg bg-navy px-3 py-1.5 text-xs font-semibold text-white opacity-0 shadow-lg transition group-hover:opacity-100 md:block">
         تواصل مباشرة
       </span>
@@ -1302,7 +1302,7 @@ function MobileBottomBar({ onBook }: { onBook: () => void }) {
           aria-label="واتساب"
           className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#25D366] text-white"
         >
-          <MessageCircle className="h-5 w-5" />
+          <WhatsAppIcon className="h-5 w-5" />
         </a>
       </div>
     </div>
