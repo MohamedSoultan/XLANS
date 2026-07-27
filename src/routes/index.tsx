@@ -169,7 +169,7 @@ const NAV = [
   { label: "الرئيسية", href: "#home" },
   { label: "خدماتنا", href: "#services" },
   { label: "لماذا XLANS؟", href: "#why" },
-  { label: "أعمالنا", href: "#portfolio" },
+  { label: "خدماتنا", href: "#services" },
   { label: "خطوات العمل", href: "#process" },
   { label: "الأسئلة الشائعة", href: "#faq" },
   { label: "تواصل معنا", href: "#contact" },
