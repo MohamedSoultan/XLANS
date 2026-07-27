@@ -263,7 +263,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
         </div>
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto px-5 py-6 sm:px-7">
+        <div className="flex-1 overflow-y-auto px-4 py-5 sm:px-7 sm:py-6">
           {done ? (
             <div className="flex flex-col items-center py-8 text-center">
               <div className="grid h-16 w-16 place-items-center rounded-full gold-gradient">
