@@ -492,7 +492,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
 
         {/* Footer */}
         {!done && (
-          <div className="flex items-center justify-between gap-3 border-t border-border bg-cream/60 px-5 py-4 sm:px-7">
+          <div className="flex items-center justify-between gap-2 border-t border-border bg-cream/60 px-4 py-3 sm:gap-3 sm:px-7 sm:py-4">
             <button
               type="button"
               disabled={step === 1}
