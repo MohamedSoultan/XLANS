@@ -236,7 +236,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
         className="relative flex max-h-[90vh] w-full max-w-md flex-col overflow-hidden rounded-3xl bg-background shadow-2xl sm:max-w-2xl"
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-7">
+        <div className="flex items-center justify-between border-b border-border px-4 py-3 sm:px-7 sm:py-4">
           <div className="min-w-0">
             <p className="text-xs text-muted-foreground">
               خطوة {step} من 4
