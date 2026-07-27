@@ -59,7 +59,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "XLANS Web Solutions | تصميم مواقع احترافية للشركات" },
       {
         property: "og:description",
-        content: "مواقع أعمال مبنية على فهم البيزنس، مش مجرد تصميم.",
+        content: "XLANS تساعد الشركات وأصحاب المشاريع على إنشاء مواقع سريعة وآمنة ومبنية على أهداف البيزنس، مع مواقع تعريفية ومتاجر وأنظمة حجز بسيطة.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },

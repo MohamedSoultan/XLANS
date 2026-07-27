@@ -88,11 +88,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:description",
         content:
-          "مواقع أعمال مبنية على فهم البيزنس، مش مجرد تصميم. نسخة أولية V1 خلال 48 ساعة للمواقع التعريفية القياسية.",
+          "XLANS تساعد الشركات وأصحاب المشاريع على إنشاء مواقع سريعة وآمنة ومبنية على أهداف البيزنس، مع مواقع تعريفية ومتاجر وأنظمة حجز بسيطة.",
       },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "XLANS Web Solutions" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "XLANS Web Solutions | تصميم مواقع احترافية للشركات" },
+      { name: "twitter:description", content: "XLANS تساعد الشركات وأصحاب المشاريع على إنشاء مواقع سريعة وآمنة ومبنية على أهداف البيزنس، مع مواقع تعريفية ومتاجر وأنظمة حجز بسيطة." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/eff75dff-a383-47eb-b7f9-c675f477bdd7" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/eff75dff-a383-47eb-b7f9-c675f477bdd7" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
