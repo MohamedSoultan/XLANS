@@ -849,7 +849,7 @@ function Founder() {
     "Multilingual Websites",
   ];
   return (
-    <Section eyebrow="المؤسس" title="مين المسؤول عن مشروعك؟" bg="bg-cream">
+    <Section id="founder" eyebrow="المؤسس" title="تعرّف على مؤسس XLANS" bg="bg-cream">
       <div className="grid items-center gap-10 md:grid-cols-[auto_1fr] md:gap-12">
         <div className="relative mx-auto w-56 shrink-0 sm:w-64 md:w-72">
           <div className="absolute inset-0 rounded-[2rem] gold-gradient" />
