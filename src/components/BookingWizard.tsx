@@ -211,14 +211,13 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
     setSubmitting(true);
     const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(buildMessage(data))}`;
     setWaUrl(url);
-    setTimeout(() => {
-      setDone(true);
-      setSubmitting(false);
-      window.open(url, "_blank", "noopener,noreferrer");
-      try {
-        localStorage.removeItem("xlans_booking");
-      } catch {}
-    }, 500);
+    // Open synchronously to keep the popup allowed by the user gesture
+    window.open(url, "_blank", "noopener,noreferrer");
+    try {
+      localStorage.removeItem("xlans_booking");
+    } catch {}
+    setDone(true);
+    setSubmitting(false);
   };
 
   const progress = (step / 4) * 100;
