@@ -868,12 +868,13 @@ function Founder() {
           <h3 className="text-2xl font-black text-navy sm:text-3xl">محمد سلطان</h3>
           <p className="mt-1 text-sm font-semibold text-gold">مؤسس XLANS Web Solutions</p>
           <p className="mt-4 text-base leading-relaxed text-foreground/85">
-            أنا محمد سلطان، متخصص في WordPress وحلول المواقع للشركات. خبرتي تجمع بين
-            تطوير المواقع، فهم البيزنس والتسويق، تحسين الأداء، الأمان وتجربة المستخدم.
+            محمد سلطان هو مؤسس XLANS Web Solutions، متخصص في WordPress وحلول المواقع
+            للشركات. يجمع بين تطوير المواقع وفهم البيزنس والتسويق، مع تركيز واضح على
+            الأداء والأمان وتجربة المستخدم.
           </p>
           <p className="mt-3 text-base leading-relaxed text-foreground/85">
-            اشتغلت على مواقع ومتاجر لشركات في مصر والسعودية وقطر والولايات المتحدة، في
-            قطاعات صناعية وخدمية وعقارية وتجارية.
+            قاد تنفيذ مواقع ومتاجر لشركات في مصر والسعودية وقطر والولايات المتحدة،
+            في قطاعات صناعية وخدمية وقانونية وعقارية وتجارية.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             {chips.map((c) => (
