@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { X, ArrowLeft, Check } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { X, ArrowLeft, Check, Pencil } from "lucide-react";
 
 function WhatsAppIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
@@ -10,6 +10,7 @@ function WhatsAppIcon({ className = "h-5 w-5" }: { className?: string }) {
 }
 
 const WA_NUMBER = "201140226705";
+const TOTAL_STEPS = 5;
 
 const SERVICES = [
   "موقع شركة",
@@ -161,6 +162,10 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [waUrl, setWaUrl] = useState("");
+  const [messageDraft, setMessageDraft] = useState("");
+  const [editingMessage, setEditingMessage] = useState(false);
+
+  const generatedMessage = useMemo(() => buildMessage(data), [data]);
 
   useEffect(() => {
     if (open) {
@@ -171,6 +176,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
       if (initialService) setData((d) => ({ ...d, service: initialService }));
       setStep(1);
       setDone(false);
+      setEditingMessage(false);
     }
   }, [open, initialService]);
 
@@ -181,14 +187,22 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
     } catch {}
   }, [data, open]);
 
+  // Refresh preview text when reaching step 5 (unless the user is editing)
+  useEffect(() => {
+    if (step === 5 && !editingMessage) {
+      setMessageDraft(generatedMessage);
+    }
+  }, [step, generatedMessage, editingMessage]);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      document.body.style.overflow = prevOverflow;
     };
   }, [open, onClose]);
 
@@ -204,14 +218,15 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
       !!data.day &&
       !!data.time &&
       !!data.contactMethod &&
-      data.consent);
+      data.consent) ||
+    (step === 5 && messageDraft.trim().length > 10);
 
   const submit = () => {
     if (submitting || !canNext) return;
     setSubmitting(true);
-    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(buildMessage(data))}`;
+    const text = (editingMessage ? messageDraft : generatedMessage).trim();
+    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
     setWaUrl(url);
-    // Open synchronously to keep the popup allowed by the user gesture
     window.open(url, "_blank", "noopener,noreferrer");
     try {
       localStorage.removeItem("xlans_booking");
@@ -220,11 +235,11 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
     setSubmitting(false);
   };
 
-  const progress = (step / 4) * 100;
+  const progress = (step / TOTAL_STEPS) * 100;
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-navy/60 p-3 backdrop-blur-sm sm:p-6"
+      className="fixed inset-0 z-[100] flex items-stretch justify-center bg-navy/70 backdrop-blur-sm sm:items-center sm:p-6"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -232,15 +247,15 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative flex max-h-[90vh] w-full max-w-md flex-col overflow-hidden rounded-3xl bg-background shadow-2xl sm:max-w-2xl"
+        className="relative mx-auto flex h-[100dvh] w-full flex-col overflow-hidden bg-background shadow-2xl sm:h-auto sm:max-h-[90vh] sm:max-w-2xl sm:rounded-3xl"
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-border px-4 py-3 sm:px-7 sm:py-4">
+        <div className="flex shrink-0 items-center justify-between border-b border-border bg-background px-4 py-3 sm:px-7 sm:py-4">
           <div className="min-w-0">
-            <p className="text-xs text-muted-foreground">
-              خطوة {step} من 4
+            <p className="text-[11px] text-muted-foreground sm:text-xs">
+              خطوة {step} من {TOTAL_STEPS}
             </p>
-            <h3 id="wizard-title" className="mt-0.5 truncate text-base font-bold text-foreground sm:text-lg">
+            <h3 id="wizard-title" className="mt-0.5 truncate text-sm font-bold text-foreground sm:text-lg">
               احجز استشارة مجانية
             </h3>
           </div>
@@ -254,7 +269,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
         </div>
 
         {/* Progress */}
-        <div className="h-1 w-full bg-muted">
+        <div className="h-1 w-full shrink-0 bg-muted">
           <div
             className="h-full gold-gradient transition-all duration-500"
             style={{ width: `${progress}%` }}
@@ -262,7 +277,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
         </div>
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto px-4 py-5 sm:px-7 sm:py-6">
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4 sm:px-7 sm:py-6">
           {done ? (
             <div className="flex flex-col items-center py-8 text-center">
               <div className="grid h-16 w-16 place-items-center rounded-full gold-gradient">
@@ -293,7 +308,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                 />
               )}
               {step === 2 && (
-                <div className="space-y-5">
+                <div className="space-y-4 sm:space-y-5">
                   <Field label="اسم الشركة أو المشروع">
                     <input
                       value={data.companyName}
@@ -348,7 +363,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                 </div>
               )}
               {step === 3 && (
-                <div className="space-y-5">
+                <div className="space-y-4 sm:space-y-5">
                   <Field label="إيه أهم الخصائص المطلوبة؟">
                     <div className="flex flex-wrap gap-2">
                       {FEATURES.map((f) => {
@@ -403,8 +418,8 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                 </div>
               )}
               {step === 4 && (
-                <div className="space-y-5">
-                  <div className="grid gap-5 sm:grid-cols-2">
+                <div className="space-y-4 sm:space-y-5">
+                  <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
                     <Field label="الاسم">
                       <input
                         value={data.name}
@@ -436,7 +451,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                       dir="ltr"
                     />
                   </Field>
-                  <div className="grid gap-5 sm:grid-cols-2">
+                  <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
                     <Field label="اليوم المفضل">
                       <input
                         value={data.day}
@@ -485,40 +500,104 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                   </label>
                 </div>
               )}
+              {step === 5 && (
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="text-base font-bold text-foreground sm:text-lg">
+                      معاينة الرسالة قبل الإرسال
+                    </h4>
+                    <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
+                      دي الرسالة اللي هتتبعت على واتساب. راجعها كويس وعدّل عليها لو حابب.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-2 rounded-xl bg-muted/60 p-3">
+                    <span className="text-xs font-semibold text-foreground sm:text-sm">
+                      {editingMessage ? "وضع التعديل" : "وضع المعاينة"}
+                    </span>
+                    <div className="flex gap-2">
+                      {editingMessage && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setMessageDraft(generatedMessage);
+                          }}
+                          className="rounded-full border border-border bg-background px-3 py-1.5 text-xs font-semibold text-muted-foreground transition hover:text-foreground"
+                        >
+                          استرجاع الأصلية
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => setEditingMessage((v) => !v)}
+                        className="inline-flex items-center gap-1.5 rounded-full bg-navy px-3 py-1.5 text-xs font-semibold text-navy-foreground transition hover:brightness-110"
+                      >
+                        <Pencil className="h-3.5 w-3.5" />
+                        {editingMessage ? "تم" : "تعديل"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {editingMessage ? (
+                    <textarea
+                      value={messageDraft}
+                      onChange={(e) => setMessageDraft(e.target.value)}
+                      rows={14}
+                      className="input min-h-[280px] resize-y whitespace-pre-wrap font-sans text-sm leading-relaxed"
+                      dir="rtl"
+                    />
+                  ) : (
+                    <div className="rounded-2xl border border-border bg-[#E7F5EA] p-4 shadow-inner">
+                      <div className="max-h-[45vh] overflow-y-auto rounded-xl bg-white p-4 text-sm leading-relaxed text-navy shadow-sm">
+                        <pre className="whitespace-pre-wrap break-words font-sans">{messageDraft}</pre>
+                      </div>
+                      <p className="mt-3 text-center text-[11px] text-muted-foreground">
+                        سيتم فتح واتساب مباشرة عند الضغط على زر الإرسال.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
             </>
           )}
         </div>
 
         {/* Footer */}
         {!done && (
-          <div className="flex items-center justify-between gap-2 border-t border-border bg-cream/60 px-4 py-3 sm:gap-3 sm:px-7 sm:py-4">
+          <div
+            className="flex shrink-0 items-center justify-between gap-2 border-t border-border bg-cream/80 px-3 py-3 sm:gap-3 sm:px-7 sm:py-4"
+            style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+          >
             <button
               type="button"
               disabled={step === 1}
-              onClick={() => setStep(Math.max(1, step - 1))}
-              className="inline-flex min-h-12 items-center gap-2 rounded-full px-4 text-sm font-semibold text-muted-foreground transition hover:text-foreground disabled:invisible"
+              onClick={() => {
+                setEditingMessage(false);
+                setStep(Math.max(1, step - 1));
+              }}
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 text-xs font-semibold text-muted-foreground transition hover:text-foreground disabled:invisible sm:min-h-12 sm:px-4 sm:text-sm"
             >
               <ArrowLeft className="h-4 w-4" />
               السابق
             </button>
-            {step < 4 ? (
+            {step < TOTAL_STEPS ? (
               <button
                 type="button"
                 disabled={!canNext}
                 onClick={() => setStep(step + 1)}
-                className="inline-flex min-h-12 flex-1 items-center justify-center rounded-full navy-gradient px-6 text-sm font-bold text-navy-foreground shadow-lg transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 sm:flex-none"
+                className="inline-flex min-h-11 flex-1 items-center justify-center rounded-full navy-gradient px-5 text-sm font-bold text-navy-foreground shadow-lg transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 sm:min-h-12 sm:flex-none sm:px-6"
               >
-                التالي
+                {step === 4 ? "معاينة الرسالة" : "التالي"}
               </button>
             ) : (
               <button
                 type="button"
                 disabled={!canNext || submitting}
                 onClick={submit}
-                className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 sm:flex-none"
+                className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-full bg-[#25D366] px-4 text-xs font-bold text-white shadow-lg transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 sm:min-h-12 sm:px-6 sm:text-sm"
               >
                 <WhatsAppIcon className="h-5 w-5" />
-                {submitting ? "جاري التجهيز…" : "إرسال التفاصيل على واتساب"}
+                {submitting ? "جاري التجهيز…" : "إرسال على واتساب"}
               </button>
             )}
           </div>
