@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
-  MessageCircle,
   ArrowLeft,
   Menu,
   X,
@@ -34,8 +33,18 @@ import {
   Youtube,
   ExternalLink,
 } from "lucide-react";
-import logo from "@/assets/xlans-logo.png";
-import portrait from "@/assets/mohamed-sultan.png";
+import logoAsset from "@/assets/xlans-logo.png.asset.json";
+import portraitAsset from "@/assets/mohamed-sultan.jpg.asset.json";
+const logo = logoAsset.url;
+const portrait = portraitAsset.url;
+
+function WhatsAppIcon({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M16.001 3.2c-7.07 0-12.8 5.73-12.8 12.8 0 2.26.6 4.47 1.73 6.42L3.2 28.8l6.55-1.71a12.77 12.77 0 0 0 6.25 1.6h.01c7.06 0 12.8-5.73 12.8-12.8 0-3.42-1.33-6.63-3.75-9.05a12.71 12.71 0 0 0-9.06-3.64Zm0 23.36h-.01a10.6 10.6 0 0 1-5.4-1.48l-.39-.23-3.88 1.02 1.03-3.79-.25-.4a10.62 10.62 0 0 1-1.63-5.68c0-5.87 4.78-10.64 10.64-10.64 2.84 0 5.51 1.11 7.52 3.12a10.55 10.55 0 0 1 3.12 7.52c0 5.87-4.78 10.64-10.64 10.64Zm5.83-7.97c-.32-.16-1.89-.93-2.18-1.04-.29-.11-.5-.16-.71.16-.21.32-.82 1.04-1 1.25-.18.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.9-1.78-2.22-.18-.32-.02-.5.14-.66.14-.14.32-.37.48-.55.16-.18.21-.32.32-.53.11-.21.05-.4-.03-.55-.08-.16-.71-1.71-.97-2.34-.26-.62-.52-.54-.71-.55-.18-.01-.4-.01-.61-.01-.21 0-.55.08-.84.4-.29.32-1.1 1.08-1.1 2.63s1.13 3.05 1.28 3.26c.16.21 2.22 3.39 5.38 4.75.75.32 1.34.51 1.8.66.76.24 1.44.21 1.99.13.61-.09 1.89-.77 2.16-1.52.27-.75.27-1.39.19-1.52-.08-.13-.29-.21-.61-.37Z"/>
+    </svg>
+  );
+}
 import { BookingWizard } from "@/components/BookingWizard";
 
 export const Route = createFileRoute("/")({
@@ -130,7 +139,7 @@ function LandingPage() {
         <WhyXlans />
         <CustomerJourney />
         <Process />
-        <Portfolio />
+        <PortfolioCTA />
         <Founder />
         <BookingSection onBook={() => openWizard()} />
         <FAQ />
@@ -159,7 +168,7 @@ const NAV = [
   { label: "الرئيسية", href: "#home" },
   { label: "خدماتنا", href: "#services" },
   { label: "لماذا XLANS؟", href: "#why" },
-  { label: "أعمالنا", href: "#portfolio" },
+  { label: "المؤسس", href: "#founder" },
   { label: "خطوات العمل", href: "#process" },
   { label: "الأسئلة الشائعة", href: "#faq" },
   { label: "تواصل معنا", href: "#contact" },
@@ -220,7 +229,7 @@ function Header({
               aria-label="واتساب"
               className="grid h-11 w-11 place-items-center rounded-full bg-[#25D366] text-white shadow-md transition hover:brightness-110 md:hidden"
             >
-              <MessageCircle className="h-5 w-5" />
+              <WhatsAppIcon className="h-5 w-5" />
             </a>
             <button
               onClick={() => setMobileMenu(true)}
@@ -778,103 +787,47 @@ function Process() {
 /* ============================================================
    PORTFOLIO
 ============================================================ */
-function Portfolio() {
-  const projects = [
-    {
-      name: "Netsys",
-      category: "شركة صناعية – الولايات المتحدة",
-      desc: "كتالوج منتجات وحلول ألياف ضوئية مع عرض ملفات PDF بسرعة وبدون تحميل الصفحة.",
-      color: "from-[#0a2540] to-[#1a3a5c]",
-    },
-    {
-      name: "Sama Link",
-      category: "خدمات لوجستية – السعودية",
-      desc: "موقع تعريفي احترافي يوضح الخدمات ويسهّل طلب عرض السعر عبر واتساب.",
-      color: "from-[#071D3B] to-[#0e2f5c]",
-    },
-    {
-      name: "Al Wajba Law Firm",
-      category: "مكتب محاماة – قطر",
-      desc: "هوية بصرية راقية مع صفحات خدمات قانونية ونموذج استشارة موجّه.",
-      color: "from-[#1a1a2e] to-[#2d2d4a]",
-    },
-    {
-      name: "Capital Homes",
-      category: "عقارات – مصر",
-      desc: "عرض العقارات والوحدات مع فلترة ذكية وربط مباشر للتواصل.",
-      color: "from-[#2a1810] to-[#4a2e1c]",
-    },
-    {
-      name: "Levant Yarn",
-      category: "شركة صناعية – سوريا",
-      desc: "موقع صناعي متعدد اللغات لعرض خطوط الإنتاج وطلبات التصدير.",
-      color: "from-[#1a2e1a] to-[#2d4a2d]",
-    },
-    {
-      name: "Tuya Tours",
-      category: "سياحة – مصر",
-      desc: "باقات سياحية وحجز رحلات مع رحلة عميل مبسطة على الموبايل.",
-      color: "from-[#3a1a2e] to-[#5c2d4a]",
-    },
-    {
-      name: "Prink Egypt",
-      category: "تجارة – مصر",
-      desc: "متجر أحبار وطابعات مع إدارة منتجات وربط طلبات واتساب.",
-      color: "from-[#1a2a3a] to-[#2d4a6a]",
-    },
-    {
-      name: "Al Afdal Engineering",
-      category: "هندسة ومقاولات – السعودية",
-      desc: "عرض المشاريع والقطاعات الهندسية وطلب عرض تقني.",
-      color: "from-[#2e2a1a] to-[#4a422d]",
-    },
+function PortfolioCTA() {
+  const WA_PORTFOLIO = `https://wa.me/201140226705?text=${encodeURIComponent(
+    "مرحبًا محمد،\nأرغب في الاطلاع على سابقة أعمال XLANS ونماذج من المشاريع اللي نفذتوها.\nشكرًا."
+  )}`;
+  const badges = [
+    "🇸🇦 السعودية",
+    "🇺🇸 الولايات المتحدة",
+    "🇪🇬 مصر",
+    "🇶🇦 قطر",
+    "🇸🇾 سوريا",
   ];
   return (
-    <Section id="portfolio" eyebrow="أعمالنا" title="مشاريع نفذناها لبيزنس حقيقي">
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((p) => (
-          <article
-            key={p.name}
-            className="hover-lift group overflow-hidden rounded-3xl border border-border bg-white"
-          >
-            <div
-              className={`relative aspect-[16/10] overflow-hidden bg-gradient-to-br ${p.color}`}
+    <Section id="portfolio" eyebrow="سابقة الأعمال" title="مشاريع نُفّذت لبيزنس حقيقي حول العالم">
+      <div className="mx-auto max-w-3xl rounded-3xl border border-border bg-white p-6 text-center shadow-sm sm:p-10">
+        <p className="text-base leading-relaxed text-foreground/85 sm:text-lg">
+          نفتخر بتنفيذ مواقع ومتاجر لشركات في قطاعات صناعية وخدمية وقانونية وعقارية
+          وسياحية وتجارية. نرسل لك ملف سابقة الأعمال الكامل بالروابط والتفاصيل مباشرة
+          على واتساب خلال دقائق.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
+          {badges.map((b) => (
+            <span
+              key={b}
+              className="rounded-full border border-gold/30 bg-cream px-3 py-1.5 text-xs font-semibold text-navy"
             >
-              <div className="absolute inset-0 grid place-items-center">
-                <div className="text-center">
-                  <div className="text-5xl font-black text-gold/70">
-                    {p.name.charAt(0)}
-                  </div>
-                  <div className="mt-2 text-lg font-bold text-white/90">{p.name}</div>
-                </div>
-              </div>
-              <div
-                aria-hidden
-                className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition group-hover:opacity-100"
-              />
-            </div>
-            <div className="p-5">
-              <div className="text-xs font-semibold text-gold">{p.category}</div>
-              <h3 className="mt-1 text-lg font-bold text-navy">{p.name}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
-              <button className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-navy transition hover:text-gold">
-                شاهد المشروع
-                <ArrowLeft className="h-4 w-4" />
-              </button>
-            </div>
-          </article>
-        ))}
-      </div>
-      <div className="mt-10 text-center">
+              {b}
+            </span>
+          ))}
+        </div>
         <a
-          href={WA_LINK}
+          href={WA_PORTFOLIO}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-12 items-center gap-2 rounded-full border-2 border-navy px-6 text-sm font-bold text-navy transition hover:bg-navy hover:text-navy-foreground"
+          className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110 sm:text-base"
         >
-          شاهد كل الأعمال
-          <ArrowLeft className="h-4 w-4" />
+          <WhatsAppIcon className="h-5 w-5" />
+          اطلب سابقة الأعمال عبر واتساب
         </a>
+        <p className="mt-4 text-xs text-muted-foreground">
+          رد خلال دقائق في أوقات العمل — التزام كامل بالسرية.
+        </p>
       </div>
     </Section>
   );
@@ -895,7 +848,7 @@ function Founder() {
     "Multilingual Websites",
   ];
   return (
-    <Section eyebrow="المؤسس" title="مين المسؤول عن مشروعك؟" bg="bg-cream">
+    <Section id="founder" eyebrow="المؤسس" title="تعرّف على مؤسس XLANS" bg="bg-cream">
       <div className="grid items-center gap-10 md:grid-cols-[auto_1fr] md:gap-12">
         <div className="relative mx-auto w-56 shrink-0 sm:w-64 md:w-72">
           <div className="absolute inset-0 rounded-[2rem] gold-gradient" />
@@ -914,12 +867,13 @@ function Founder() {
           <h3 className="text-2xl font-black text-navy sm:text-3xl">محمد سلطان</h3>
           <p className="mt-1 text-sm font-semibold text-gold">مؤسس XLANS Web Solutions</p>
           <p className="mt-4 text-base leading-relaxed text-foreground/85">
-            أنا محمد سلطان، متخصص في WordPress وحلول المواقع للشركات. خبرتي تجمع بين
-            تطوير المواقع، فهم البيزنس والتسويق، تحسين الأداء، الأمان وتجربة المستخدم.
+            محمد سلطان هو مؤسس XLANS Web Solutions، متخصص في WordPress وحلول المواقع
+            للشركات. يجمع بين تطوير المواقع وفهم البيزنس والتسويق، مع تركيز واضح على
+            الأداء والأمان وتجربة المستخدم.
           </p>
           <p className="mt-3 text-base leading-relaxed text-foreground/85">
-            اشتغلت على مواقع ومتاجر لشركات في مصر والسعودية وقطر والولايات المتحدة، في
-            قطاعات صناعية وخدمية وعقارية وتجارية.
+            قاد تنفيذ مواقع ومتاجر لشركات في مصر والسعودية وقطر والولايات المتحدة،
+            في قطاعات صناعية وخدمية وقانونية وعقارية وتجارية.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             {chips.map((c) => (
@@ -937,7 +891,7 @@ function Founder() {
             rel="noopener noreferrer"
             className="mt-7 inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
           >
-            <MessageCircle className="h-5 w-5" />
+            <WhatsAppIcon className="h-5 w-5" />
             تواصل مع محمد مباشرة
           </a>
         </div>
@@ -1086,7 +1040,7 @@ function FAQ() {
           rel="noopener noreferrer"
           className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
         >
-          <MessageCircle className="h-5 w-5" />
+          <WhatsAppIcon className="h-5 w-5" />
           لسه عندك سؤال؟ ابعته مباشرة على واتساب
         </a>
       </div>
@@ -1183,7 +1137,7 @@ function FinalCTA({ onBook }: { onBook: () => void }) {
               rel="noopener noreferrer"
               className="inline-flex min-h-13 items-center gap-2 rounded-full border-2 border-white/30 bg-white/5 px-6 text-sm font-bold text-white transition hover:border-gold hover:bg-white/10 sm:text-base"
             >
-              <MessageCircle className="h-5 w-5" />
+              <WhatsAppIcon className="h-5 w-5" />
               تواصل واتساب
             </a>
           </div>
@@ -1254,7 +1208,7 @@ function Footer({ onBook }: { onBook: () => void }) {
                   className="inline-flex items-center gap-2 text-white/80 transition hover:text-gold"
                   dir="ltr"
                 >
-                  <MessageCircle className="h-4 w-4 text-[#25D366]" />
+                  <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
                   +20 114 022 6705
                 </a>
               </li>
@@ -1318,7 +1272,7 @@ function FloatingWhatsApp() {
         pulsed ? "" : "wa-pulse"
       }`}
     >
-      <MessageCircle className="h-6 w-6" />
+      <WhatsAppIcon className="h-6 w-6" />
       <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-lg bg-navy px-3 py-1.5 text-xs font-semibold text-white opacity-0 shadow-lg transition group-hover:opacity-100 md:block">
         تواصل مباشرة
       </span>
@@ -1347,7 +1301,7 @@ function MobileBottomBar({ onBook }: { onBook: () => void }) {
           aria-label="واتساب"
           className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#25D366] text-white"
         >
-          <MessageCircle className="h-5 w-5" />
+          <WhatsAppIcon className="h-5 w-5" />
         </a>
       </div>
     </div>

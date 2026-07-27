@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { X, ArrowLeft, Check, MessageCircle } from "lucide-react";
+import { X, ArrowLeft, Check } from "lucide-react";
+
+function WhatsAppIcon({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M16.001 3.2c-7.07 0-12.8 5.73-12.8 12.8 0 2.26.6 4.47 1.73 6.42L3.2 28.8l6.55-1.71a12.77 12.77 0 0 0 6.25 1.6h.01c7.06 0 12.8-5.73 12.8-12.8 0-3.42-1.33-6.63-3.75-9.05a12.71 12.71 0 0 0-9.06-3.64Zm0 23.36h-.01a10.6 10.6 0 0 1-5.4-1.48l-.39-.23-3.88 1.02 1.03-3.79-.25-.4a10.62 10.62 0 0 1-1.63-5.68c0-5.87 4.78-10.64 10.64-10.64 2.84 0 5.51 1.11 7.52 3.12a10.55 10.55 0 0 1 3.12 7.52c0 5.87-4.78 10.64-10.64 10.64Zm5.83-7.97c-.32-.16-1.89-.93-2.18-1.04-.29-.11-.5-.16-.71.16-.21.32-.82 1.04-1 1.25-.18.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.9-1.78-2.22-.18-.32-.02-.5.14-.66.14-.14.32-.37.48-.55.16-.18.21-.32.32-.53.11-.21.05-.4-.03-.55-.08-.16-.71-1.71-.97-2.34-.26-.62-.52-.54-.71-.55-.18-.01-.4-.01-.61-.01-.21 0-.55.08-.84.4-.29.32-1.1 1.08-1.1 2.63s1.13 3.05 1.28 3.26c.16.21 2.22 3.39 5.38 4.75.75.32 1.34.51 1.8.66.76.24 1.44.21 1.99.13.61-.09 1.89-.77 2.16-1.52.27-.75.27-1.39.19-1.52-.08-.13-.29-.21-.61-.37Z"/>
+    </svg>
+  );
+}
 
 const WA_NUMBER = "201140226705";
 
@@ -203,21 +211,20 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
     setSubmitting(true);
     const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(buildMessage(data))}`;
     setWaUrl(url);
-    setTimeout(() => {
-      setDone(true);
-      setSubmitting(false);
-      window.open(url, "_blank", "noopener,noreferrer");
-      try {
-        localStorage.removeItem("xlans_booking");
-      } catch {}
-    }, 500);
+    // Open synchronously to keep the popup allowed by the user gesture
+    window.open(url, "_blank", "noopener,noreferrer");
+    try {
+      localStorage.removeItem("xlans_booking");
+    } catch {}
+    setDone(true);
+    setSubmitting(false);
   };
 
   const progress = (step / 4) * 100;
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-end justify-center bg-navy/60 backdrop-blur-sm sm:items-center"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-navy/60 p-3 backdrop-blur-sm sm:p-6"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -225,10 +232,10 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative flex max-h-[92vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-3xl bg-background shadow-2xl sm:rounded-3xl"
+        className="relative flex max-h-[90vh] w-full max-w-md flex-col overflow-hidden rounded-3xl bg-background shadow-2xl sm:max-w-2xl"
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-7">
+        <div className="flex items-center justify-between border-b border-border px-4 py-3 sm:px-7 sm:py-4">
           <div className="min-w-0">
             <p className="text-xs text-muted-foreground">
               خطوة {step} من 4
@@ -255,7 +262,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
         </div>
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto px-5 py-6 sm:px-7">
+        <div className="flex-1 overflow-y-auto px-4 py-5 sm:px-7 sm:py-6">
           {done ? (
             <div className="flex flex-col items-center py-8 text-center">
               <div className="grid h-16 w-16 place-items-center rounded-full gold-gradient">
@@ -271,7 +278,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                 rel="noopener noreferrer"
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-bold text-white transition hover:brightness-110"
               >
-                <MessageCircle className="h-5 w-5" />
+                <WhatsAppIcon className="h-5 w-5" />
                 فتح واتساب يدويًا
               </a>
             </div>
@@ -484,7 +491,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
 
         {/* Footer */}
         {!done && (
-          <div className="flex items-center justify-between gap-3 border-t border-border bg-cream/60 px-5 py-4 sm:px-7">
+          <div className="flex items-center justify-between gap-2 border-t border-border bg-cream/60 px-4 py-3 sm:gap-3 sm:px-7 sm:py-4">
             <button
               type="button"
               disabled={step === 1}
@@ -510,7 +517,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                 onClick={submit}
                 className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 sm:flex-none"
               >
-                <MessageCircle className="h-5 w-5" />
+                <WhatsAppIcon className="h-5 w-5" />
                 {submitting ? "جاري التجهيز…" : "إرسال التفاصيل على واتساب"}
               </button>
             )}
@@ -572,8 +579,8 @@ function StepCards({
 }) {
   return (
     <div>
-      <h4 className="mb-4 text-lg font-bold text-foreground">{title}</h4>
-      <div className="grid gap-3 sm:grid-cols-2">
+      <h4 className="mb-3 text-base font-bold text-foreground sm:text-lg">{title}</h4>
+      <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3">
         {options.map((o) => {
           const active = value === o;
           return (
@@ -581,7 +588,7 @@ function StepCards({
               key={o}
               type="button"
               onClick={() => onChange(o)}
-              className={`flex min-h-14 items-center justify-between rounded-2xl border-2 p-4 text-right text-sm font-semibold transition ${
+              className={`flex min-h-12 items-center justify-between rounded-2xl border-2 p-3 text-right text-sm font-semibold transition sm:min-h-14 sm:p-4 ${
                 active
                   ? "border-gold bg-gold/10 text-navy"
                   : "border-border text-foreground hover:border-gold/40 hover:bg-muted/50"
@@ -589,7 +596,7 @@ function StepCards({
             >
               <span>{o}</span>
               <span
-                className={`grid h-6 w-6 place-items-center rounded-full border-2 transition ${
+                className={`grid h-5 w-5 shrink-0 place-items-center rounded-full border-2 transition sm:h-6 sm:w-6 ${
                   active ? "border-gold bg-gold" : "border-border"
                 }`}
               >
