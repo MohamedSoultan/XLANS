@@ -580,8 +580,8 @@ function StepCards({
 }) {
   return (
     <div>
-      <h4 className="mb-4 text-lg font-bold text-foreground">{title}</h4>
-      <div className="grid gap-3 sm:grid-cols-2">
+      <h4 className="mb-3 text-base font-bold text-foreground sm:text-lg">{title}</h4>
+      <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3">
         {options.map((o) => {
           const active = value === o;
           return (
@@ -589,7 +589,7 @@ function StepCards({
               key={o}
               type="button"
               onClick={() => onChange(o)}
-              className={`flex min-h-14 items-center justify-between rounded-2xl border-2 p-4 text-right text-sm font-semibold transition ${
+              className={`flex min-h-12 items-center justify-between rounded-2xl border-2 p-3 text-right text-sm font-semibold transition sm:min-h-14 sm:p-4 ${
                 active
                   ? "border-gold bg-gold/10 text-navy"
                   : "border-border text-foreground hover:border-gold/40 hover:bg-muted/50"
@@ -597,7 +597,7 @@ function StepCards({
             >
               <span>{o}</span>
               <span
-                className={`grid h-6 w-6 place-items-center rounded-full border-2 transition ${
+                className={`grid h-5 w-5 shrink-0 place-items-center rounded-full border-2 transition sm:h-6 sm:w-6 ${
                   active ? "border-gold bg-gold" : "border-border"
                 }`}
               >
