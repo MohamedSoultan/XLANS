@@ -33,7 +33,7 @@ import {
   Youtube,
   ExternalLink,
 } from "lucide-react";
-import logoAsset from "@/assets/xlans-logo.png.asset.json";
+import logoAsset from "@/assets/xlans-logo-new.png.asset.json";
 import portraitAsset from "@/assets/mohamed-sultan.jpg.asset.json";
 const logo = logoAsset.url;
 const portrait = portraitAsset.url;
@@ -199,10 +199,11 @@ function Header({
             <img
               src={logo}
               alt="XLANS"
-              width={140}
-              height={44}
-              className="h-10 w-auto sm:h-11"
+              width={180}
+              height={60}
+              className="h-14 w-auto sm:h-16"
             />
+
           </a>
           <nav className="hidden items-center gap-7 lg:flex">
             {NAV.map((n) => (
@@ -245,7 +246,7 @@ function Header({
       {mobileMenu && (
         <div className="fixed inset-0 z-[70] flex flex-col bg-background lg:hidden">
           <div className="container-x flex items-center justify-between py-4">
-            <img src={logo} alt="XLANS" className="h-10 w-auto" />
+            <img src={logo} alt="XLANS" className="h-14 w-auto" />
             <button
               onClick={() => setMobileMenu(false)}
               aria-label="إغلاق"
@@ -284,18 +285,135 @@ function Header({
 /* ============================================================
    HERO
 ============================================================ */
+const HERO_SLIDES: {
+  eyebrow: string;
+  title: string;
+  desc: string;
+  icon: typeof Rocket;
+  points: string[];
+}[] = [
+  {
+    eyebrow: "من نحن",
+    title: "شركة XLANS للحلول الرقمية",
+    desc: "فريق متخصص في بناء مواقع الشركات والمتاجر بمعايير احترافية، بنركّز على الأداء والأمان وتجربة العميل.",
+    icon: Building2,
+    points: ["فريق تصميم وتطوير", "خبرة في السوق العربي والخليجي", "شراكة طويلة بعد الإطلاق"],
+  },
+  {
+    eyebrow: "ماذا نقدم",
+    title: "مواقع تعريفية ومتاجر إلكترونية",
+    desc: "من الموقع التعريفي للشركة إلى المتجر الإلكتروني ونظام الحجز، نبني الحل المناسب لأهداف مشروعك.",
+    icon: Store,
+    points: ["مواقع شركات وخدمات", "متاجر إلكترونية", "أنظمة حجز ومواعيد"],
+  },
+  {
+    eyebrow: "سرعة التنفيذ",
+    title: "نسخة أولية خلال 48 ساعة",
+    desc: "بنبدأ التنفيذ فور تأكيد النطاق واستلام المحتوى، وبنسلّم V1 جاهزة للمراجعة والتعديل بسرعة.",
+    icon: Zap,
+    points: ["خطة واضحة من أول جلسة", "تسليمات مرحلية", "دعم بعد الإطلاق"],
+  },
+  {
+    eyebrow: "الأمان والأداء",
+    title: "مواقع سريعة وآمنة",
+    desc: "بنيّة تحتية موثوقة، حماية من الاختراق، وسرعة تحميل عالية على الموبايل قبل الديسكتوب.",
+    icon: Shield,
+    points: ["Core Web Vitals", "شهادات SSL", "نسخ احتياطية"],
+  },
+];
+
+function HeroSlider() {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setIdx((i) => (i + 1) % HERO_SLIDES.length), 4500);
+    return () => clearInterval(t);
+  }, []);
+  const slide = HERO_SLIDES[idx];
+  const Icon = slide.icon;
+  return (
+    <div className="relative reveal" style={{ animationDelay: "150ms" }}>
+      <div className="relative mx-auto w-full max-w-md">
+        {/* Glow */}
+        <div
+          aria-hidden
+          className="absolute inset-4 rounded-[2.5rem] blur-3xl"
+          style={{
+            background:
+              "radial-gradient(closest-side, color-mix(in oklab, var(--gold) 40%, transparent), transparent)",
+          }}
+        />
+        {/* Gold frame */}
+        <div className="absolute inset-0 rounded-[2.5rem] gold-gradient" />
+        <div className="relative m-[3px] overflow-hidden rounded-[2.35rem] navy-gradient p-6 sm:p-8">
+          <div className="relative min-h-[340px] sm:min-h-[380px]">
+            {HERO_SLIDES.map((s, i) => {
+              const SIcon = s.icon;
+              return (
+                <div
+                  key={i}
+                  className={`absolute inset-0 flex flex-col transition-all duration-700 ${
+                    i === idx ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3 pointer-events-none"
+                  }`}
+                >
+                  <span className="inline-flex w-fit items-center gap-2 rounded-full bg-gold/15 px-3 py-1.5 text-xs font-bold text-gold ring-1 ring-gold/30">
+                    <SIcon className="h-3.5 w-3.5" />
+                    {s.eyebrow}
+                  </span>
+                  <h3 className="mt-4 text-2xl font-black leading-tight text-white sm:text-3xl">
+                    {s.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-white/80 sm:text-base">
+                    {s.desc}
+                  </p>
+                  <ul className="mt-5 space-y-2.5">
+                    {s.points.map((p) => (
+                      <li key={p} className="flex items-center gap-2.5 text-sm text-white/90">
+                        <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full gold-gradient text-navy">
+                          <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                        </span>
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-auto flex items-center justify-between pt-6">
+                    <div className="grid h-12 w-12 place-items-center rounded-2xl bg-white/10 text-gold ring-1 ring-gold/30">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <div className="flex gap-1.5">
+                      {HERO_SLIDES.map((_, j) => (
+                        <button
+                          key={j}
+                          aria-label={`الشريحة ${j + 1}`}
+                          onClick={() => setIdx(j)}
+                          className={`h-1.5 rounded-full transition-all ${
+                            j === idx ? "w-6 bg-gold" : "w-1.5 bg-white/30"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Hero({ onBook }: { onBook: () => void }) {
   return (
     <section
       id="home"
       className="relative overflow-hidden bg-cream pt-28 pb-16 sm:pt-32 md:pt-36 md:pb-24"
     >
-      {/* Decorative giant X */}
+      {/* Decorative background logo */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-40 top-10 select-none text-[28rem] font-black leading-none text-gold/[0.04] md:text-[38rem]"
+        className="pointer-events-none absolute -left-20 top-10 select-none opacity-[0.05] md:-left-32 md:opacity-[0.07]"
       >
-        X
+        <img src={logo} alt="" className="w-[28rem] md:w-[42rem]" />
       </div>
       <div
         aria-hidden
@@ -346,10 +464,10 @@ function Hero({ onBook }: { onBook: () => void }) {
                 <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-1" />
               </button>
               <a
-                href="#portfolio"
+                href="#services"
                 className="inline-flex min-h-13 items-center gap-2 rounded-full border-2 border-navy/15 bg-white px-6 py-3 text-sm font-bold text-navy transition hover:border-gold hover:text-navy sm:text-base"
               >
-                شاهد أعمالنا
+                تعرّف على خدماتنا
               </a>
             </div>
 
@@ -358,67 +476,14 @@ function Hero({ onBook }: { onBook: () => void }) {
             </p>
           </div>
 
-          {/* Portrait */}
-          <div className="relative reveal" style={{ animationDelay: "150ms" }}>
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-sm md:max-w-md">
-              {/* Glow */}
-              <div
-                aria-hidden
-                className="absolute inset-4 rounded-[2.5rem] blur-3xl"
-                style={{
-                  background:
-                    "radial-gradient(closest-side, color-mix(in oklab, var(--gold) 40%, transparent), transparent)",
-                }}
-              />
-              {/* Gold frame */}
-              <div className="absolute inset-0 rounded-[2.5rem] gold-gradient" />
-              <div className="absolute inset-[3px] overflow-hidden rounded-[2.35rem] navy-gradient">
-                <img
-                  src={portrait}
-                  alt="محمد سلطان، مؤسس XLANS Web Solutions"
-                  width={512}
-                  height={640}
-                  className="h-full w-full object-cover object-top"
-                  fetchPriority="high"
-                />
-              </div>
-              {/* Floating badges */}
-              <div className="absolute -bottom-4 -right-3 rounded-2xl border border-gold/30 bg-white p-3 shadow-xl sm:-bottom-6 sm:-right-6">
-                <div className="flex items-center gap-3">
-                  <div className="grid h-10 w-10 place-items-center rounded-full gold-gradient">
-                    <Rocket className="h-5 w-5 text-navy" />
-                  </div>
-                  <div className="text-right">
-                    <div className="text-xs text-muted-foreground">التسليم</div>
-                    <div className="text-sm font-bold text-navy">48 ساعة V1</div>
-                  </div>
-                </div>
-              </div>
-              <div className="absolute -left-3 top-8 rounded-2xl border border-navy/10 bg-white p-3 shadow-xl sm:-left-6">
-                <div className="flex items-center gap-3">
-                  <div className="grid h-10 w-10 place-items-center rounded-full bg-cream text-navy">
-                    <Shield className="h-5 w-5" />
-                  </div>
-                  <div className="text-right">
-                    <div className="text-xs text-muted-foreground">مواقع</div>
-                    <div className="text-sm font-bold text-navy">آمنة وسريعة</div>
-                  </div>
-                </div>
-              </div>
-              {/* X accent */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -left-8 -top-6 text-6xl font-black gold-text opacity-30 md:text-7xl"
-              >
-                X
-              </div>
-            </div>
-          </div>
+          {/* Slider */}
+          <HeroSlider />
         </div>
       </div>
     </section>
   );
 }
+
 
 /* ============================================================
    TRUST STRIP
