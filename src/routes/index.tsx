@@ -33,7 +33,7 @@ import {
   Youtube,
   ExternalLink,
 } from "lucide-react";
-import logoAsset from "@/assets/xlans-logo.png.asset.json";
+import logoAsset from "@/assets/xlans-logo-new.png.asset.json";
 import portraitAsset from "@/assets/mohamed-sultan.jpg.asset.json";
 const logo = logoAsset.url;
 const portrait = portraitAsset.url;
