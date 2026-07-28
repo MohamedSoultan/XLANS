@@ -199,10 +199,11 @@ function Header({
             <img
               src={logo}
               alt="XLANS"
-              width={140}
-              height={44}
-              className="h-10 w-auto sm:h-11"
+              width={180}
+              height={60}
+              className="h-14 w-auto sm:h-16"
             />
+
           </a>
           <nav className="hidden items-center gap-7 lg:flex">
             {NAV.map((n) => (
@@ -245,7 +246,7 @@ function Header({
       {mobileMenu && (
         <div className="fixed inset-0 z-[70] flex flex-col bg-background lg:hidden">
           <div className="container-x flex items-center justify-between py-4">
-            <img src={logo} alt="XLANS" className="h-10 w-auto" />
+            <img src={logo} alt="XLANS" className="h-14 w-auto" />
             <button
               onClick={() => setMobileMenu(false)}
               aria-label="إغلاق"
