@@ -429,7 +429,7 @@ function Hero({ onBook }: { onBook: () => void }) {
       <div className="container-x relative">
         <div className="grid items-center gap-10 md:grid-cols-[1.15fr_1fr] md:gap-12">
           {/* Text */}
-          <div className="reveal">
+          <div className="reveal text-center md:text-right">
             <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-white/70 px-4 py-2 text-xs font-semibold text-navy backdrop-blur-sm sm:text-sm">
               <Sparkles className="h-4 w-4 text-gold" />
               مواقع احترافية للشركات وأصحاب المشاريع
@@ -441,13 +441,13 @@ function Hero({ onBook }: { onBook: () => void }) {
               لازم <span className="gold-text">يحقق هدفك</span>.
             </h1>
 
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
+            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg md:mx-0">
               في XLANS بنبني مواقع سريعة وآمنة ومخصصة، مبنية على فهم البيزنس وسلوك
               العميل، عشان تساعد زوارك يوصلوا للتواصل أو الحجز أو طلب عرض سعر بأقل
               خطوات.
             </p>
 
-            <div className="mt-5 inline-flex items-center gap-2 rounded-2xl border border-gold/30 bg-white/80 px-4 py-3 text-sm text-navy shadow-sm">
+            <div className="mx-auto mt-5 inline-flex items-center gap-2 rounded-2xl border border-gold/30 bg-white/80 px-4 py-3 text-start text-sm text-navy shadow-sm md:mx-0">
               <Clock className="h-4 w-4 shrink-0 text-gold" />
               <div>
                 <strong>نسخة أولية V1 خلال 48 ساعة</strong> للمواقع التعريفية القياسية.
@@ -457,7 +457,7 @@ function Hero({ onBook }: { onBook: () => void }) {
               </div>
             </div>
 
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap justify-center gap-3 md:justify-start">
               <button
                 onClick={onBook}
                 className="group inline-flex min-h-13 items-center gap-2 rounded-full navy-gradient px-7 py-3 text-sm font-bold text-navy-foreground shadow-xl transition hover:brightness-110 sm:text-base"
