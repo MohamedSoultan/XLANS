@@ -227,13 +227,12 @@ function Header({
               احجز استشارة مجانية
             </button>
             <a
-              href={WA_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="واتساب"
-              className="grid h-11 w-11 place-items-center rounded-full bg-[#25D366] text-white shadow-md transition hover:brightness-110 md:hidden"
+              href={TEL_LINK}
+              aria-label="اتصل بنا"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-full navy-gradient px-4 text-sm font-bold text-navy-foreground shadow-md transition hover:brightness-110 md:hidden"
             >
-              <WhatsAppIcon className="h-5 w-5" />
+              <Phone className="h-4 w-4" />
+              اتصل
             </a>
             <button
               onClick={() => setMobileMenu(true)}
