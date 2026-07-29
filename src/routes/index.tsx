@@ -1361,8 +1361,11 @@ function FloatingWhatsApp() {
 ============================================================ */
 function MobileBottomBar({ onBook }: { onBook: () => void }) {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-white/95 p-3 shadow-[0_-8px_24px_-12px_rgba(7,29,59,0.2)] backdrop-blur-md md:hidden">
-      <div className="flex items-center gap-2">
+    <div
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-white/95 p-3 shadow-[0_-8px_24px_-12px_rgba(7,29,59,0.2)] backdrop-blur-md md:hidden"
+      style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+    >
+      <div className="mx-auto flex max-w-md items-center justify-center gap-2">
         <button
           onClick={onBook}
           className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full navy-gradient text-sm font-bold text-navy-foreground"
@@ -1370,6 +1373,13 @@ function MobileBottomBar({ onBook }: { onBook: () => void }) {
           ابدأ مشروعك
           <ArrowLeft className="h-4 w-4" />
         </button>
+        <a
+          href={TEL_LINK}
+          aria-label="اتصال"
+          className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-gold/40 bg-cream text-navy"
+        >
+          <Phone className="h-5 w-5" />
+        </a>
         <a
           href={WA_LINK}
           target="_blank"
