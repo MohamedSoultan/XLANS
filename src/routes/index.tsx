@@ -557,9 +557,9 @@ function Audience({ onBook }: { onBook: () => void }) {
         {cards.map((c) => (
           <article
             key={c.title}
-            className="hover-lift group rounded-3xl border border-border bg-white p-6"
+            className="hover-lift group rounded-3xl border border-border bg-white p-6 text-center sm:text-right"
           >
-            <div className="grid h-12 w-12 place-items-center rounded-2xl gold-gradient text-navy">
+            <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl gold-gradient text-navy sm:mx-0">
               <c.icon className="h-6 w-6" />
             </div>
             <h3 className="mt-4 text-lg font-bold text-navy">{c.title}</h3>
