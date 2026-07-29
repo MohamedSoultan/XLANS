@@ -101,6 +101,8 @@ export const Route = createFileRoute("/")({
 });
 
 const WA_NUMBER = "201140226705";
+const PHONE_NUMBER = "+201140226705";
+const TEL_LINK = `tel:${PHONE_NUMBER}`;
 const WA_DEFAULT_MSG =
   "مرحبًا محمد، وصلت ليك من موقع XLANS وعايز أعرف أنسب حل لموقع مشروعي.";
 const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_DEFAULT_MSG)}`;
