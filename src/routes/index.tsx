@@ -557,9 +557,9 @@ function Audience({ onBook }: { onBook: () => void }) {
         {cards.map((c) => (
           <article
             key={c.title}
-            className="hover-lift group rounded-3xl border border-border bg-white p-6"
+            className="hover-lift group rounded-3xl border border-border bg-white p-6 text-center sm:text-right"
           >
-            <div className="grid h-12 w-12 place-items-center rounded-2xl gold-gradient text-navy">
+            <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl gold-gradient text-navy sm:mx-0">
               <c.icon className="h-6 w-6" />
             </div>
             <h3 className="mt-4 text-lg font-bold text-navy">{c.title}</h3>
@@ -657,16 +657,16 @@ function Services({ onBook }: { onBook: (s?: string) => void }) {
         {services.map((s) => (
           <article
             key={s.title}
-            className="hover-lift flex flex-col rounded-3xl border border-border bg-white p-6"
+            className="hover-lift flex flex-col rounded-3xl border border-border bg-white p-6 text-center sm:text-right"
           >
-            <div className="grid h-12 w-12 place-items-center rounded-2xl navy-gradient text-gold">
+            <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl navy-gradient text-gold sm:mx-0">
               <s.icon className="h-6 w-6" />
             </div>
             <h3 className="mt-4 text-xl font-bold text-navy">{s.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
             <ul className="mt-5 flex-1 space-y-2.5">
               {s.features.map((f) => (
-                <li key={f} className="flex items-start gap-2 text-sm text-foreground/85">
+                <li key={f} className="flex items-start justify-center gap-2 text-sm text-foreground/85 sm:justify-start">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
                   <span>{f}</span>
                 </li>
@@ -743,9 +743,9 @@ function WhyXlans() {
           {items.map((it) => (
             <div
               key={it.title}
-              className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm transition hover:border-gold/40 hover:bg-white/[0.06]"
+              className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-center backdrop-blur-sm transition hover:border-gold/40 hover:bg-white/[0.06] sm:text-right"
             >
-              <div className="grid h-11 w-11 place-items-center rounded-xl gold-gradient text-navy">
+              <div className="mx-auto grid h-11 w-11 place-items-center rounded-xl gold-gradient text-navy sm:mx-0">
                 <it.icon className="h-5 w-5" />
               </div>
               <h3 className="mt-4 text-lg font-bold text-navy-foreground">{it.title}</h3>
