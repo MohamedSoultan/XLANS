@@ -27,6 +27,7 @@ import {
   Smartphone,
   Wallet,
   Headphones,
+  Phone,
   Facebook,
   Instagram,
   Linkedin,
