@@ -27,6 +27,7 @@ import {
   Smartphone,
   Wallet,
   Headphones,
+  Phone,
   Facebook,
   Instagram,
   Linkedin,
@@ -100,6 +101,8 @@ export const Route = createFileRoute("/")({
 });
 
 const WA_NUMBER = "201140226705";
+const PHONE_NUMBER = "+201140226705";
+const TEL_LINK = `tel:${PHONE_NUMBER}`;
 const WA_DEFAULT_MSG =
   "مرحبًا محمد، وصلت ليك من موقع XLANS وعايز أعرف أنسب حل لموقع مشروعي.";
 const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_DEFAULT_MSG)}`;
@@ -224,13 +227,12 @@ function Header({
               احجز استشارة مجانية
             </button>
             <a
-              href={WA_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="واتساب"
-              className="grid h-11 w-11 place-items-center rounded-full bg-[#25D366] text-white shadow-md transition hover:brightness-110 md:hidden"
+              href={TEL_LINK}
+              aria-label="اتصل بنا"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-full navy-gradient px-4 text-sm font-bold text-navy-foreground shadow-md transition hover:brightness-110 md:hidden"
             >
-              <WhatsAppIcon className="h-5 w-5" />
+              <Phone className="h-4 w-4" />
+              اتصل
             </a>
             <button
               onClick={() => setMobileMenu(true)}
@@ -427,7 +429,7 @@ function Hero({ onBook }: { onBook: () => void }) {
       <div className="container-x relative">
         <div className="grid items-center gap-10 md:grid-cols-[1.15fr_1fr] md:gap-12">
           {/* Text */}
-          <div className="reveal">
+          <div className="reveal text-center md:text-right">
             <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-white/70 px-4 py-2 text-xs font-semibold text-navy backdrop-blur-sm sm:text-sm">
               <Sparkles className="h-4 w-4 text-gold" />
               مواقع احترافية للشركات وأصحاب المشاريع
@@ -439,13 +441,13 @@ function Hero({ onBook }: { onBook: () => void }) {
               لازم <span className="gold-text">يحقق هدفك</span>.
             </h1>
 
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
+            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg md:mx-0">
               في XLANS بنبني مواقع سريعة وآمنة ومخصصة، مبنية على فهم البيزنس وسلوك
               العميل، عشان تساعد زوارك يوصلوا للتواصل أو الحجز أو طلب عرض سعر بأقل
               خطوات.
             </p>
 
-            <div className="mt-5 inline-flex items-center gap-2 rounded-2xl border border-gold/30 bg-white/80 px-4 py-3 text-sm text-navy shadow-sm">
+            <div className="mx-auto mt-5 inline-flex items-center gap-2 rounded-2xl border border-gold/30 bg-white/80 px-4 py-3 text-start text-sm text-navy shadow-sm md:mx-0">
               <Clock className="h-4 w-4 shrink-0 text-gold" />
               <div>
                 <strong>نسخة أولية V1 خلال 48 ساعة</strong> للمواقع التعريفية القياسية.
@@ -455,7 +457,7 @@ function Hero({ onBook }: { onBook: () => void }) {
               </div>
             </div>
 
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap justify-center gap-3 md:justify-start">
               <button
                 onClick={onBook}
                 className="group inline-flex min-h-13 items-center gap-2 rounded-full navy-gradient px-7 py-3 text-sm font-bold text-navy-foreground shadow-xl transition hover:brightness-110 sm:text-base"
@@ -928,19 +930,19 @@ function Founder() {
             />
           </div>
         </div>
-        <div>
+        <div className="text-center md:text-right">
           <h3 className="text-2xl font-black text-navy sm:text-3xl">محمد سلطان</h3>
           <p className="mt-1 text-sm font-semibold text-gold">مؤسس XLANS Web Solutions</p>
-          <p className="mt-4 text-base leading-relaxed text-foreground/85">
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-foreground/85 md:mx-0">
             محمد سلطان هو مؤسس XLANS Web Solutions، متخصص في WordPress وحلول المواقع
             للشركات. يجمع بين تطوير المواقع وفهم البيزنس والتسويق، مع تركيز واضح على
             الأداء والأمان وتجربة المستخدم.
           </p>
-          <p className="mt-3 text-base leading-relaxed text-foreground/85">
+          <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-foreground/85 md:mx-0">
             قاد تنفيذ مواقع ومتاجر لشركات في مصر والسعودية وقطر والولايات المتحدة،
             في قطاعات صناعية وخدمية وقانونية وعقارية وتجارية.
           </p>
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="mt-5 flex flex-wrap justify-center gap-2 md:justify-start">
             {chips.map((c) => (
               <span
                 key={c}
@@ -950,15 +952,24 @@ function Founder() {
               </span>
             ))}
           </div>
-          <a
-            href={WA_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-7 inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
-          >
-            <WhatsAppIcon className="h-5 w-5" />
-            تواصل مع محمد مباشرة
-          </a>
+          <div className="mt-7 flex flex-wrap justify-center gap-3 md:justify-start">
+            <a
+              href={WA_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
+            >
+              <WhatsAppIcon className="h-5 w-5" />
+              تواصل مع محمد مباشرة
+            </a>
+            <a
+              href={TEL_LINK}
+              className="inline-flex min-h-12 items-center gap-2 rounded-full navy-gradient px-6 text-sm font-bold text-navy-foreground shadow-lg transition hover:brightness-110"
+            >
+              <Phone className="h-5 w-5" />
+              اتصل الآن
+            </a>
+          </div>
         </div>
       </div>
     </Section>
@@ -1350,8 +1361,11 @@ function FloatingWhatsApp() {
 ============================================================ */
 function MobileBottomBar({ onBook }: { onBook: () => void }) {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-white/95 p-3 shadow-[0_-8px_24px_-12px_rgba(7,29,59,0.2)] backdrop-blur-md md:hidden">
-      <div className="flex items-center gap-2">
+    <div
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-white/95 p-3 shadow-[0_-8px_24px_-12px_rgba(7,29,59,0.2)] backdrop-blur-md md:hidden"
+      style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+    >
+      <div className="mx-auto flex max-w-md items-center justify-center gap-2">
         <button
           onClick={onBook}
           className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full navy-gradient text-sm font-bold text-navy-foreground"
@@ -1359,6 +1373,13 @@ function MobileBottomBar({ onBook }: { onBook: () => void }) {
           ابدأ مشروعك
           <ArrowLeft className="h-4 w-4" />
         </button>
+        <a
+          href={TEL_LINK}
+          aria-label="اتصال"
+          className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-gold/40 bg-cream text-navy"
+        >
+          <Phone className="h-5 w-5" />
+        </a>
         <a
           href={WA_LINK}
           target="_blank"
