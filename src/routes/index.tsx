@@ -930,19 +930,19 @@ function Founder() {
             />
           </div>
         </div>
-        <div>
+        <div className="text-center md:text-right">
           <h3 className="text-2xl font-black text-navy sm:text-3xl">محمد سلطان</h3>
           <p className="mt-1 text-sm font-semibold text-gold">مؤسس XLANS Web Solutions</p>
-          <p className="mt-4 text-base leading-relaxed text-foreground/85">
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-foreground/85 md:mx-0">
             محمد سلطان هو مؤسس XLANS Web Solutions، متخصص في WordPress وحلول المواقع
             للشركات. يجمع بين تطوير المواقع وفهم البيزنس والتسويق، مع تركيز واضح على
             الأداء والأمان وتجربة المستخدم.
           </p>
-          <p className="mt-3 text-base leading-relaxed text-foreground/85">
+          <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-foreground/85 md:mx-0">
             قاد تنفيذ مواقع ومتاجر لشركات في مصر والسعودية وقطر والولايات المتحدة،
             في قطاعات صناعية وخدمية وقانونية وعقارية وتجارية.
           </p>
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="mt-5 flex flex-wrap justify-center gap-2 md:justify-start">
             {chips.map((c) => (
               <span
                 key={c}
@@ -952,15 +952,24 @@ function Founder() {
               </span>
             ))}
           </div>
-          <a
-            href={WA_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-7 inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
-          >
-            <WhatsAppIcon className="h-5 w-5" />
-            تواصل مع محمد مباشرة
-          </a>
+          <div className="mt-7 flex flex-wrap justify-center gap-3 md:justify-start">
+            <a
+              href={WA_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
+            >
+              <WhatsAppIcon className="h-5 w-5" />
+              تواصل مع محمد مباشرة
+            </a>
+            <a
+              href={TEL_LINK}
+              className="inline-flex min-h-12 items-center gap-2 rounded-full navy-gradient px-6 text-sm font-bold text-navy-foreground shadow-lg transition hover:brightness-110"
+            >
+              <Phone className="h-5 w-5" />
+              اتصل الآن
+            </a>
+          </div>
         </div>
       </div>
     </Section>
