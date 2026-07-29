@@ -743,9 +743,9 @@ function WhyXlans() {
           {items.map((it) => (
             <div
               key={it.title}
-              className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm transition hover:border-gold/40 hover:bg-white/[0.06]"
+              className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-center backdrop-blur-sm transition hover:border-gold/40 hover:bg-white/[0.06] sm:text-right"
             >
-              <div className="grid h-11 w-11 place-items-center rounded-xl gold-gradient text-navy">
+              <div className="mx-auto grid h-11 w-11 place-items-center rounded-xl gold-gradient text-navy sm:mx-0">
                 <it.icon className="h-5 w-5" />
               </div>
               <h3 className="mt-4 text-lg font-bold text-navy-foreground">{it.title}</h3>
