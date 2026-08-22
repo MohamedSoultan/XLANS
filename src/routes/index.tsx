@@ -1325,7 +1325,7 @@ function FloatingWhatsApp() {
       rel="noopener noreferrer"
       onClick={() => setPulsed(true)}
       aria-label="تواصل على واتساب"
-      className={`group fixed bottom-24 left-4 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-2xl transition hover:brightness-110 md:bottom-6 md:left-6 ${
+      className={`group fixed bottom-6 left-6 z-40 hidden h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-2xl transition hover:brightness-110 md:grid ${
         pulsed ? "" : "wa-pulse"
       }`}
     >
