@@ -864,44 +864,108 @@ function Process() {
    PORTFOLIO
 ============================================================ */
 function PortfolioCTA() {
-  const WA_PORTFOLIO = `https://wa.me/201140226705?text=${encodeURIComponent(
-    "مرحبًا محمد،\nأرغب في الاطلاع على سابقة أعمال XLANS ونماذج من المشاريع اللي نفذتوها.\nشكرًا."
-  )}`;
-  const badges = [
-    "🇸🇦 السعودية",
-    "🇺🇸 الولايات المتحدة",
-    "🇪🇬 مصر",
-    "🇶🇦 قطر",
-    "🇸🇾 سوريا",
+  const cases = [
+    {
+      flag: "🇸🇦",
+      sector: "صناعي",
+      country: "السعودية",
+      result: "موقع شركة + كتالوج منتجات",
+      metric: "‎-40% وقت الرد على العملاء",
+      icon: Building2,
+    },
+    {
+      flag: "🇺🇸",
+      sector: "خدمات",
+      country: "الولايات المتحدة",
+      result: "موقع خدمات + نظام حجز",
+      metric: "حجوزات أونلاين 24/7",
+      icon: Calendar,
+    },
+    {
+      flag: "🇪🇬",
+      sector: "تجارة",
+      country: "مصر",
+      result: "متجر إلكتروني WooCommerce",
+      metric: "‎+2.3x طلبات في 3 شهور",
+      icon: ShoppingBag,
+    },
+    {
+      flag: "🇶🇦",
+      sector: "قانوني",
+      country: "قطر",
+      result: "موقع مكتب محاماة بلغتين",
+      metric: "استفسارات مؤهلة أكثر",
+      icon: Briefcase,
+    },
+    {
+      flag: "🇸🇾",
+      sector: "عقارات",
+      country: "سوريا",
+      result: "منصة عرض وحدات",
+      metric: "تصفح أسرع على الموبايل",
+      icon: Globe,
+    },
   ];
+
+  const waFor = (c: (typeof cases)[number]) =>
+    `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+      `مرحبًا XLANS،\nشفت نموذج مشروع (${c.result}) في قطاع ${c.sector} - ${c.country}.\nياريت تبعتوا لي سابقة الأعمال والتفاصيل.`
+    )}`;
+
   return (
-    <Section id="portfolio" eyebrow="سابقة الأعمال" title="مشاريع نُفّذت لبيزنس حقيقي حول العالم">
-      <div className="mx-auto max-w-3xl rounded-3xl border border-border bg-white p-6 text-center shadow-sm sm:p-10">
-        <p className="text-base leading-relaxed text-foreground/85 sm:text-lg">
-          نفتخر بتنفيذ مواقع ومتاجر لشركات في قطاعات صناعية وخدمية وقانونية وعقارية
-          وسياحية وتجارية. نرسل لك ملف سابقة الأعمال الكامل بالروابط والتفاصيل مباشرة
-          على واتساب خلال دقائق.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          {badges.map((b) => (
-            <span
-              key={b}
-              className="rounded-full border border-gold/30 bg-cream px-3 py-1.5 text-xs font-semibold text-navy"
+    <Section
+      id="portfolio"
+      eyebrow="سابقة الأعمال"
+      title="نماذج سريعة من مشاريع نُفّذت لبيزنس حقيقي"
+      intro="اسحب جانبًا لتشوف النتائج في سطر واحد — واطلب الملف الكامل على واتساب."
+    >
+      <div className="-mx-5 px-5 md:mx-0 md:px-0">
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:overflow-visible lg:grid-cols-5">
+          {cases.map((c) => (
+            <a
+              key={c.country}
+              href={waFor(c)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover-lift group flex w-[78%] shrink-0 snap-center flex-col rounded-3xl border border-border bg-white p-5 text-right shadow-sm sm:w-[46%] md:w-auto"
             >
-              {b}
-            </span>
+              <div className="flex items-center justify-between gap-3">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-cream text-navy transition group-hover:gold-gradient">
+                  <c.icon className="h-5 w-5" />
+                </span>
+                <span className="truncate text-xs font-semibold text-muted-foreground">
+                  {c.flag} {c.country}
+                </span>
+              </div>
+              <div className="mt-4 text-[0.7rem] font-bold tracking-wide text-gold">
+                {c.sector}
+              </div>
+              <div className="mt-1 text-sm font-bold leading-snug text-navy">{c.result}</div>
+              <div className="mt-3 border-t border-border pt-3 text-xs font-semibold text-foreground/70">
+                {c.metric}
+              </div>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-[#25D366]">
+                <WhatsAppIcon className="h-4 w-4" />
+                اطلب التفاصيل
+              </span>
+            </a>
           ))}
         </div>
+      </div>
+
+      <div className="mt-5 flex flex-col items-center gap-2">
         <a
-          href={WA_PORTFOLIO}
+          href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+            "مرحبًا XLANS،\nأرغب في استلام ملف سابقة الأعمال الكامل بالروابط والتفاصيل.\nشكرًا."
+          )}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110 sm:text-base"
+          className="inline-flex min-h-12 w-full max-w-sm items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
         >
           <WhatsAppIcon className="h-5 w-5" />
-          اطلب سابقة الأعمال عبر واتساب
+          استلم ملف سابقة الأعمال الكامل
         </a>
-        <p className="mt-4 text-xs text-muted-foreground">
+        <p className="text-center text-xs text-muted-foreground">
           رد خلال دقائق في أوقات العمل — التزام كامل بالسرية.
         </p>
       </div>
