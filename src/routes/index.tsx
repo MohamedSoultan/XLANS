@@ -31,13 +31,10 @@ import {
   Facebook,
   Instagram,
   Linkedin,
-  Youtube,
   ExternalLink,
 } from "lucide-react";
 import logoAsset from "@/assets/xlans-logo-new.png.asset.json";
-import portraitAsset from "@/assets/mohamed-sultan.jpg.asset.json";
 const logo = logoAsset.url;
-const portrait = portraitAsset.url;
 
 function WhatsAppIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
@@ -87,9 +84,9 @@ export const Route = createFileRoute("/")({
               name: "Mohamed Sultan",
               jobTitle: "Web Solutions Specialist",
               sameAs: [
-                "https://facebook.com/mo7amadsultan",
-                "https://instagram.com/mo7amadsultan",
-                "https://linkedin.com/in/mo7amadsultan",
+                "https://www.facebook.com/profile.php?id=61592109614629",
+                "https://www.instagram.com/1xlans1/",
+                "https://www.linkedin.com/company/xlans-web-solutions",
               ],
             },
           ],
@@ -106,6 +103,20 @@ const TEL_LINK = `tel:${PHONE_NUMBER}`;
 const WA_DEFAULT_MSG =
   "مرحبًا محمد، وصلت ليك من موقع XLANS وعايز أعرف أنسب حل لموقع مشروعي.";
 const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_DEFAULT_MSG)}`;
+
+const SOCIALS = [
+  {
+    icon: Facebook,
+    label: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61592109614629",
+  },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/1xlans1/" },
+  {
+    icon: Linkedin,
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/xlans-web-solutions",
+  },
+];
 
 function LandingPage() {
   const [wizardOpen, setWizardOpen] = useState(false);
@@ -143,7 +154,6 @@ function LandingPage() {
         <CustomerJourney />
         <Process />
         <PortfolioCTA />
-        <Founder />
         <BookingSection onBook={() => openWizard()} />
         <FAQ />
         <Social />
@@ -171,7 +181,6 @@ const NAV = [
   { label: "الرئيسية", href: "#home" },
   { label: "خدماتنا", href: "#services" },
   { label: "لماذا XLANS؟", href: "#why" },
-  { label: "المؤسس", href: "#founder" },
   { label: "خطوات العمل", href: "#process" },
   { label: "الأسئلة الشائعة", href: "#faq" },
   { label: "تواصل معنا", href: "#contact" },
@@ -855,122 +864,110 @@ function Process() {
    PORTFOLIO
 ============================================================ */
 function PortfolioCTA() {
-  const WA_PORTFOLIO = `https://wa.me/201140226705?text=${encodeURIComponent(
-    "مرحبًا محمد،\nأرغب في الاطلاع على سابقة أعمال XLANS ونماذج من المشاريع اللي نفذتوها.\nشكرًا."
-  )}`;
-  const badges = [
-    "🇸🇦 السعودية",
-    "🇺🇸 الولايات المتحدة",
-    "🇪🇬 مصر",
-    "🇶🇦 قطر",
-    "🇸🇾 سوريا",
+  const cases = [
+    {
+      flag: "🇸🇦",
+      sector: "صناعي",
+      country: "السعودية",
+      result: "موقع شركة + كتالوج منتجات",
+      metric: "‎-40% وقت الرد على العملاء",
+      icon: Building2,
+    },
+    {
+      flag: "🇺🇸",
+      sector: "خدمات",
+      country: "الولايات المتحدة",
+      result: "موقع خدمات + نظام حجز",
+      metric: "حجوزات أونلاين 24/7",
+      icon: Calendar,
+    },
+    {
+      flag: "🇪🇬",
+      sector: "تجارة",
+      country: "مصر",
+      result: "متجر إلكتروني WooCommerce",
+      metric: "‎+2.3x طلبات في 3 شهور",
+      icon: ShoppingBag,
+    },
+    {
+      flag: "🇶🇦",
+      sector: "قانوني",
+      country: "قطر",
+      result: "موقع مكتب محاماة بلغتين",
+      metric: "استفسارات مؤهلة أكثر",
+      icon: Briefcase,
+    },
+    {
+      flag: "🇸🇾",
+      sector: "عقارات",
+      country: "سوريا",
+      result: "منصة عرض وحدات",
+      metric: "تصفح أسرع على الموبايل",
+      icon: Globe,
+    },
   ];
-  return (
-    <Section id="portfolio" eyebrow="سابقة الأعمال" title="مشاريع نُفّذت لبيزنس حقيقي حول العالم">
-      <div className="mx-auto max-w-3xl rounded-3xl border border-border bg-white p-6 text-center shadow-sm sm:p-10">
-        <p className="text-base leading-relaxed text-foreground/85 sm:text-lg">
-          نفتخر بتنفيذ مواقع ومتاجر لشركات في قطاعات صناعية وخدمية وقانونية وعقارية
-          وسياحية وتجارية. نرسل لك ملف سابقة الأعمال الكامل بالروابط والتفاصيل مباشرة
-          على واتساب خلال دقائق.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          {badges.map((b) => (
-            <span
-              key={b}
-              className="rounded-full border border-gold/30 bg-cream px-3 py-1.5 text-xs font-semibold text-navy"
-            >
-              {b}
-            </span>
-          ))}
-        </div>
-        <a
-          href={WA_PORTFOLIO}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110 sm:text-base"
-        >
-          <WhatsAppIcon className="h-5 w-5" />
-          اطلب سابقة الأعمال عبر واتساب
-        </a>
-        <p className="mt-4 text-xs text-muted-foreground">
-          رد خلال دقائق في أوقات العمل — التزام كامل بالسرية.
-        </p>
-      </div>
-    </Section>
-  );
-}
 
-/* ============================================================
-   FOUNDER
-============================================================ */
-function Founder() {
-  const chips = [
-    "WordPress",
-    "WooCommerce",
-    "Business Strategy",
-    "Customer Journey",
-    "Performance",
-    "Security",
-    "Technical SEO",
-    "Multilingual Websites",
-  ];
+  const waFor = (c: (typeof cases)[number]) =>
+    `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+      `مرحبًا XLANS،\nشفت نموذج مشروع (${c.result}) في قطاع ${c.sector} - ${c.country}.\nياريت تبعتوا لي سابقة الأعمال والتفاصيل.`
+    )}`;
+
   return (
-    <Section id="founder" eyebrow="المؤسس" title="تعرّف على مؤسس XLANS" bg="bg-cream">
-      <div className="grid items-center gap-10 md:grid-cols-[auto_1fr] md:gap-12">
-        <div className="relative mx-auto w-56 shrink-0 sm:w-64 md:w-72">
-          <div className="absolute inset-0 rounded-[2rem] gold-gradient" />
-          <div className="absolute inset-[3px] overflow-hidden rounded-[1.85rem] navy-gradient">
-            <img
-              src={portrait}
-              alt="محمد سلطان"
-              width={288}
-              height={360}
-              loading="lazy"
-              className="h-full w-full object-cover object-top"
-            />
-          </div>
-        </div>
-        <div className="text-center md:text-right">
-          <h3 className="text-2xl font-black text-navy sm:text-3xl">محمد سلطان</h3>
-          <p className="mt-1 text-sm font-semibold text-gold">مؤسس XLANS Web Solutions</p>
-          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-foreground/85 md:mx-0">
-            محمد سلطان هو مؤسس XLANS Web Solutions، متخصص في WordPress وحلول المواقع
-            للشركات. يجمع بين تطوير المواقع وفهم البيزنس والتسويق، مع تركيز واضح على
-            الأداء والأمان وتجربة المستخدم.
-          </p>
-          <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-foreground/85 md:mx-0">
-            قاد تنفيذ مواقع ومتاجر لشركات في مصر والسعودية وقطر والولايات المتحدة،
-            في قطاعات صناعية وخدمية وقانونية وعقارية وتجارية.
-          </p>
-          <div className="mt-5 flex flex-wrap justify-center gap-2 md:justify-start">
-            {chips.map((c) => (
-              <span
-                key={c}
-                className="rounded-full border border-gold/30 bg-white px-3 py-1.5 text-xs font-semibold text-navy"
-              >
-                {c}
-              </span>
-            ))}
-          </div>
-          <div className="mt-7 flex flex-wrap justify-center gap-3 md:justify-start">
+    <Section
+      id="portfolio"
+      eyebrow="سابقة الأعمال"
+      title="نماذج سريعة من مشاريع نُفّذت لبيزنس حقيقي"
+      intro="اسحب جانبًا لتشوف النتائج في سطر واحد — واطلب الملف الكامل على واتساب."
+    >
+      <div className="-mx-5 px-5 md:mx-0 md:px-0">
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:overflow-visible lg:grid-cols-5">
+          {cases.map((c) => (
             <a
-              href={WA_LINK}
+              key={c.country}
+              href={waFor(c)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
+              className="hover-lift group flex w-[78%] shrink-0 snap-center flex-col rounded-3xl border border-border bg-white p-5 text-right shadow-sm sm:w-[46%] md:w-auto"
             >
-              <WhatsAppIcon className="h-5 w-5" />
-              تواصل مع محمد مباشرة
+              <div className="flex items-center justify-between gap-3">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-cream text-navy transition group-hover:gold-gradient">
+                  <c.icon className="h-5 w-5" />
+                </span>
+                <span className="truncate text-xs font-semibold text-muted-foreground">
+                  {c.flag} {c.country}
+                </span>
+              </div>
+              <div className="mt-4 text-[0.7rem] font-bold tracking-wide text-gold">
+                {c.sector}
+              </div>
+              <div className="mt-1 text-sm font-bold leading-snug text-navy">{c.result}</div>
+              <div className="mt-3 border-t border-border pt-3 text-xs font-semibold text-foreground/70">
+                {c.metric}
+              </div>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-[#25D366]">
+                <WhatsAppIcon className="h-4 w-4" />
+                اطلب التفاصيل
+              </span>
             </a>
-            <a
-              href={TEL_LINK}
-              className="inline-flex min-h-12 items-center gap-2 rounded-full navy-gradient px-6 text-sm font-bold text-navy-foreground shadow-lg transition hover:brightness-110"
-            >
-              <Phone className="h-5 w-5" />
-              اتصل الآن
-            </a>
-          </div>
+          ))}
         </div>
+      </div>
+
+      <div className="mt-5 flex flex-col items-center gap-2">
+        <a
+          href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+            "مرحبًا XLANS،\nأرغب في استلام ملف سابقة الأعمال الكامل بالروابط والتفاصيل.\nشكرًا."
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-12 w-full max-w-sm items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
+        >
+          <WhatsAppIcon className="h-5 w-5" />
+          استلم ملف سابقة الأعمال الكامل
+        </a>
+        <p className="text-center text-xs text-muted-foreground">
+          رد خلال دقائق في أوقات العمل — التزام كامل بالسرية.
+        </p>
       </div>
     </Section>
   );
@@ -1128,36 +1125,26 @@ function FAQ() {
    SOCIAL
 ============================================================ */
 function Social() {
-  const socials = [
-    { icon: Facebook, label: "Facebook", href: "https://facebook.com/mo7amadsultan" },
-    { icon: Instagram, label: "Instagram", href: "https://instagram.com/mo7amadsultan" },
-    { icon: TikTokIcon, label: "TikTok", href: "https://tiktok.com/@mo7amadsultan" },
-    { icon: Youtube, label: "YouTube", href: "https://youtube.com/@mo7amadsultan" },
-    { icon: ThreadsIcon, label: "Threads", href: "https://threads.net/@mo7amadsultan" },
-    { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/mo7amadsultan" },
-  ];
   return (
     <Section
       eyebrow="تابعنا"
-      title="تابع محتوى محمد سلطان"
+      title="تابع XLANS على منصات التواصل"
       intro="محتوى مبسط عن المواقع، WordPress، البيزنس، التسويق وتجربة المستخدم."
     >
-      <div className="mx-auto max-w-2xl text-center">
-        <div className="text-lg font-bold text-gold">@mo7amadsultan</div>
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
-          {socials.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={s.label}
-              className="group grid h-14 w-14 place-items-center rounded-2xl border border-border bg-white text-navy transition hover:border-gold hover:bg-navy hover:text-gold"
-            >
-              <s.icon className="h-6 w-6" />
-            </a>
-          ))}
-        </div>
+      <div className="mx-auto flex max-w-2xl flex-wrap justify-center gap-3">
+        {SOCIALS.map((s) => (
+          <a
+            key={s.label}
+            href={s.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={s.label}
+            className="inline-flex min-h-12 items-center gap-2 rounded-2xl border border-border bg-white px-5 text-sm font-bold text-navy transition hover:border-gold hover:bg-navy hover:text-gold"
+          >
+            <s.icon className="h-5 w-5" />
+            {s.label}
+          </a>
+        ))}
       </div>
     </Section>
   );
@@ -1288,23 +1275,17 @@ function Footer({ onBook }: { onBook: () => void }) {
                   +20 114 022 6705
                 </a>
               </li>
-              <li className="text-white/60">@mo7amadsultan</li>
               <li className="flex flex-wrap gap-2 pt-2">
-                {[
-                  { I: Facebook, h: "https://facebook.com/mo7amadsultan", l: "Facebook" },
-                  { I: Instagram, h: "https://instagram.com/mo7amadsultan", l: "Instagram" },
-                  { I: Linkedin, h: "https://linkedin.com/in/mo7amadsultan", l: "LinkedIn" },
-                  { I: Youtube, h: "https://youtube.com/@mo7amadsultan", l: "YouTube" },
-                ].map((s) => (
+                {SOCIALS.map((s) => (
                   <a
-                    key={s.l}
-                    href={s.h}
+                    key={s.label}
+                    href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={s.l}
+                    aria-label={s.label}
                     className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 text-white/70 transition hover:border-gold hover:text-gold"
                   >
-                    <s.I className="h-4 w-4" />
+                    <s.icon className="h-4 w-4" />
                   </a>
                 ))}
               </li>
@@ -1344,7 +1325,7 @@ function FloatingWhatsApp() {
       rel="noopener noreferrer"
       onClick={() => setPulsed(true)}
       aria-label="تواصل على واتساب"
-      className={`group fixed bottom-24 left-4 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-2xl transition hover:brightness-110 md:bottom-6 md:left-6 ${
+      className={`group fixed bottom-6 left-6 z-40 hidden h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-2xl transition hover:brightness-110 md:grid ${
         pulsed ? "" : "wa-pulse"
       }`}
     >
