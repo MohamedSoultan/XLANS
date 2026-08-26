@@ -388,7 +388,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
             <>
               {step === 1 && (
                 <StepCards
-                  title="محتاج إيه لمشروعك؟"
+                  title="محتاج إيه لشركتك؟"
                   options={SERVICES}
                   value={data.service}
                   onChange={(v) => setData({ ...data, service: v })}
@@ -396,12 +396,14 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
               )}
               {step === 2 && (
                 <div className="space-y-4 sm:space-y-5">
-                  <Field label="اسم الشركة أو المشروع">
+                  <Field label="اسم الشركة" error={fieldError("companyName")}>
                     <input
                       value={data.companyName}
                       onChange={(e) => setData({ ...data, companyName: e.target.value })}
+                      onBlur={() => setTouched((t) => ({ ...t, companyName: true }))}
                       className="input"
                       placeholder="مثال: شركة النور للخدمات"
+                      aria-invalid={!!fieldError("companyName")}
                     />
                   </Field>
                   <Field label="مجال النشاط">
@@ -418,7 +420,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                       onChange={(v) => setData({ ...data, goal: v })}
                     />
                   </Field>
-                  <Field label="هل عندك موقع حالي؟">
+                  <Field label="هل لدى شركتك موقع حالي؟">
                     <div className="flex gap-3">
                       {["لا", "نعم"].map((v) => (
                         <button
@@ -437,16 +439,23 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                     </div>
                   </Field>
                   {data.hasWebsite === "نعم" && (
-                    <Field label="رابط الموقع الحالي">
+                    <Field label="رابط الموقع الحالي" error={fieldError("websiteUrl")}>
                       <input
                         value={data.websiteUrl}
                         onChange={(e) => setData({ ...data, websiteUrl: e.target.value })}
+                        onBlur={() => setTouched((t) => ({ ...t, websiteUrl: true }))}
                         className="input"
-                        placeholder="https://"
+                        type="url"
+                        inputMode="url"
+                        placeholder="https://example.com"
                         dir="ltr"
+                        aria-invalid={!!fieldError("websiteUrl")}
                       />
                     </Field>
                   )}
+                </div>
+              )}
+
                 </div>
               )}
               {step === 3 && (
