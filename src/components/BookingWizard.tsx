@@ -264,18 +264,46 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
 
   if (!open) return null;
 
+  const stepFields: Record<number, (keyof Data)[]> = {
+    2: ["companyName", "websiteUrl"],
+    4: ["name", "phone", "email", "day", "time"],
+  };
+
+  const fieldError = (f: keyof Data) => (touched[f] ? validateField(f, data) : null);
+
+  const stepErrors = (s: number) =>
+    (stepFields[s] ?? []).reduce<Partial<Record<keyof Data, string>>>((acc, f) => {
+      const e = validateField(f, data);
+      if (e) acc[f] = e;
+      return acc;
+    }, {});
+
   const canNext =
     (step === 1 && !!data.service) ||
-    (step === 2 && !!data.companyName && !!data.sector && !!data.goal && !!data.hasWebsite) ||
+    (step === 2 &&
+      !!data.sector &&
+      !!data.goal &&
+      !!data.hasWebsite &&
+      Object.keys(stepErrors(2)).length === 0) ||
     (step === 3 && !!data.contentStatus && !!data.startTime) ||
     (step === 4 &&
-      !!data.name &&
-      !!data.phone &&
-      !!data.day &&
-      !!data.time &&
       !!data.contactMethod &&
-      data.consent) ||
+      data.consent &&
+      Object.keys(stepErrors(4)).length === 0) ||
     (step === 5 && messageDraft.trim().length > 10);
+
+  const goNext = () => {
+    const errs = stepErrors(step);
+    if (Object.keys(errs).length) {
+      setTouched((t) => ({
+        ...t,
+        ...Object.fromEntries((stepFields[step] ?? []).map((f) => [f, true])),
+      }));
+      return;
+    }
+    if (!canNext) return;
+    setStep(step + 1);
+  };
 
   const submit = () => {
     if (submitting || !canNext) return;
@@ -290,6 +318,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
     setDone(true);
     setSubmitting(false);
   };
+
 
   const progress = (step / TOTAL_STEPS) * 100;
 
