@@ -104,15 +104,70 @@ const INITIAL: Data = {
   consent: false,
 };
 
+/* ---------------- validation ---------------- */
+const AR_EN_NAME = /^[\p{L}][\p{L}\s'.-]{2,}$/u;
+
+function normalizeUrl(v: string) {
+  const t = v.trim();
+  if (!t) return "";
+  return /^https?:\/\//i.test(t) ? t : `https://${t}`;
+}
+
+export function validateField(field: keyof Data, d: Data): string | null {
+  const v = String(d[field] ?? "").trim();
+  switch (field) {
+    case "name":
+      if (!v) return "من فضلك اكتب اسمك.";
+      if (!AR_EN_NAME.test(v)) return "اكتب اسمًا صحيحًا (حروف فقط، 3 أحرف على الأقل).";
+      return null;
+    case "companyName":
+      if (!v) return "اكتب اسم شركتك.";
+      if (v.length < 2) return "اسم الشركة قصير جدًا.";
+      return null;
+    case "phone": {
+      if (!v) return "رقم الموبايل مطلوب.";
+      const digits = v.replace(/[^\d]/g, "");
+      if (!/^\+?[\d\s()-]+$/.test(v)) return "الرقم يحتوي على رموز غير صحيحة.";
+      if (digits.length < 9 || digits.length > 15)
+        return "رقم غير صحيح — اكتب الرقم بمفتاح الدولة مثل ‎+201140226705.";
+      return null;
+    }
+    case "email":
+      if (!v) return null; // optional
+      if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v)) return "صيغة البريد الإلكتروني غير صحيحة.";
+      return null;
+    case "websiteUrl": {
+      if (d.hasWebsite !== "نعم") return null;
+      if (!v) return "اكتب رابط موقع شركتك الحالي.";
+      try {
+        const u = new URL(normalizeUrl(v));
+        if (!/^https?:$/.test(u.protocol)) return "الرابط لازم يبدأ بـ http أو https.";
+        if (!/^[^\s.]+\.[^\s.]{2,}/.test(u.hostname)) return "الرابط غير صحيح (مثال: example.com).";
+        return null;
+      } catch {
+        return "الرابط غير صحيح (مثال: https://example.com).";
+      }
+    }
+    case "day":
+      if (!v) return "حدد اليوم المناسب.";
+      return null;
+    case "time":
+      if (!v) return "حدد الوقت المناسب.";
+      return null;
+    default:
+      return v ? null : "هذا الحقل مطلوب.";
+  }
+}
+
 function buildMessage(d: Data) {
-  return `مرحبًا محمد،
-أنا ${d.name} وأرغب في الاستفسار عن مشروع جديد من خلال موقع XLANS.
+  return `مرحبًا XLANS،
+أنا ${d.name.trim()} وأتواصل معكم بخصوص موقع شركتي عبر موقع XLANS.
 
 الخدمة المطلوبة:
 ${d.service}
 
-اسم الشركة أو المشروع:
-${d.companyName}
+اسم الشركة:
+${d.companyName.trim()}
 
 مجال النشاط:
 ${d.sector}
@@ -124,7 +179,7 @@ ${d.goal}
 ${d.hasWebsite}
 
 رابط الموقع الحالي:
-${d.websiteUrl || "—"}
+${d.websiteUrl ? normalizeUrl(d.websiteUrl) : "—"}
 
 الخصائص المطلوبة:
 ${d.features.join("، ") || "—"}
@@ -132,7 +187,7 @@ ${d.features.join("، ") || "—"}
 حالة المحتوى:
 ${d.contentStatus}
 
-موعد بدء المشروع:
+موعد بدء التنفيذ:
 ${d.startTime}
 
 طريقة التواصل المفضلة:
@@ -142,13 +197,14 @@ ${d.contactMethod}
 ${d.day} — ${d.time}
 
 رقم التواصل:
-${d.phone}
+${d.phone.trim()}${d.email.trim() ? `\n\nالبريد الإلكتروني:\n${d.email.trim()}` : ""}
 
 تفاصيل إضافية:
-${d.notes || "—"}
+${d.notes.trim() || "—"}
 
-أتمنى معرفة الخطوة التالية والتكلفة المناسبة.`;
+برجاء إفادتي بالخطوة التالية والتكلفة المناسبة.`;
 }
+
 
 interface Props {
   open: boolean;
@@ -164,6 +220,8 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
   const [waUrl, setWaUrl] = useState("");
   const [messageDraft, setMessageDraft] = useState("");
   const [editingMessage, setEditingMessage] = useState(false);
+  const [touched, setTouched] = useState<Partial<Record<keyof Data, boolean>>>({});
+
 
   const generatedMessage = useMemo(() => buildMessage(data), [data]);
 
@@ -208,18 +266,46 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
 
   if (!open) return null;
 
+  const stepFields: Record<number, (keyof Data)[]> = {
+    2: ["companyName", "websiteUrl"],
+    4: ["name", "phone", "email", "day", "time"],
+  };
+
+  const fieldError = (f: keyof Data) => (touched[f] ? validateField(f, data) : null);
+
+  const stepErrors = (s: number) =>
+    (stepFields[s] ?? []).reduce<Partial<Record<keyof Data, string>>>((acc, f) => {
+      const e = validateField(f, data);
+      if (e) acc[f] = e;
+      return acc;
+    }, {});
+
   const canNext =
     (step === 1 && !!data.service) ||
-    (step === 2 && !!data.companyName && !!data.sector && !!data.goal && !!data.hasWebsite) ||
+    (step === 2 &&
+      !!data.sector &&
+      !!data.goal &&
+      !!data.hasWebsite &&
+      Object.keys(stepErrors(2)).length === 0) ||
     (step === 3 && !!data.contentStatus && !!data.startTime) ||
     (step === 4 &&
-      !!data.name &&
-      !!data.phone &&
-      !!data.day &&
-      !!data.time &&
       !!data.contactMethod &&
-      data.consent) ||
+      data.consent &&
+      Object.keys(stepErrors(4)).length === 0) ||
     (step === 5 && messageDraft.trim().length > 10);
+
+  const goNext = () => {
+    const errs = stepErrors(step);
+    if (Object.keys(errs).length) {
+      setTouched((t) => ({
+        ...t,
+        ...Object.fromEntries((stepFields[step] ?? []).map((f) => [f, true])),
+      }));
+      return;
+    }
+    if (!canNext) return;
+    setStep(step + 1);
+  };
 
   const submit = () => {
     if (submitting || !canNext) return;
@@ -234,6 +320,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
     setDone(true);
     setSubmitting(false);
   };
+
 
   const progress = (step / TOTAL_STEPS) * 100;
 
@@ -301,7 +388,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
             <>
               {step === 1 && (
                 <StepCards
-                  title="محتاج إيه لمشروعك؟"
+                  title="محتاج إيه لشركتك؟"
                   options={SERVICES}
                   value={data.service}
                   onChange={(v) => setData({ ...data, service: v })}
@@ -309,12 +396,14 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
               )}
               {step === 2 && (
                 <div className="space-y-4 sm:space-y-5">
-                  <Field label="اسم الشركة أو المشروع">
+                  <Field label="اسم الشركة" error={fieldError("companyName")}>
                     <input
                       value={data.companyName}
                       onChange={(e) => setData({ ...data, companyName: e.target.value })}
+                      onBlur={() => setTouched((t) => ({ ...t, companyName: true }))}
                       className="input"
                       placeholder="مثال: شركة النور للخدمات"
+                      aria-invalid={!!fieldError("companyName")}
                     />
                   </Field>
                   <Field label="مجال النشاط">
@@ -331,7 +420,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                       onChange={(v) => setData({ ...data, goal: v })}
                     />
                   </Field>
-                  <Field label="هل عندك موقع حالي؟">
+                  <Field label="هل لدى شركتك موقع حالي؟">
                     <div className="flex gap-3">
                       {["لا", "نعم"].map((v) => (
                         <button
@@ -350,16 +439,23 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                     </div>
                   </Field>
                   {data.hasWebsite === "نعم" && (
-                    <Field label="رابط الموقع الحالي">
+                    <Field label="رابط الموقع الحالي" error={fieldError("websiteUrl")}>
                       <input
                         value={data.websiteUrl}
                         onChange={(e) => setData({ ...data, websiteUrl: e.target.value })}
+                        onBlur={() => setTouched((t) => ({ ...t, websiteUrl: true }))}
                         className="input"
-                        placeholder="https://"
+                        type="url"
+                        inputMode="url"
+                        placeholder="https://example.com"
                         dir="ltr"
+                        aria-invalid={!!fieldError("websiteUrl")}
                       />
                     </Field>
                   )}
+                </div>
+              )}
+
                 </div>
               )}
               {step === 3 && (
