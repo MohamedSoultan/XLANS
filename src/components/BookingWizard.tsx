@@ -104,15 +104,70 @@ const INITIAL: Data = {
   consent: false,
 };
 
+/* ---------------- validation ---------------- */
+const AR_EN_NAME = /^[\p{L}][\p{L}\s'.-]{2,}$/u;
+
+function normalizeUrl(v: string) {
+  const t = v.trim();
+  if (!t) return "";
+  return /^https?:\/\//i.test(t) ? t : `https://${t}`;
+}
+
+export function validateField(field: keyof Data, d: Data): string | null {
+  const v = String(d[field] ?? "").trim();
+  switch (field) {
+    case "name":
+      if (!v) return "من فضلك اكتب اسمك.";
+      if (!AR_EN_NAME.test(v)) return "اكتب اسمًا صحيحًا (حروف فقط، 3 أحرف على الأقل).";
+      return null;
+    case "companyName":
+      if (!v) return "اكتب اسم شركتك.";
+      if (v.length < 2) return "اسم الشركة قصير جدًا.";
+      return null;
+    case "phone": {
+      if (!v) return "رقم الموبايل مطلوب.";
+      const digits = v.replace(/[^\d]/g, "");
+      if (!/^\+?[\d\s()-]+$/.test(v)) return "الرقم يحتوي على رموز غير صحيحة.";
+      if (digits.length < 9 || digits.length > 15)
+        return "رقم غير صحيح — اكتب الرقم بمفتاح الدولة مثل ‎+201140226705.";
+      return null;
+    }
+    case "email":
+      if (!v) return null; // optional
+      if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v)) return "صيغة البريد الإلكتروني غير صحيحة.";
+      return null;
+    case "websiteUrl": {
+      if (d.hasWebsite !== "نعم") return null;
+      if (!v) return "اكتب رابط موقع شركتك الحالي.";
+      try {
+        const u = new URL(normalizeUrl(v));
+        if (!/^https?:$/.test(u.protocol)) return "الرابط لازم يبدأ بـ http أو https.";
+        if (!/^[^\s.]+\.[^\s.]{2,}/.test(u.hostname)) return "الرابط غير صحيح (مثال: example.com).";
+        return null;
+      } catch {
+        return "الرابط غير صحيح (مثال: https://example.com).";
+      }
+    }
+    case "day":
+      if (!v) return "حدد اليوم المناسب.";
+      return null;
+    case "time":
+      if (!v) return "حدد الوقت المناسب.";
+      return null;
+    default:
+      return v ? null : "هذا الحقل مطلوب.";
+  }
+}
+
 function buildMessage(d: Data) {
-  return `مرحبًا محمد،
-أنا ${d.name} وأرغب في الاستفسار عن مشروع جديد من خلال موقع XLANS.
+  return `مرحبًا XLANS،
+أنا ${d.name.trim()} وأتواصل معكم بخصوص موقع شركتي عبر موقع XLANS.
 
 الخدمة المطلوبة:
 ${d.service}
 
-اسم الشركة أو المشروع:
-${d.companyName}
+اسم الشركة:
+${d.companyName.trim()}
 
 مجال النشاط:
 ${d.sector}
@@ -124,7 +179,7 @@ ${d.goal}
 ${d.hasWebsite}
 
 رابط الموقع الحالي:
-${d.websiteUrl || "—"}
+${d.websiteUrl ? normalizeUrl(d.websiteUrl) : "—"}
 
 الخصائص المطلوبة:
 ${d.features.join("، ") || "—"}
@@ -132,7 +187,7 @@ ${d.features.join("، ") || "—"}
 حالة المحتوى:
 ${d.contentStatus}
 
-موعد بدء المشروع:
+موعد بدء التنفيذ:
 ${d.startTime}
 
 طريقة التواصل المفضلة:
@@ -142,13 +197,14 @@ ${d.contactMethod}
 ${d.day} — ${d.time}
 
 رقم التواصل:
-${d.phone}
+${d.phone.trim()}${d.email.trim() ? `\n\nالبريد الإلكتروني:\n${d.email.trim()}` : ""}
 
 تفاصيل إضافية:
-${d.notes || "—"}
+${d.notes.trim() || "—"}
 
-أتمنى معرفة الخطوة التالية والتكلفة المناسبة.`;
+برجاء إفادتي بالخطوة التالية والتكلفة المناسبة.`;
 }
+
 
 interface Props {
   open: boolean;
