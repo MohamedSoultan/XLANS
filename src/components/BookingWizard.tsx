@@ -220,6 +220,8 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
   const [waUrl, setWaUrl] = useState("");
   const [messageDraft, setMessageDraft] = useState("");
   const [editingMessage, setEditingMessage] = useState(false);
+  const [touched, setTouched] = useState<Partial<Record<keyof Data, boolean>>>({});
+
 
   const generatedMessage = useMemo(() => buildMessage(data), [data]);
 
