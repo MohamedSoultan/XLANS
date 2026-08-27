@@ -691,7 +691,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
               <button
                 type="button"
                 disabled={!canNext}
-                onClick={() => setStep(step + 1)}
+                onClick={goNext}
                 className="inline-flex min-h-11 flex-1 items-center justify-center rounded-full navy-gradient px-5 text-sm font-bold text-navy-foreground shadow-lg transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 sm:min-h-12 sm:flex-none sm:px-6"
               >
                 {step === 4 ? "معاينة الرسالة" : "التالي"}
