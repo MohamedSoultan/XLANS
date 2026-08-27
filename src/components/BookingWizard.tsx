@@ -267,8 +267,10 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
   if (!open) return null;
 
   const stepFields: Record<number, (keyof Data)[]> = {
-    2: ["companyName", "websiteUrl"],
-    4: ["name", "phone", "email", "day", "time"],
+    1: ["service"],
+    2: ["companyName", "sector", "goal", "hasWebsite", "websiteUrl"],
+    3: ["contentStatus", "startTime"],
+    4: ["name", "phone", "email", "day", "time", "contactMethod", "consent"],
   };
 
   const fieldError = (f: keyof Data) => (touched[f] ? validateField(f, data) : null);
@@ -280,32 +282,18 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
       return acc;
     }, {});
 
-  const canNext =
-    (step === 1 && !!data.service) ||
-    (step === 2 &&
-      !!data.sector &&
-      !!data.goal &&
-      !!data.hasWebsite &&
-      Object.keys(stepErrors(2)).length === 0) ||
-    (step === 3 && !!data.contentStatus && !!data.startTime) ||
-    (step === 4 &&
-      !!data.contactMethod &&
-      data.consent &&
-      Object.keys(stepErrors(4)).length === 0) ||
-    (step === 5 && messageDraft.trim().length > 10);
+  const canNext = step === 5 ? messageDraft.trim().length > 10 : true;
 
   const goNext = () => {
     const errs = stepErrors(step);
-    if (Object.keys(errs).length) {
-      setTouched((t) => ({
-        ...t,
-        ...Object.fromEntries((stepFields[step] ?? []).map((f) => [f, true])),
-      }));
-      return;
-    }
-    if (!canNext) return;
+    setTouched((t) => ({
+      ...t,
+      ...Object.fromEntries((stepFields[step] ?? []).map((f) => [f, true])),
+    }));
+    if (Object.keys(errs).length) return;
     setStep(step + 1);
   };
+
 
   const submit = () => {
     if (submitting || !canNext) return;
