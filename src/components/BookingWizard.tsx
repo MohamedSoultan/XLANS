@@ -397,6 +397,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                   title="محتاج إيه لشركتك؟"
                   options={SERVICES}
                   value={data.service}
+                  error={fieldError("service")}
                   onChange={(v) => setData({ ...data, service: v })}
                 />
               )}
@@ -608,9 +609,12 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                       className="mt-1 h-5 w-5 accent-[color:var(--gold)]"
                     />
                     <span className="text-foreground">
-                      أوافق على إرسال تفاصيل طلبي إلى واتساب XLANS.
+                      أوافق على إرسال تفاصيل طلب شركتي إلى واتساب XLANS.
                     </span>
                   </label>
+                  {fieldError("consent") && (
+                    <p className="text-xs font-semibold text-destructive">{fieldError("consent")}</p>
+                  )}
                 </div>
               )}
               {step === 5 && (
@@ -773,15 +777,18 @@ function StepCards({
   options,
   value,
   onChange,
+  error,
 }: {
   title: string;
   options: string[];
   value: string;
   onChange: (v: string) => void;
+  error?: string | null;
 }) {
   return (
     <div>
-      <h4 className="mb-3 text-base font-bold text-foreground sm:text-lg">{title}</h4>
+      <h4 className="mb-1 text-base font-bold text-foreground sm:text-lg">{title}</h4>
+      {error && <p className="mb-2 text-xs font-semibold text-destructive">{error}</p>}
       <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3">
         {options.map((o) => {
           const active = value === o;
