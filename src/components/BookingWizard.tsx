@@ -154,9 +154,27 @@ export function validateField(field: keyof Data, d: Data): string | null {
     case "time":
       if (!v) return "حدد الوقت المناسب.";
       return null;
+    case "consent":
+      return d.consent ? null : "لازم توافق على إرسال البيانات على واتساب.";
+    case "service":
+      return v ? null : "اختر الخدمة المطلوبة.";
+    case "sector":
+      return v ? null : "اختر مجال نشاط شركتك.";
+    case "goal":
+      return v ? null : "اختر الهدف الأساسي من الموقع.";
+    case "hasWebsite":
+      return v ? null : "وضّح لو لدى شركتك موقع حالي.";
+    case "contentStatus":
+      return v ? null : "اختر حالة المحتوى.";
+    case "startTime":
+      return v ? null : "اختر موعد بدء التنفيذ.";
+    case "notes":
+    case "features":
+      return null;
     default:
       return v ? null : "هذا الحقل مطلوب.";
   }
+
 }
 
 function buildMessage(d: Data) {
