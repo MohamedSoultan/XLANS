@@ -67,7 +67,9 @@
   --border: oklch(0.92 0.01 250);
   --input: oklch(0.94 0.01 250);
   --ring: var(--gold);
+  --destructive: oklch(0.55 0.19 27);
 }
+
 
 @layer base {
   * {
