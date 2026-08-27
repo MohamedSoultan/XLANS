@@ -514,55 +514,68 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
               {step === 4 && (
                 <div className="space-y-4 sm:space-y-5">
                   <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
-                    <Field label="الاسم">
+                    <Field label="الاسم" error={fieldError("name")}>
                       <input
                         value={data.name}
                         onChange={(e) => setData({ ...data, name: e.target.value })}
+                        onBlur={() => setTouched((t) => ({ ...t, name: true }))}
                         className="input"
                         autoComplete="name"
+                        placeholder="الاسم بالكامل"
+                        aria-invalid={!!fieldError("name")}
                       />
                     </Field>
-                    <Field label="رقم الموبايل">
+                    <Field label="رقم الموبايل" error={fieldError("phone")}>
                       <input
                         value={data.phone}
                         onChange={(e) => setData({ ...data, phone: e.target.value })}
+                        onBlur={() => setTouched((t) => ({ ...t, phone: true }))}
                         className="input"
                         type="tel"
                         inputMode="tel"
                         autoComplete="tel"
                         dir="ltr"
-                        placeholder="+20"
+                        placeholder="+201140226705"
+                        aria-invalid={!!fieldError("phone")}
                       />
                     </Field>
                   </div>
-                  <Field label="البريد الإلكتروني (اختياري)">
+                  <Field label="البريد الإلكتروني (اختياري)" error={fieldError("email")}>
                     <input
                       value={data.email}
                       onChange={(e) => setData({ ...data, email: e.target.value })}
+                      onBlur={() => setTouched((t) => ({ ...t, email: true }))}
                       className="input"
                       type="email"
                       autoComplete="email"
                       dir="ltr"
+                      placeholder="name@company.com"
+                      aria-invalid={!!fieldError("email")}
                     />
                   </Field>
                   <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
-                    <Field label="اليوم المفضل">
+                    <Field label="اليوم المفضل" error={fieldError("day")}>
                       <input
                         value={data.day}
                         onChange={(e) => setData({ ...data, day: e.target.value })}
+                        onBlur={() => setTouched((t) => ({ ...t, day: true }))}
                         className="input"
                         placeholder="مثال: الأحد"
+                        aria-invalid={!!fieldError("day")}
                       />
                     </Field>
-                    <Field label="الوقت المفضل">
+                    <Field label="الوقت المفضل" error={fieldError("time")}>
                       <input
                         value={data.time}
                         onChange={(e) => setData({ ...data, time: e.target.value })}
+                        onBlur={() => setTouched((t) => ({ ...t, time: true }))}
                         className="input"
                         placeholder="مثال: 6 مساءً"
+                        aria-invalid={!!fieldError("time")}
                       />
                     </Field>
                   </div>
+
                   <Field label="طريقة التواصل المفضلة">
                     <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                       {CONTACT_METHODS.map((m) => (
