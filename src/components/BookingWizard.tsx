@@ -714,14 +714,24 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  children,
+  error,
+}: {
+  label: string;
+  children: React.ReactNode;
+  error?: string | null;
+}) {
   return (
     <label className="block">
       <span className="mb-2 block text-sm font-semibold text-foreground">{label}</span>
-      {children}
+      <div className={error ? "[&_.input]:border-destructive" : undefined}>{children}</div>
+      {error && <span className="mt-1.5 block text-xs font-semibold text-destructive">{error}</span>}
     </label>
   );
 }
+
 
 function Select({
   options,
