@@ -456,8 +456,6 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                 </div>
               )}
 
-                </div>
-              )}
               {step === 3 && (
                 <div className="space-y-4 sm:space-y-5">
                   <Field label="إيه أهم الخصائص المطلوبة؟">
