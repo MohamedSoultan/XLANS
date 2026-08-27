@@ -29,6 +29,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+
 
   --color-navy: var(--navy);
   --color-navy-deep: var(--navy-deep);
