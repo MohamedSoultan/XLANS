@@ -412,21 +412,21 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                       aria-invalid={!!fieldError("companyName")}
                     />
                   </Field>
-                  <Field label="مجال النشاط">
+                  <Field label="مجال النشاط" error={fieldError("sector")}>
                     <Select
                       options={SECTORS}
                       value={data.sector}
                       onChange={(v) => setData({ ...data, sector: v })}
                     />
                   </Field>
-                  <Field label="إيه الهدف الأساسي من الموقع؟">
+                  <Field label="إيه الهدف الأساسي من الموقع؟" error={fieldError("goal")}>
                     <Select
                       options={GOALS}
                       value={data.goal}
                       onChange={(v) => setData({ ...data, goal: v })}
                     />
                   </Field>
-                  <Field label="هل لدى شركتك موقع حالي؟">
+                  <Field label="هل لدى شركتك موقع حالي؟" error={fieldError("hasWebsite")}>
                     <div className="flex gap-3">
                       {["لا", "نعم"].map((v) => (
                         <button
@@ -492,14 +492,14 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                       })}
                     </div>
                   </Field>
-                  <Field label="هل المحتوى والصور متوفرين؟">
+                  <Field label="هل المحتوى والصور متوفرين؟" error={fieldError("contentStatus")}>
                     <Select
                       options={CONTENT_STATUS}
                       value={data.contentStatus}
                       onChange={(v) => setData({ ...data, contentStatus: v })}
                     />
                   </Field>
-                  <Field label="موعد بدء المشروع">
+                  <Field label="موعد بدء تنفيذ موقع شركتك" error={fieldError("startTime")}>
                     <Select
                       options={START_TIMES}
                       value={data.startTime}
@@ -582,7 +582,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                     </Field>
                   </div>
 
-                  <Field label="طريقة التواصل المفضلة">
+                  <Field label="طريقة التواصل المفضلة" error={fieldError("contactMethod")}>
                     <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                       {CONTACT_METHODS.map((m) => (
                         <button
