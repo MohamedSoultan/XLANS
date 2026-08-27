@@ -63,6 +63,7 @@ export function AutoRail({
       <div
         ref={ref}
         dir="ltr"
+        style={{ scrollBehavior: "auto" }}
         className={`flex gap-3 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${className}`}
       >
         {children}
