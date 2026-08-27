@@ -18,6 +18,7 @@ export function AutoRail({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const paused = useRef(false);
+  const pos = useRef(0);
 
   useEffect(() => {
     const el = ref.current;
@@ -30,12 +31,16 @@ export function AutoRail({
       if (paused.current) return;
       const max = el.scrollWidth - el.clientWidth;
       if (max <= 4) return;
-      el.scrollLeft = el.scrollLeft >= max - 1 ? 0 : el.scrollLeft + speed;
+      pos.current = pos.current >= max - 1 ? 0 : Math.min(max, pos.current + speed);
+      el.scrollLeft = pos.current;
     };
     raf = requestAnimationFrame(tick);
 
     const pause = () => (paused.current = true);
-    const resume = () => (paused.current = false);
+    const resume = () => {
+      pos.current = el.scrollLeft;
+      paused.current = false;
+    };
     const events: [string, () => void][] = [
       ["mouseenter", pause],
       ["mouseleave", resume],
@@ -58,7 +63,8 @@ export function AutoRail({
       <div
         ref={ref}
         dir="ltr"
-        className={`flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${className}`}
+        style={{ scrollBehavior: "auto" }}
+        className={`flex gap-3 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${className}`}
       >
         {children}
       </div>

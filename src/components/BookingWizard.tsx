@@ -154,9 +154,27 @@ export function validateField(field: keyof Data, d: Data): string | null {
     case "time":
       if (!v) return "حدد الوقت المناسب.";
       return null;
+    case "consent":
+      return d.consent ? null : "لازم توافق على إرسال البيانات على واتساب.";
+    case "service":
+      return v ? null : "اختر الخدمة المطلوبة.";
+    case "sector":
+      return v ? null : "اختر مجال نشاط شركتك.";
+    case "goal":
+      return v ? null : "اختر الهدف الأساسي من الموقع.";
+    case "hasWebsite":
+      return v ? null : "وضّح لو لدى شركتك موقع حالي.";
+    case "contentStatus":
+      return v ? null : "اختر حالة المحتوى.";
+    case "startTime":
+      return v ? null : "اختر موعد بدء التنفيذ.";
+    case "notes":
+    case "features":
+      return null;
     default:
       return v ? null : "هذا الحقل مطلوب.";
   }
+
 }
 
 function buildMessage(d: Data) {
@@ -267,8 +285,10 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
   if (!open) return null;
 
   const stepFields: Record<number, (keyof Data)[]> = {
-    2: ["companyName", "websiteUrl"],
-    4: ["name", "phone", "email", "day", "time"],
+    1: ["service"],
+    2: ["companyName", "sector", "goal", "hasWebsite", "websiteUrl"],
+    3: ["contentStatus", "startTime"],
+    4: ["name", "phone", "email", "day", "time", "contactMethod", "consent"],
   };
 
   const fieldError = (f: keyof Data) => (touched[f] ? validateField(f, data) : null);
@@ -280,32 +300,18 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
       return acc;
     }, {});
 
-  const canNext =
-    (step === 1 && !!data.service) ||
-    (step === 2 &&
-      !!data.sector &&
-      !!data.goal &&
-      !!data.hasWebsite &&
-      Object.keys(stepErrors(2)).length === 0) ||
-    (step === 3 && !!data.contentStatus && !!data.startTime) ||
-    (step === 4 &&
-      !!data.contactMethod &&
-      data.consent &&
-      Object.keys(stepErrors(4)).length === 0) ||
-    (step === 5 && messageDraft.trim().length > 10);
+  const canNext = step === 5 ? messageDraft.trim().length > 10 : true;
 
   const goNext = () => {
     const errs = stepErrors(step);
-    if (Object.keys(errs).length) {
-      setTouched((t) => ({
-        ...t,
-        ...Object.fromEntries((stepFields[step] ?? []).map((f) => [f, true])),
-      }));
-      return;
-    }
-    if (!canNext) return;
+    setTouched((t) => ({
+      ...t,
+      ...Object.fromEntries((stepFields[step] ?? []).map((f) => [f, true])),
+    }));
+    if (Object.keys(errs).length) return;
     setStep(step + 1);
   };
+
 
   const submit = () => {
     if (submitting || !canNext) return;
@@ -391,6 +397,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                   title="محتاج إيه لشركتك؟"
                   options={SERVICES}
                   value={data.service}
+                  error={fieldError("service")}
                   onChange={(v) => setData({ ...data, service: v })}
                 />
               )}
@@ -406,21 +413,21 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                       aria-invalid={!!fieldError("companyName")}
                     />
                   </Field>
-                  <Field label="مجال النشاط">
+                  <Field label="مجال النشاط" error={fieldError("sector")}>
                     <Select
                       options={SECTORS}
                       value={data.sector}
                       onChange={(v) => setData({ ...data, sector: v })}
                     />
                   </Field>
-                  <Field label="إيه الهدف الأساسي من الموقع؟">
+                  <Field label="إيه الهدف الأساسي من الموقع؟" error={fieldError("goal")}>
                     <Select
                       options={GOALS}
                       value={data.goal}
                       onChange={(v) => setData({ ...data, goal: v })}
                     />
                   </Field>
-                  <Field label="هل لدى شركتك موقع حالي؟">
+                  <Field label="هل لدى شركتك موقع حالي؟" error={fieldError("hasWebsite")}>
                     <div className="flex gap-3">
                       {["لا", "نعم"].map((v) => (
                         <button
@@ -456,8 +463,6 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                 </div>
               )}
 
-                </div>
-              )}
               {step === 3 && (
                 <div className="space-y-4 sm:space-y-5">
                   <Field label="إيه أهم الخصائص المطلوبة؟">
@@ -488,14 +493,14 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                       })}
                     </div>
                   </Field>
-                  <Field label="هل المحتوى والصور متوفرين؟">
+                  <Field label="هل المحتوى والصور متوفرين؟" error={fieldError("contentStatus")}>
                     <Select
                       options={CONTENT_STATUS}
                       value={data.contentStatus}
                       onChange={(v) => setData({ ...data, contentStatus: v })}
                     />
                   </Field>
-                  <Field label="موعد بدء المشروع">
+                  <Field label="موعد بدء تنفيذ موقع شركتك" error={fieldError("startTime")}>
                     <Select
                       options={START_TIMES}
                       value={data.startTime}
@@ -516,56 +521,69 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
               {step === 4 && (
                 <div className="space-y-4 sm:space-y-5">
                   <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
-                    <Field label="الاسم">
+                    <Field label="الاسم" error={fieldError("name")}>
                       <input
                         value={data.name}
                         onChange={(e) => setData({ ...data, name: e.target.value })}
+                        onBlur={() => setTouched((t) => ({ ...t, name: true }))}
                         className="input"
                         autoComplete="name"
+                        placeholder="الاسم بالكامل"
+                        aria-invalid={!!fieldError("name")}
                       />
                     </Field>
-                    <Field label="رقم الموبايل">
+                    <Field label="رقم الموبايل" error={fieldError("phone")}>
                       <input
                         value={data.phone}
                         onChange={(e) => setData({ ...data, phone: e.target.value })}
+                        onBlur={() => setTouched((t) => ({ ...t, phone: true }))}
                         className="input"
                         type="tel"
                         inputMode="tel"
                         autoComplete="tel"
                         dir="ltr"
-                        placeholder="+20"
+                        placeholder="+201140226705"
+                        aria-invalid={!!fieldError("phone")}
                       />
                     </Field>
                   </div>
-                  <Field label="البريد الإلكتروني (اختياري)">
+                  <Field label="البريد الإلكتروني (اختياري)" error={fieldError("email")}>
                     <input
                       value={data.email}
                       onChange={(e) => setData({ ...data, email: e.target.value })}
+                      onBlur={() => setTouched((t) => ({ ...t, email: true }))}
                       className="input"
                       type="email"
                       autoComplete="email"
                       dir="ltr"
+                      placeholder="name@company.com"
+                      aria-invalid={!!fieldError("email")}
                     />
                   </Field>
                   <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
-                    <Field label="اليوم المفضل">
+                    <Field label="اليوم المفضل" error={fieldError("day")}>
                       <input
                         value={data.day}
                         onChange={(e) => setData({ ...data, day: e.target.value })}
+                        onBlur={() => setTouched((t) => ({ ...t, day: true }))}
                         className="input"
                         placeholder="مثال: الأحد"
+                        aria-invalid={!!fieldError("day")}
                       />
                     </Field>
-                    <Field label="الوقت المفضل">
+                    <Field label="الوقت المفضل" error={fieldError("time")}>
                       <input
                         value={data.time}
                         onChange={(e) => setData({ ...data, time: e.target.value })}
+                        onBlur={() => setTouched((t) => ({ ...t, time: true }))}
                         className="input"
                         placeholder="مثال: 6 مساءً"
+                        aria-invalid={!!fieldError("time")}
                       />
                     </Field>
                   </div>
-                  <Field label="طريقة التواصل المفضلة">
+
+                  <Field label="طريقة التواصل المفضلة" error={fieldError("contactMethod")}>
                     <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                       {CONTACT_METHODS.map((m) => (
                         <button
@@ -591,9 +609,12 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                       className="mt-1 h-5 w-5 accent-[color:var(--gold)]"
                     />
                     <span className="text-foreground">
-                      أوافق على إرسال تفاصيل طلبي إلى واتساب XLANS.
+                      أوافق على إرسال تفاصيل طلب شركتي إلى واتساب XLANS.
                     </span>
                   </label>
+                  {fieldError("consent") && (
+                    <p className="text-xs font-semibold text-destructive">{fieldError("consent")}</p>
+                  )}
                 </div>
               )}
               {step === 5 && (
@@ -680,7 +701,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
               <button
                 type="button"
                 disabled={!canNext}
-                onClick={() => setStep(step + 1)}
+                onClick={goNext}
                 className="inline-flex min-h-11 flex-1 items-center justify-center rounded-full navy-gradient px-5 text-sm font-bold text-navy-foreground shadow-lg transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 sm:min-h-12 sm:flex-none sm:px-6"
               >
                 {step === 4 ? "معاينة الرسالة" : "التالي"}
@@ -703,14 +724,24 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  children,
+  error,
+}: {
+  label: string;
+  children: React.ReactNode;
+  error?: string | null;
+}) {
   return (
     <label className="block">
       <span className="mb-2 block text-sm font-semibold text-foreground">{label}</span>
-      {children}
+      <div className={error ? "[&_.input]:border-destructive" : undefined}>{children}</div>
+      {error && <span className="mt-1.5 block text-xs font-semibold text-destructive">{error}</span>}
     </label>
   );
 }
+
 
 function Select({
   options,
@@ -746,15 +777,18 @@ function StepCards({
   options,
   value,
   onChange,
+  error,
 }: {
   title: string;
   options: string[];
   value: string;
   onChange: (v: string) => void;
+  error?: string | null;
 }) {
   return (
     <div>
-      <h4 className="mb-3 text-base font-bold text-foreground sm:text-lg">{title}</h4>
+      <h4 className="mb-1 text-base font-bold text-foreground sm:text-lg">{title}</h4>
+      {error && <p className="mb-2 text-xs font-semibold text-destructive">{error}</p>}
       <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3">
         {options.map((o) => {
           const active = value === o;
