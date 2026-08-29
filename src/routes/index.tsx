@@ -768,7 +768,7 @@ function Footer({ onBook }: { onBook: () => void }) {
             <ul className="mt-3 space-y-2 text-sm">
               {[
                 { l: "خدماتنا", h: "#services" },
-                { l: "خطوات العمل", h: "#process" },
+                { l: "سابقة الأعمال", h: "#portfolio" },
                 { l: "الأسئلة الشائعة", h: "#faq" },
               ].map((l) => (
                 <li key={l.h}>
