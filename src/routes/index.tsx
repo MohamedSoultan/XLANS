@@ -608,82 +608,139 @@ function Process() {
    PORTFOLIO
 ============================================================ */
 function PortfolioCTA() {
-  const cases = [
+  const projects = [
     {
-      flag: "🇸🇦",
-      sector: "صناعي",
-      country: "السعودية",
-      result: "موقع شركة + كتالوج منتجات",
-      metric: "‎-40% وقت الرد على العملاء",
-      icon: Building2,
+      flag: "🇸🇦", country: "السعودية", type: "حل خدمي · قطاع قانوني",
+      name: "Rewaq Law",
+      desc: "منصة رقمية تعزز حضور المكتب وتسهل الوصول إلى خدماته القانونية.",
+      tags: ["Lead Generation", "Corporate", "Responsive"],
+      url: "https://rewaqlaw.com",
     },
     {
-      flag: "🇺🇸",
-      sector: "خدمات",
-      country: "الولايات المتحدة",
-      result: "موقع خدمات + نظام حجز",
-      metric: "حجوزات أونلاين 24/7",
-      icon: Calendar,
+      flag: "🇸🇦", country: "السعودية", type: "حل تعريفي · Corporate",
+      name: "Real Promise",
+      desc: "حضور رقمي مؤسسي ينظم قطاعات وخدمات الشركة في تجربة واحدة واضحة.",
+      tags: ["Corporate", "B2B"],
+      url: "https://realpromise-eg.com/",
     },
     {
-      flag: "🇪🇬",
-      sector: "تجارة",
-      country: "مصر",
-      result: "متجر إلكتروني WooCommerce",
-      metric: "‎+2.3x طلبات في 3 شهور",
-      icon: ShoppingBag,
+      flag: "🇸🇦", country: "السعودية", type: "حل خدمي · هندسي",
+      name: "Alafdal Engineering",
+      desc: "منصة تجمع بيع وتأجير أجهزة المساحة والدعم والصيانة والرفع المساحي في تجربة واحدة.",
+      tags: ["B2B", "E-Commerce"],
+      url: "https://alafdaleng.com",
     },
     {
-      flag: "🇶🇦",
-      sector: "قانوني",
-      country: "قطر",
-      result: "موقع مكتب محاماة بلغتين",
-      metric: "استفسارات مؤهلة أكثر",
-      icon: Briefcase,
+      flag: "🇶🇦", country: "قطر", type: "حل تعريفي · قطاع قانوني",
+      name: "Al Wajba Law",
+      desc: "حضور رقمي لمكتب محاماة قطري يعكس الخبرة ويعزز الثقة ويسهّل الوصول للمكتب.",
+      tags: ["Corporate", "خدمي"],
+      url: "https://alwajba-law.com/",
     },
     {
-      flag: "🇸🇾",
-      sector: "عقارات",
-      country: "سوريا",
-      result: "منصة عرض وحدات",
-      metric: "تصفح أسرع على الموبايل",
-      icon: Globe,
+      flag: "🇪🇬", country: "مصر", type: "حل خدمي · حجز",
+      name: "Adelaide Barbershop",
+      desc: "تجربة رقمية تُظهر هوية المكان وتحوّل زيارة الموقع إلى حجز وتواصل مباشر.",
+      tags: ["Booking", "B2C"],
+      url: "https://adeleidbarbershop.com/",
+    },
+    {
+      flag: "🇪🇬", country: "مصر", type: "حل تعريفي · Personal Brand",
+      name: "Mohamad Sultan",
+      desc: "منصة تجمع الخبرة والأعمال والخدمات في واجهة واحدة لبناء حضور شخصي مهني.",
+      tags: ["Personal Brand", "Lead Generation"],
+      url: "https://mohamadsultan.com",
+    },
+    {
+      flag: "🇪🇬", country: "مصر", type: "حل B2B · خدمات",
+      name: "Tyto Web",
+      desc: "منصة B2B تربط وكالات التسويق بقدرات تطوير الويب كامتداد لفريق الوكالة.",
+      tags: ["B2B", "Lead Generation"],
+      url: "https://tytoweb.com/",
+    },
+    {
+      flag: "🇰🇼", country: "الكويت", type: "حل تعريفي · Corporate",
+      name: "Desquare Global",
+      desc: "حضور رقمي لعلامة تعليم وتطوير يقدّم نشاطها وحلولها بصورة منظمة واحترافية.",
+      tags: ["Corporate", "B2B"],
+      url: "http://desquareglobal.com/",
+    },
+    {
+      flag: "🇪🇬", country: "مصر", type: "حل تجارة إلكترونية",
+      name: "Capital Tires",
+      desc: "تجربة شراء تعتمد على البحث الذكي بالمقاسات بدل التصفح اليدوي لآلاف المنتجات.",
+      tags: ["E-Commerce", "Smart Search"],
+      url: "https://capitaltires-eg.com/",
+    },
+    {
+      flag: "🇪🇬", country: "مصر", type: "منصة عقارية",
+      name: "Capital Homes",
+      desc: "منصة تجمع المشاريع العقارية والبحث بالمدن والمناطق لاكتشاف الاستثمار المناسب.",
+      tags: ["Real Estate", "Search"],
+      url: "https://capitalhomes-eg.com/",
+    },
+    {
+      flag: "🇪🇬", country: "مصر", type: "حل تجارة إلكترونية · B2B",
+      name: "Sama Link",
+      desc: "تنظيم آلاف منتجات الشبكات والحلول التقنية في تجربة تسوق واضحة مع بحث وتصنيفات.",
+      tags: ["E-Commerce", "B2B", "Catalog"],
+      url: "https://sama-link.com/",
+    },
+    {
+      flag: "🇪🇬", country: "مصر", type: "حل تجارة إلكترونية · خدمي",
+      name: "Electro Home",
+      desc: "منصة تجمع بيع المنتجات وطلب المقايسات وخدمات التركيب والصيانة في رحلة واحدة.",
+      tags: ["E-Commerce", "Quote Request"],
+      url: "https://electro-eg.com/",
+    },
+    {
+      flag: "🇺🇸", country: "الولايات المتحدة", type: "حل B2B · كتالوج رقمي",
+      name: "NetSys US",
+      desc: "كتالوج رقمي واسع لمنتجات الألياف والبنية التحتية للشبكات بحضور دولي في مصر ودبي وأمريكا.",
+      tags: ["B2B", "Catalog", "International"],
+      url: "https://netsys-us.com/",
     },
   ];
 
-  const waFor = (c: (typeof cases)[number]) =>
-    `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
-      `مرحبًا XLANS،\nشفت نموذج (${c.result}) في قطاع ${c.sector} - ${c.country}.\nياريت تبعتوا لي سابقة الأعمال والتفاصيل.`
-    )}`;
-
   return (
-    <Section id="portfolio" eyebrow="سابقة الأعمال" title="نتائج لشركات حقيقية">
+    <Section
+      id="portfolio"
+      eyebrow="سابقة الأعمال"
+      title="13 مشروعًا حقيقيًا في 5 دول"
+      intro="نحن نبيع حلولًا تخدم البيزنس — مش مواقع شكلها حلو وخلاص. تصفح المشاريع مباشرة."
+    >
       <AutoRail speed={0.3}>
-        {cases.map((c) => (
+        {projects.map((p) => (
           <a
-            key={c.country}
-            href={waFor(c)}
+            key={p.name}
+            href={p.url}
             target="_blank"
             rel="noopener noreferrer"
             dir="rtl"
-            className={`${CARD} group flex flex-col rounded-2xl border border-border bg-white p-5 text-right shadow-sm`}
+            className={`${CARD} group flex flex-col rounded-2xl border border-border bg-white p-5 text-right shadow-sm transition hover:border-gold/60 hover:shadow-md`}
           >
-            <div className="flex items-center justify-between gap-3">
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-cream text-navy transition group-hover:gold-gradient">
-                <c.icon className="h-4.5 w-4.5" />
-              </span>
-              <span className="truncate text-xs font-semibold text-muted-foreground">
-                {c.flag} {c.country}
-              </span>
+            <div className="flex items-center justify-between gap-2 text-xs font-semibold text-muted-foreground">
+              <span>{p.flag} {p.country}</span>
+              <span className="text-[0.7rem] font-bold text-gold">{p.type}</span>
             </div>
-            <div className="mt-3 text-[0.7rem] font-bold tracking-wide text-gold">{c.sector}</div>
-            <div className="mt-1 text-sm font-bold leading-snug text-navy">{c.result}</div>
-            <div className="mt-3 border-t border-border pt-3 text-xs font-semibold text-foreground/70">
-              {c.metric}
+            <div className="mt-2.5 text-base font-extrabold leading-snug text-navy" dir="ltr" style={{ textAlign: "right" }}>
+              {p.name}
             </div>
-            <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-[#25D366]">
-              <WhatsAppIcon className="h-4 w-4" />
-              اطلب التفاصيل
+            <p className="mt-1.5 flex-1 text-xs leading-relaxed text-foreground/70">{p.desc}</p>
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {p.tags.map((t) => (
+                <span
+                  key={t}
+                  dir="ltr"
+                  className="rounded-full bg-cream px-2 py-0.5 text-[0.62rem] font-bold text-navy"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+            <span className="mt-3 inline-flex items-center gap-1.5 border-t border-border pt-3 text-xs font-bold text-navy transition group-hover:text-gold">
+              استكشف المشروع
+              <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
             </span>
           </a>
         ))}
