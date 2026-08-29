@@ -141,15 +141,10 @@ function LandingPage() {
 
       <main>
         <Hero onBook={() => openWizard()} />
-        <TrustStrip />
-        <Audience onBook={() => openWizard()} />
-        <Services onBook={openWizard} />
-        <WhyXlans />
-        <Process />
         <PortfolioCTA />
         <BookingSection onBook={() => openWizard()} />
+        <Services onBook={openWizard} />
         <FAQ />
-        <FinalCTA onBook={() => openWizard()} />
       </main>
 
       <Footer onBook={() => openWizard()} />
@@ -171,9 +166,8 @@ function LandingPage() {
 ============================================================ */
 const NAV = [
   { label: "الرئيسية", href: "#home" },
+  { label: "سابقة الأعمال", href: "#portfolio" },
   { label: "خدماتنا", href: "#services" },
-  { label: "لماذا XLANS؟", href: "#why" },
-  { label: "خطوات العمل", href: "#process" },
   { label: "الأسئلة الشائعة", href: "#faq" },
   { label: "تواصل معنا", href: "#contact" },
 ];
