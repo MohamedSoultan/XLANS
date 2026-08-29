@@ -23,6 +23,8 @@ export function AutoRail({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // Auto-scroll on mobile only; desktop users scroll manually.
+    if (window.matchMedia("(min-width: 768px)").matches) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let raf = 0;

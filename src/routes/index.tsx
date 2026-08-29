@@ -141,15 +141,10 @@ function LandingPage() {
 
       <main>
         <Hero onBook={() => openWizard()} />
-        <TrustStrip />
-        <Audience onBook={() => openWizard()} />
-        <Services onBook={openWizard} />
-        <WhyXlans />
-        <Process />
         <PortfolioCTA />
         <BookingSection onBook={() => openWizard()} />
+        <Services onBook={openWizard} />
         <FAQ />
-        <FinalCTA onBook={() => openWizard()} />
       </main>
 
       <Footer onBook={() => openWizard()} />
@@ -171,9 +166,8 @@ function LandingPage() {
 ============================================================ */
 const NAV = [
   { label: "الرئيسية", href: "#home" },
+  { label: "سابقة الأعمال", href: "#portfolio" },
   { label: "خدماتنا", href: "#services" },
-  { label: "لماذا XLANS؟", href: "#why" },
-  { label: "خطوات العمل", href: "#process" },
   { label: "الأسئلة الشائعة", href: "#faq" },
   { label: "تواصل معنا", href: "#contact" },
 ];
@@ -358,96 +352,6 @@ function Hero({ onBook }: { onBook: () => void }) {
   );
 }
 
-/* ============================================================
-   TRUST STRIP
-============================================================ */
-function TrustStrip() {
-  const items = [
-    { icon: Briefcase, label: "+10 مشاريع لشركات حقيقية" },
-    { icon: TrendingUp, label: "+3 سنوات خبرة متخصصة" },
-    { icon: Globe, label: "عملاء في مصر والخليج وأمريكا" },
-    { icon: Zap, label: "مواقع سريعة وآمنة" },
-  ];
-  return (
-    <section className="border-y border-border bg-white py-6">
-      <div className="container-x">
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-6">
-          {items.map((it) => (
-            <div key={it.label} className="flex items-center gap-2.5">
-              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-gold/30 bg-cream text-gold">
-                <it.icon className="h-5 w-5" />
-              </div>
-              <p className="text-xs font-semibold leading-tight text-navy md:text-sm">
-                {it.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============================================================
-   AUDIENCE
-============================================================ */
-function Audience({ onBook }: { onBook: () => void }) {
-  const cards = [
-    {
-      icon: Briefcase,
-      title: "الشركات الخدمية",
-      desc: "اعرض خدمات شركتك وخلّي العميل يحجز أو يتواصل بسهولة.",
-    },
-    {
-      icon: Building2,
-      title: "الشركات الصناعية",
-      desc: "الشركة والمنتجات والكتالوج وطلب عرض السعر في مكان واحد.",
-    },
-    {
-      icon: Stethoscope,
-      title: "العيادات والمراكز",
-      desc: "موقع تعريفي مع نظام حجز أو طلب استشارة بسيط.",
-    },
-    {
-      icon: ShoppingBag,
-      title: "المتاجر والعلامات",
-      desc: "متجر سريع يساعد العميل يكتشف المنتج ويكمّل الطلب.",
-    },
-    {
-      icon: RefreshCw,
-      title: "شركات لديها موقع قديم",
-      desc: "إعادة تصميم وتحسين السرعة وتجربة الموبايل.",
-    },
-  ];
-  return (
-    <Section eyebrow="لمين الخدمة؟" title="مناسبة لشركتك لو…">
-      <AutoRail>
-        {cards.map((c) => (
-          <article
-            key={c.title}
-            dir="rtl"
-            className={`${CARD} rounded-2xl border border-border bg-white p-5 text-right`}
-          >
-            <div className="grid h-10 w-10 place-items-center rounded-xl gold-gradient text-navy">
-              <c.icon className="h-5 w-5" />
-            </div>
-            <h3 className="mt-3 text-base font-bold text-navy">{c.title}</h3>
-            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{c.desc}</p>
-          </article>
-        ))}
-      </AutoRail>
-      <div className="mt-6 text-center">
-        <button
-          onClick={onBook}
-          className="inline-flex min-h-12 items-center gap-2 rounded-full border-2 border-navy px-5 text-sm font-bold text-navy transition hover:bg-navy hover:text-navy-foreground"
-        >
-          مش متأكد إيه المناسب لشركتك؟ اسألنا مجانًا
-          <ArrowLeft className="h-4 w-4" />
-        </button>
-      </div>
-    </Section>
-  );
-}
 
 /* ============================================================
    SERVICES
@@ -520,84 +424,6 @@ function Services({ onBook }: { onBook: (s?: string) => void }) {
               <ArrowLeft className="h-4 w-4" />
             </button>
           </article>
-        ))}
-      </AutoRail>
-    </Section>
-  );
-}
-
-/* ============================================================
-   WHY XLANS (dark)
-============================================================ */
-function WhyXlans() {
-  const items = [
-    {
-      icon: Target,
-      title: "فهم البيزنس أولًا",
-      desc: "بنبدأ من هدف شركتك وسلوك عميلك، مش من الألوان.",
-    },
-    { icon: Zap, title: "سرعة تنفيذ", desc: "تسليم سريع بدون تنازل عن الجودة." },
-    { icon: Layers, title: "تخصيص حسب النشاط", desc: "كل موقع مبني على طبيعة شركتك وجمهورها." },
-    { icon: Smartphone, title: "أداء قوي على الموبايل", desc: "أغلب عملاء شركتك هيشوفوك من الموبايل." },
-    { icon: Wallet, title: "أسعار واضحة", desc: "نطاق عمل وسعر واضح قبل البداية، بدون مفاجآت." },
-    { icon: Headphones, title: "تواصل مباشر", desc: "متابعة مباشرة مع الفريق المسؤول عن حساب شركتك." },
-  ];
-  return (
-    <section id="why" className="relative overflow-hidden navy-gradient py-12 sm:py-16">
-      <div className="container-x relative">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-block rounded-full border border-gold/30 px-4 py-1.5 text-xs font-semibold text-gold-light">
-            لماذا XLANS؟
-          </span>
-          <h2 className="mt-3 text-2xl font-black text-navy-foreground sm:text-4xl">
-            ليه شركتك تشتغل مع <span className="gold-text">XLANS</span>؟
-          </h2>
-        </div>
-        <div className="mt-8">
-          <AutoRail speed={0.25}>
-            {items.map((it) => (
-              <div
-                key={it.title}
-                dir="rtl"
-                className={`${CARD} rounded-2xl border border-white/10 bg-white/[0.05] p-5 text-right backdrop-blur-sm`}
-              >
-                <div className="grid h-10 w-10 place-items-center rounded-xl gold-gradient text-navy">
-                  <it.icon className="h-5 w-5" />
-                </div>
-                <h3 className="mt-3 text-base font-bold text-navy-foreground">{it.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-white/70">{it.desc}</p>
-              </div>
-            ))}
-          </AutoRail>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============================================================
-   PROCESS
-============================================================ */
-function Process() {
-  const steps = [
-    { n: "01", title: "نفهم شركتك", desc: "نشاطك، جمهورك، هدفك، والخدمات اللي تركز عليها." },
-    { n: "02", title: "نحدد الهيكل", desc: "ترتيب الصفحات والرسائل ورحلة العميل." },
-    { n: "03", title: "نصمم وننفذ", desc: "نسخة احترافية سريعة ومتوافقة مع الموبايل." },
-    { n: "04", title: "نراجع ونطلق", desc: "مراجعة معك، تعديلات متفق عليها، ثم الإطلاق." },
-  ];
-  return (
-    <Section id="process" eyebrow="خطوات العمل" title="من أول جلسة للإطلاق" bg="bg-cream">
-      <AutoRail speed={0.25}>
-        {steps.map((s) => (
-          <div
-            key={s.n}
-            dir="rtl"
-            className={`${CARD} rounded-2xl border border-border bg-white p-5 text-right`}
-          >
-            <span className="text-3xl font-black text-gold/50">{s.n}</span>
-            <h3 className="mt-2 text-base font-bold text-navy">{s.title}</h3>
-            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
-          </div>
         ))}
       </AutoRail>
     </Section>
@@ -904,44 +730,6 @@ function FAQ() {
 }
 
 /* ============================================================
-   FINAL CTA
-============================================================ */
-function FinalCTA({ onBook }: { onBook: () => void }) {
-  return (
-    <section className="relative overflow-hidden navy-gradient py-12 sm:py-16">
-      <div className="container-x relative">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-2xl font-black leading-tight text-navy-foreground sm:text-4xl">
-            جاهز تحوّل موقع شركتك لأداة <span className="gold-text">تجيب عملاء</span>؟
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-white/75">
-            احجز استشارة مجانية ونحدد أنسب حل وخطة تنفيذ واضحة لشركتك.
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <button
-              onClick={onBook}
-              className="inline-flex min-h-12 items-center gap-2 rounded-full gold-gradient px-6 text-sm font-black text-navy shadow-xl transition hover:brightness-105 sm:text-base"
-            >
-              ابدأ الآن
-              <ArrowLeft className="h-4 w-4" />
-            </button>
-            <a
-              href={WA_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-12 items-center gap-2 rounded-full border-2 border-white/30 bg-white/5 px-5 text-sm font-bold text-white transition hover:border-gold sm:text-base"
-            >
-              <WhatsAppIcon className="h-5 w-5" />
-              تواصل واتساب
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============================================================
    FOOTER
 ============================================================ */
 function Footer({ onBook }: { onBook: () => void }) {
@@ -981,7 +769,6 @@ function Footer({ onBook }: { onBook: () => void }) {
               {[
                 { l: "خدماتنا", h: "#services" },
                 { l: "سابقة الأعمال", h: "#portfolio" },
-                { l: "خطوات العمل", h: "#process" },
                 { l: "الأسئلة الشائعة", h: "#faq" },
               ].map((l) => (
                 <li key={l.h}>
