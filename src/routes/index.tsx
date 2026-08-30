@@ -532,7 +532,7 @@ function PortfolioCTA() {
     <Section
       id="portfolio"
       eyebrow="سابقة الأعمال"
-      title="13 مشروعًا حقيقيًا في 5 دول"
+      title="مشاريع حقيقية في 5 دول"
       intro="نحن نبيع حلولًا تخدم البيزنس — مش مواقع شكلها حلو وخلاص. تصفح المشاريع مباشرة."
     >
       <AutoRail speed={0.3}>
