@@ -61,6 +61,20 @@ export function AutoRail({
     };
   }, [speed]);
 
+  const scrollByCard = (dir: 1 | -1) => {
+    const el = ref.current;
+    if (!el) return;
+    const card = el.firstElementChild as HTMLElement | null;
+    const step = card ? card.offsetWidth + 12 : el.clientWidth * 0.8;
+    const max = el.scrollWidth - el.clientWidth;
+    const next = Math.max(0, Math.min(max, el.scrollLeft + dir * step));
+    pos.current = next;
+    el.scrollTo({ left: next, behavior: "smooth" });
+  };
+
+  const btn =
+    "grid h-9 w-9 place-items-center rounded-full border border-border bg-white text-navy shadow-sm transition hover:border-gold hover:text-gold active:scale-95";
+
   return (
     <div className="-mx-5 px-5 md:mx-0 md:px-0">
       <div
@@ -70,6 +84,14 @@ export function AutoRail({
         className={`flex gap-3 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${className}`}
       >
         {children}
+      </div>
+      <div className="mt-1 flex items-center justify-center gap-3">
+        <button type="button" aria-label="التالي" onClick={() => scrollByCard(1)} className={btn}>
+          <ChevronRight className="h-5 w-5" />
+        </button>
+        <button type="button" aria-label="السابق" onClick={() => scrollByCard(-1)} className={btn}>
+          <ChevronLeft className="h-5 w-5" />
+        </button>
       </div>
     </div>
   );
