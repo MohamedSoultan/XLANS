@@ -49,17 +49,17 @@ function WhatsAppIcon({ className = "h-5 w-5" }: { className?: string }) {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "XLANS Web Solutions | مواقع احترافية للشركات" },
+      { title: "XLANS | شريك التحول الرقمي للشركات" },
       {
         name: "description",
         content:
-          "XLANS تبني لشركتك موقعًا سريعًا وآمنًا يخدم أهداف البيزنس: مواقع شركات، متاجر إلكترونية وأنظمة حجز، مع عرض سعر واضح قبل البدء.",
+          "XLANS شريك تحول رقمي للشركات: نبدأ من فهم تحديات البيزنس ثم نبني الحل الرقمي الصحيح — تحسين أداء، أنظمة رقمية، أتمتة وذكاء اصطناعي، وتكامل بين الأنظمة.",
       },
-      { property: "og:title", content: "XLANS Web Solutions | مواقع احترافية للشركات" },
+      { property: "og:title", content: "XLANS | شريك التحول الرقمي للشركات" },
       {
         property: "og:description",
         content:
-          "XLANS تبني لشركتك موقعًا سريعًا وآمنًا يخدم أهداف البيزنس: مواقع شركات، متاجر إلكترونية وأنظمة حجز.",
+          "نبدأ من فهم تحديات شركتك، ثم نبني الحل الرقمي الذي يصنع أثرًا حقيقيًا في الأداء والقرار والنمو.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
@@ -73,7 +73,7 @@ export const Route = createFileRoute("/")({
           "@type": "ProfessionalService",
           name: "XLANS Web Solutions",
           description:
-            "تصميم وتطوير مواقع احترافية للشركات، متاجر إلكترونية وأنظمة حجز.",
+            "شريك تحول رقمي للشركات: تحسين الأداء، أنظمة رقمية، أتمتة وذكاء اصطناعي، وتكامل بين الأنظمة.",
           url: "/",
           telephone: "+201140226705",
           areaServed: ["EG", "SA", "QA", "US"],
@@ -93,7 +93,7 @@ const WA_NUMBER = "201140226705";
 const PHONE_NUMBER = "+201140226705";
 const TEL_LINK = `tel:${PHONE_NUMBER}`;
 const WA_DEFAULT_MSG =
-  "مرحبًا XLANS، وصلت ليكم من الموقع وعايز أعرف أنسب حل لموقع شركتي.";
+  "مرحبًا XLANS، أود مناقشة تحدٍّ قائم داخل شركتي وكيف يمكن حله رقميًا.";
 const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_DEFAULT_MSG)}`;
 
 const SOCIALS = [
@@ -141,10 +141,13 @@ function LandingPage() {
 
       <main>
         <Hero onBook={() => openWizard()} />
+        <About />
+        <Approach />
         <PortfolioCTA />
-        <BookingSection onBook={() => openWizard()} />
         <Services onBook={openWizard} />
+        <Values />
         <FAQ />
+        <BookingSection onBook={() => openWizard()} />
       </main>
 
       <Footer onBook={() => openWizard()} />
@@ -166,10 +169,11 @@ function LandingPage() {
 ============================================================ */
 const NAV = [
   { label: "الرئيسية", href: "#home" },
-  { label: "سابقة الأعمال", href: "#portfolio" },
-  { label: "خدماتنا", href: "#services" },
-  { label: "الأسئلة الشائعة", href: "#faq" },
-  { label: "تواصل معنا", href: "#contact" },
+  { label: "فلسفتنا", href: "#about" },
+  { label: "منهجيتنا", href: "#approach" },
+  { label: "أعمالنا", href: "#portfolio" },
+  { label: "حلولنا", href: "#services" },
+  { label: "ابدأ النقاش", href: "#contact" },
 ];
 
 function Header({
@@ -212,7 +216,7 @@ function Header({
               onClick={onBook}
               className="hidden min-h-11 items-center rounded-full navy-gradient px-5 text-sm font-bold text-navy-foreground shadow-md transition hover:brightness-110 md:inline-flex"
             >
-              احجز استشارة مجانية
+              ابدأ رحلة التحول
             </button>
             <a
               href={TEL_LINK}
@@ -263,7 +267,7 @@ function Header({
               }}
               className="mt-4 min-h-13 rounded-2xl navy-gradient text-base font-bold text-navy-foreground"
             >
-              احجز استشارة مجانية
+              ابدأ رحلة التحول
             </button>
           </nav>
         </div>
@@ -279,7 +283,7 @@ function Hero({ onBook }: { onBook: () => void }) {
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-cream pt-24 pb-12 sm:pt-28 md:pt-32 md:pb-16"
+      className="relative overflow-hidden bg-cream pt-28 pb-14 sm:pt-32 md:pt-36 md:pb-20"
     >
       <div
         aria-hidden
@@ -289,44 +293,41 @@ function Hero({ onBook }: { onBook: () => void }) {
       </div>
 
       <div className="container-x relative">
-        <div className="grid items-center gap-8 md:grid-cols-[1.1fr_1fr] md:gap-12">
+        <div className="grid items-center gap-10 md:grid-cols-[1.15fr_1fr] md:gap-14">
           <div className="reveal text-center md:text-right">
             <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-white/70 px-4 py-1.5 text-xs font-semibold text-navy backdrop-blur-sm">
               <Sparkles className="h-4 w-4 text-gold" />
-              شريك رقمي لأصحاب الشركات
+              شريك التحول الرقمي للشركات
             </span>
 
-            <h1 className="mt-4 text-3xl font-black leading-[1.15] text-navy sm:text-4xl md:text-5xl">
-              موقع شركتك مش ديكور…
+            <h1 className="mt-5 text-3xl font-black leading-[1.2] text-navy sm:text-4xl md:text-[3.25rem] md:leading-[1.15]">
+              التقنية موجودة في كل مكان.
               <br />
-              لازم <span className="gold-text">يجيب لك عملاء</span>.
+              <span className="gold-text">الحل الصحيح ليس كذلك.</span>
             </h1>
 
-            <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-foreground/80 md:mx-0">
-              في XLANS بنبني لشركتك موقعًا سريعًا وآمنًا مبنيًا على أهداف البيزنس، يخلي عميلك
-              يوصل للتواصل أو الحجز أو طلب عرض السعر بأقل خطوات.
+            <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-foreground/75 md:mx-0">
+              نبدأ من فهم تحديات شركتك، ثم نبني الحل الرقمي الذي يصنع أثرًا حقيقيًا في الأداء
+              والقرار والنمو.
             </p>
 
-            <div className="mt-5 flex flex-wrap justify-center gap-3 md:justify-start">
+            <div className="mt-7 flex flex-wrap justify-center gap-3 md:justify-start">
               <button
                 onClick={onBook}
                 className="group inline-flex min-h-12 items-center gap-2 rounded-full navy-gradient px-6 text-sm font-bold text-navy-foreground shadow-xl transition hover:brightness-110 sm:text-base"
               >
-                احجز استشارة لشركتك
+                ابدأ رحلة التحول
                 <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-1" />
               </button>
               <a
-                href="#services"
+                href={WA_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex min-h-12 items-center gap-2 rounded-full border-2 border-navy/15 bg-white px-5 text-sm font-bold text-navy transition hover:border-gold sm:text-base"
               >
-                خدماتنا
+                ناقش تحديك
               </a>
             </div>
-
-            <p className="mt-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs text-muted-foreground md:justify-start sm:text-sm">
-              <Clock className="h-4 w-4 text-gold" />
-              نسخة V1 خلال 48 ساعة للمواقع التعريفية • عرض سعر واضح • بدون التزام
-            </p>
           </div>
 
           <div className="reveal relative mx-auto w-full max-w-sm" style={{ animationDelay: "120ms" }}>
@@ -334,14 +335,14 @@ function Hero({ onBook }: { onBook: () => void }) {
             <div className="relative m-[3px] overflow-hidden rounded-[1.9rem] bg-navy">
               <img
                 src={ownerPhoto}
-                alt="صاحب شركة يراجع موقع شركته"
+                alt="قيادة تنفيذية تناقش تحول شركتها الرقمي"
                 width={1024}
                 height={1024}
                 className="h-full w-full object-cover"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy via-navy/70 to-transparent p-5 pt-12 text-white">
                 <p className="text-sm font-bold leading-snug">
-                  قرارات تصميم مبنية على بيزنس شركتك — مش على الذوق فقط.
+                  القرار الصحيح قبل التنفيذ السريع.
                 </p>
               </div>
             </div>
@@ -352,50 +353,149 @@ function Hero({ onBook }: { onBook: () => void }) {
   );
 }
 
+/* ============================================================
+   ABOUT — الفلسفة
+============================================================ */
+function About() {
+  const points = [
+    {
+      title: "لماذا تتعثر الشركات؟",
+      desc: "المشكلة نادرًا ما تكون في الأدوات. غالبًا تكون في وضوح الصورة وترتيب الأولويات.",
+    },
+    {
+      title: "لماذا تفشل المشاريع التقنية؟",
+      desc: "لأنها تبدأ من التقنية، لا من التحدي. فيُبنى الحل الخاطئ بإتقان.",
+    },
+    {
+      title: "لماذا يهم سياق البيزنس؟",
+      desc: "الأثر لا يأتي من الكود، بل من قرار مبني على فهم حقيقي لطريقة عمل شركتك.",
+    },
+  ];
+  return (
+    <Section
+      id="about"
+      eyebrow="فلسفتنا"
+      title="التحول الرقمي يبدأ بالفهم، لا بالتقنية"
+      intro="الذكاء الاصطناعي يبني أي شيء أسرع من أي وقت. لكن بناء الحل الخاطئ بسرعة لا يصنع قيمة."
+    >
+      <div className="mx-auto grid max-w-4xl gap-4 md:grid-cols-3">
+        {points.map((p) => (
+          <article
+            key={p.title}
+            className="rounded-2xl border border-border bg-white p-6 text-center md:text-right"
+          >
+            <h3 className="text-base font-bold text-navy">{p.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
+          </article>
+        ))}
+      </div>
+    </Section>
+  );
+}
 
 /* ============================================================
-   SERVICES
+   APPROACH — رحلة التحول
+============================================================ */
+function Approach() {
+  const steps = [
+    { icon: Target, n: "01", t: "الاكتشاف", d: "نفهم التحدي الحقيقي داخل شركتك." },
+    { icon: Layers, n: "02", t: "التحديد", d: "نصمم الاستراتيجية والحل المناسب." },
+    { icon: Wrench, n: "03", t: "البناء", d: "نطوّر التقنية التي تناسب طريقة عملكم." },
+    { icon: TrendingUp, n: "04", t: "التحول", d: "نرفع الأداء ونفتح مساحة للنمو." },
+  ];
+  return (
+    <Section id="approach" eyebrow="منهجيتنا" title="رحلة تحول من أربع مراحل" bg="bg-cream">
+      <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {steps.map((s) => (
+          <article
+            key={s.n}
+            className="rounded-2xl border border-border bg-white p-6 text-center md:text-right"
+          >
+            <div className="mx-auto grid h-11 w-11 place-items-center rounded-xl navy-gradient text-gold md:mx-0">
+              <s.icon className="h-5 w-5" />
+            </div>
+            <div className="mt-4 text-xs font-black tracking-widest text-gold" dir="ltr">
+              {s.n}
+            </div>
+            <h3 className="mt-1 text-lg font-bold text-navy">{s.t}</h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.d}</p>
+          </article>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ============================================================
+   VALUES — مبادئ العمل
+============================================================ */
+function Values() {
+  const values = [
+    { icon: Shield, t: "الشفافية", d: "قرارات معلنة، نطاق واضح، وتكلفة بلا مفاجآت." },
+    { icon: Clock, t: "السرعة", d: "إيقاع تنفيذ منضبط يحترم زمن الفرصة في السوق." },
+    { icon: Briefcase, t: "الثقة", d: "التزام تعاقدي وسرية كاملة مع فريق يعمل كامتداد لكم." },
+  ];
+  return (
+    <Section id="values" eyebrow="مبادئنا" title="مبادئ عمل، لا شعارات تسويقية" bg="bg-cream">
+      <div className="mx-auto grid max-w-4xl gap-4 md:grid-cols-3">
+        {values.map((v) => (
+          <article
+            key={v.t}
+            className="rounded-2xl border border-border bg-white p-6 text-center md:text-right"
+          >
+            <div className="mx-auto grid h-11 w-11 place-items-center rounded-xl gold-gradient text-navy md:mx-0">
+              <v.icon className="h-5 w-5" />
+            </div>
+            <h3 className="mt-4 text-lg font-bold text-navy">{v.t}</h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{v.d}</p>
+          </article>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ============================================================
+   SOLUTIONS
 ============================================================ */
 function Services({ onBook }: { onBook: (s?: string) => void }) {
   const services = [
     {
-      icon: Building2,
-      key: "موقع شركة",
-      title: "مواقع الشركات",
-      desc: "موقع يبني ثقة عملاء شركتك ويسهّل طلب عرض السعر.",
-      features: ["تصميم مخصص للنشاط", "متوافق مع الموبايل", "ربط واتساب والسوشيال"],
+      icon: TrendingUp,
+      key: "تحسين الأداء التشغيلي",
+      title: "تحسين الأداء",
+      desc: "عمليات أوضح ورؤية أدق وهدر أقل.",
+      features: ["تبسيط العمليات", "وضوح المؤشرات", "تقليل الهدر"],
+    },
+    {
+      icon: Layers,
+      key: "أنظمة رقمية",
+      title: "أنظمة رقمية",
+      desc: "منصات وتطبيقات مؤسسية مبنية على واقع شركتك.",
+      features: ["منصات مخصصة", "تطبيقات مؤسسية", "حلول ERP"],
     },
     {
       icon: Zap,
-      key: "موقع تعريفي",
-      title: "مواقع تعريفية سريعة",
-      desc: "حل مختصر للشركات الناشئة والخدمات والـPortfolio.",
-      features: ["صفحات واضحة", "نسخة V1 خلال 48 ساعة", "أداء قوي"],
+      key: "الأتمتة والذكاء الاصطناعي",
+      title: "الأتمتة والذكاء الاصطناعي",
+      desc: "أتمتة العمل المتكرر وقرارات أسرع وأدق.",
+      features: ["أتمتة المهام", "قرارات مدعومة بالبيانات", "كفاءة تشغيلية"],
     },
     {
-      icon: Calendar,
-      key: "نظام حجز بسيط",
-      title: "أنظمة الحجز",
-      desc: "خلي عميلك يحجز موعد أو استشارة بدون تعقيد.",
-      features: ["خطوات حجز سهلة", "اختيار الخدمة والموعد", "تحويل مباشر لواتساب"],
-    },
-    {
-      icon: Store,
-      key: "متجر إلكتروني",
-      title: "المتاجر الإلكترونية",
-      desc: "متجر سريع وآمن بتجربة شراء مناسبة لمنتجات شركتك.",
-      features: ["WooCommerce", "إدارة المنتجات", "ربط الدفع والشحن"],
-    },
-    {
-      icon: Wrench,
-      key: "تطوير موقع حالي",
-      title: "تطوير موقع قائم",
-      desc: "تحسين موقع شركتك الحالي بدل البدء من الصفر.",
-      features: ["تحسين السرعة", "تحسين الموبايل", "الحماية والنسخ الاحتياطي"],
+      icon: RefreshCw,
+      key: "التكامل بين الأنظمة",
+      title: "التكامل",
+      desc: "ربط الأنظمة والبيانات في مصدر واحد موثوق.",
+      features: ["ربط الأنظمة", "توحيد البيانات", "تدفق بلا انقطاع"],
     },
   ];
   return (
-    <Section id="services" eyebrow="خدماتنا" title="حلول تخدم أهداف شركتك" bg="bg-cream">
+    <Section
+      id="services"
+      eyebrow="حلولنا"
+      title="نبدأ من احتياج البيزنس، لا من المنتج"
+      bg="bg-white"
+    >
       <AutoRail speed={0.3}>
         {services.map((s) => (
           <article
@@ -420,7 +520,7 @@ function Services({ onBook }: { onBook: (s?: string) => void }) {
               onClick={() => onBook(s.key)}
               className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-full border-2 border-navy/15 bg-cream/60 px-4 text-sm font-bold text-navy transition hover:border-gold hover:bg-gold"
             >
-              اطلب عرض سعر
+              ناقش هذا التحدي
               <ArrowLeft className="h-4 w-4" />
             </button>
           </article>
@@ -531,9 +631,9 @@ function PortfolioCTA() {
   return (
     <Section
       id="portfolio"
-      eyebrow="سابقة الأعمال"
-      title="مشاريع حقيقية في 5 دول"
-      intro="نحن نبيع حلولًا تخدم البيزنس — مش مواقع شكلها حلو وخلاص. تصفح المشاريع مباشرة."
+      eyebrow="أثر حقيقي"
+      title="شركات اختارت أن تبدأ من التحدي"
+      intro="كل مشروع بدأ بسؤال عن البيزنس، لا بطلب تقني."
     >
       <AutoRail speed={0.3}>
         {projects.map((p) => (
@@ -582,7 +682,7 @@ function PortfolioCTA() {
           className="inline-flex min-h-12 w-full max-w-sm items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
         >
           <WhatsAppIcon className="h-5 w-5" />
-          استلم ملف سابقة الأعمال
+          اطلب ملف الأعمال الكامل
         </a>
         <p className="text-center text-xs text-muted-foreground">
           رد خلال دقائق في أوقات العمل — التزام كامل بالسرية.
@@ -599,9 +699,10 @@ function BookingSection({ onBook }: { onBook: () => void }) {
   return (
     <Section
       id="contact"
-      eyebrow="ابدأ الآن"
-      title="استشارة مجانية لشركتك في أقل من دقيقة"
-      bg="bg-cream"
+      eyebrow="الخطوة التالية"
+      title="التحديات موجودة بالفعل داخل شركتك"
+      intro="السؤال الحقيقي: هل تُحل بالرؤية الصحيحة؟"
+      bg="bg-white"
     >
       <div className="mx-auto max-w-xl overflow-hidden rounded-2xl border border-border bg-white shadow-lg">
         <div className="navy-gradient p-5">
@@ -610,18 +711,18 @@ function BookingSection({ onBook }: { onBook: () => void }) {
               <Rocket className="h-5 w-5" />
             </div>
             <div>
-              <div className="text-xs text-gold-light">4 خطوات فقط</div>
-              <div className="text-base font-bold">استشارة مجانية بدون التزام</div>
+              <div className="text-xs text-gold-light">أقل من دقيقة</div>
+              <div className="text-base font-bold">جلسة نقاش حول تحدي واحد</div>
             </div>
           </div>
         </div>
         <div className="p-5">
           <ul className="space-y-2.5">
             {[
-              "اختر الخدمة المناسبة لشركتك",
-              "اكتب بيانات الشركة وهدف الموقع",
-              "حدد الخصائص وحالة المحتوى",
-              "اترك بياناتك وطريقة التواصل",
+              "حدد مجال التحدي داخل شركتك",
+              "شارك سياق البيزنس والأثر المتوقع",
+              "نرسم معك ملامح الحل المناسب",
+              "تستلم رؤية أولية وخطوات واضحة",
             ].map((t, i) => (
               <li key={t} className="flex items-start gap-3 text-sm">
                 <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full gold-gradient text-xs font-black text-navy">
@@ -635,7 +736,7 @@ function BookingSection({ onBook }: { onBook: () => void }) {
             onClick={onBook}
             className="mt-5 flex min-h-12 w-full items-center justify-center gap-2 rounded-full navy-gradient text-base font-bold text-navy-foreground shadow-lg transition hover:brightness-110"
           >
-            ابدأ الحجز الآن
+            ابدأ نقاش التحول الرقمي
             <ArrowLeft className="h-4 w-4" />
           </button>
         </div>
@@ -650,32 +751,28 @@ function BookingSection({ onBook }: { onBook: () => void }) {
 function FAQ() {
   const items = [
     {
-      q: "الموقع بيتكلف كام؟",
-      a: "التكلفة حسب عدد الصفحات والخصائص والمحتوى. بعد فهم احتياج شركتك هتستلم عرض سعر واضح قبل البداية.",
+      q: "من أين نبدأ معكم؟",
+      a: "من جلسة قصيرة حول تحدٍّ واحد داخل شركتك. نخرج منها برؤية أولية وأولويات واضحة.",
     },
     {
-      q: "فعلًا نسخة خلال 48 ساعة؟",
-      a: "نعم للمواقع التعريفية القياسية، بعد استلام المحتوى وتأكيد النطاق. التسليم يكون للنسخة الأولى V1.",
+      q: "هل تبيعون منتجًا جاهزًا؟",
+      a: "لا. نحدد أولًا ما يستحق أن يُبنى ولماذا، ثم نختار التقنية المناسبة لذلك القرار.",
     },
     {
-      q: "هل الموقع هيشتغل كويس على الموبايل؟",
-      a: "نعم، كل المواقع بتتصمم Mobile-first وتتراجع على أحجام شاشات مختلفة.",
+      q: "كيف تُقاس النتائج؟",
+      a: "نتفق مسبقًا على مؤشرات مرتبطة بالأداء التشغيلي أو الإيراد أو سرعة القرار.",
     },
     {
-      q: "أقدر أعدل الموقع بعد التسليم؟",
-      a: "نعم، مع شرح لإدارة المحتوى أو باقة صيانة ودعم حسب احتياج شركتك.",
+      q: "كم تستغرق رحلة التحول؟",
+      a: "تبدأ بمرحلة اكتشاف قصيرة، ثم تنفيذ على دفعات تُظهر أثرًا مبكرًا بدل انتظار نهاية المشروع.",
     },
     {
-      q: "الدومين والاستضافة مشمولين؟",
-      a: "بيتم توضيحهم داخل عرض السعر حسب الباقة ومتطلبات شركتك.",
+      q: "هل تعملون مع فرقنا الداخلية؟",
+      a: "نعم، كامتداد لفريقكم مع نقل معرفة كامل وتوثيق واضح.",
     },
     {
-      q: "بتطوروا المواقع القديمة؟",
-      a: "نعم، بنراجع الموقع الحالي ونحسّن التصميم والسرعة والأمان وتجربة الموبايل.",
-    },
-    {
-      q: "هتتعامل مع مين أثناء التنفيذ؟",
-      a: "مع فريق XLANS المسؤول عن حساب شركتك من التخطيط حتى الإطلاق والدعم.",
+      q: "ما مستوى السرية؟",
+      a: "التزام تعاقدي كامل بسرية بيانات شركتك وعملياتها.",
     },
   ];
   const [open, setOpen] = useState<number | null>(0);
@@ -745,7 +842,7 @@ function Footer({ onBook }: { onBook: () => void }) {
               <div className="text-base font-black text-white">XLANS Web Solutions</div>
             </div>
             <p className="mt-4 max-w-md text-sm leading-relaxed text-white/70">
-              حلول مواقع احترافية تساعد الشركات على بناء حضور رقمي واضح وتحقيق أهداف البيزنس.
+              شريك تحول رقمي يساعد الشركات على فهم تحدياتها وبناء الحل الصحيح.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               {SOCIALS.map((s) => (
@@ -767,8 +864,8 @@ function Footer({ onBook }: { onBook: () => void }) {
             <h4 className="text-sm font-bold text-white">روابط سريعة</h4>
             <ul className="mt-3 space-y-2 text-sm">
               {[
-                { l: "خدماتنا", h: "#services" },
-                { l: "سابقة الأعمال", h: "#portfolio" },
+                { l: "حلولنا", h: "#services" },
+                { l: "أعمالنا", h: "#portfolio" },
                 { l: "الأسئلة الشائعة", h: "#faq" },
               ].map((l) => (
                 <li key={l.h}>
@@ -779,7 +876,7 @@ function Footer({ onBook }: { onBook: () => void }) {
               ))}
               <li>
                 <button onClick={onBook} className="text-white/70 transition hover:text-gold">
-                  احجز استشارة
+                  ابدأ النقاش
                 </button>
               </li>
             </ul>
@@ -836,7 +933,7 @@ function MobileBottomBar({ onBook }: { onBook: () => void }) {
           onClick={onBook}
           className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full navy-gradient text-sm font-bold text-navy-foreground"
         >
-          احجز استشارة
+          ابدأ النقاش
           <ArrowLeft className="h-4 w-4" />
         </button>
         <a
