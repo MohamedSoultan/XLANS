@@ -169,10 +169,11 @@ function LandingPage() {
 ============================================================ */
 const NAV = [
   { label: "الرئيسية", href: "#home" },
-  { label: "سابقة الأعمال", href: "#portfolio" },
-  { label: "خدماتنا", href: "#services" },
-  { label: "الأسئلة الشائعة", href: "#faq" },
-  { label: "تواصل معنا", href: "#contact" },
+  { label: "فلسفتنا", href: "#about" },
+  { label: "منهجيتنا", href: "#approach" },
+  { label: "أعمالنا", href: "#portfolio" },
+  { label: "حلولنا", href: "#services" },
+  { label: "ابدأ النقاش", href: "#contact" },
 ];
 
 function Header({
