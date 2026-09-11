@@ -216,7 +216,7 @@ function Header({
               onClick={onBook}
               className="hidden min-h-11 items-center rounded-full navy-gradient px-5 text-sm font-bold text-navy-foreground shadow-md transition hover:brightness-110 md:inline-flex"
             >
-              احجز استشارة مجانية
+              ابدأ رحلة التحول
             </button>
             <a
               href={TEL_LINK}
@@ -267,7 +267,7 @@ function Header({
               }}
               className="mt-4 min-h-13 rounded-2xl navy-gradient text-base font-bold text-navy-foreground"
             >
-              احجز استشارة مجانية
+              ابدأ رحلة التحول
             </button>
           </nav>
         </div>
@@ -879,7 +879,7 @@ function Footer({ onBook }: { onBook: () => void }) {
               ))}
               <li>
                 <button onClick={onBook} className="text-white/70 transition hover:text-gold">
-                  احجز استشارة
+                  ابدأ النقاش
                 </button>
               </li>
             </ul>
@@ -936,7 +936,7 @@ function MobileBottomBar({ onBook }: { onBook: () => void }) {
           onClick={onBook}
           className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full navy-gradient text-sm font-bold text-navy-foreground"
         >
-          احجز استشارة
+          ابدأ النقاش
           <ArrowLeft className="h-4 w-4" />
         </button>
         <a
