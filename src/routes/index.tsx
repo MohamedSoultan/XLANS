@@ -744,11 +744,6 @@ function BookingSection({ onBook }: { onBook: () => void }) {
     </Section>
   );
 }
-        </div>
-      </div>
-    </Section>
-  );
-}
 
 /* ============================================================
    FAQ
