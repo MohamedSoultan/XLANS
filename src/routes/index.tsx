@@ -699,9 +699,10 @@ function BookingSection({ onBook }: { onBook: () => void }) {
   return (
     <Section
       id="contact"
-      eyebrow="ابدأ الآن"
-      title="استشارة مجانية لشركتك في أقل من دقيقة"
-      bg="bg-cream"
+      eyebrow="الخطوة التالية"
+      title="التحديات موجودة بالفعل داخل شركتك"
+      intro="السؤال الحقيقي: هل تُحل بالرؤية الصحيحة؟"
+      bg="bg-white"
     >
       <div className="mx-auto max-w-xl overflow-hidden rounded-2xl border border-border bg-white shadow-lg">
         <div className="navy-gradient p-5">
@@ -710,18 +711,18 @@ function BookingSection({ onBook }: { onBook: () => void }) {
               <Rocket className="h-5 w-5" />
             </div>
             <div>
-              <div className="text-xs text-gold-light">4 خطوات فقط</div>
-              <div className="text-base font-bold">استشارة مجانية بدون التزام</div>
+              <div className="text-xs text-gold-light">أقل من دقيقة</div>
+              <div className="text-base font-bold">جلسة نقاش حول تحدي واحد</div>
             </div>
           </div>
         </div>
         <div className="p-5">
           <ul className="space-y-2.5">
             {[
-              "اختر الخدمة المناسبة لشركتك",
-              "اكتب بيانات الشركة وهدف الموقع",
-              "حدد الخصائص وحالة المحتوى",
-              "اترك بياناتك وطريقة التواصل",
+              "حدد مجال التحدي داخل شركتك",
+              "شارك سياق البيزنس والأثر المتوقع",
+              "نرسم معك ملامح الحل المناسب",
+              "تستلم رؤية أولية وخطوات واضحة",
             ].map((t, i) => (
               <li key={t} className="flex items-start gap-3 text-sm">
                 <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full gold-gradient text-xs font-black text-navy">
@@ -735,9 +736,14 @@ function BookingSection({ onBook }: { onBook: () => void }) {
             onClick={onBook}
             className="mt-5 flex min-h-12 w-full items-center justify-center gap-2 rounded-full navy-gradient text-base font-bold text-navy-foreground shadow-lg transition hover:brightness-110"
           >
-            ابدأ الحجز الآن
+            ابدأ نقاش التحول الرقمي
             <ArrowLeft className="h-4 w-4" />
           </button>
+        </div>
+      </div>
+    </Section>
+  );
+}
         </div>
       </div>
     </Section>
