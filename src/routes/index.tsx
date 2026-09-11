@@ -93,7 +93,7 @@ const WA_NUMBER = "201140226705";
 const PHONE_NUMBER = "+201140226705";
 const TEL_LINK = `tel:${PHONE_NUMBER}`;
 const WA_DEFAULT_MSG =
-  "مرحبًا XLANS، وصلت ليكم من الموقع وعايز أعرف أنسب حل لموقع شركتي.";
+  "مرحبًا XLANS، أود مناقشة تحدٍّ قائم داخل شركتي وكيف يمكن حله رقميًا.";
 const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_DEFAULT_MSG)}`;
 
 const SOCIALS = [
