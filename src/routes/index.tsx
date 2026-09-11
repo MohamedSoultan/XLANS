@@ -49,17 +49,17 @@ function WhatsAppIcon({ className = "h-5 w-5" }: { className?: string }) {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "XLANS Web Solutions | مواقع احترافية للشركات" },
+      { title: "XLANS | شريك التحول الرقمي للشركات" },
       {
         name: "description",
         content:
-          "XLANS تبني لشركتك موقعًا سريعًا وآمنًا يخدم أهداف البيزنس: مواقع شركات، متاجر إلكترونية وأنظمة حجز، مع عرض سعر واضح قبل البدء.",
+          "XLANS شريك تحول رقمي للشركات: نبدأ من فهم تحديات البيزنس ثم نبني الحل الرقمي الصحيح — تحسين أداء، أنظمة رقمية، أتمتة وذكاء اصطناعي، وتكامل بين الأنظمة.",
       },
-      { property: "og:title", content: "XLANS Web Solutions | مواقع احترافية للشركات" },
+      { property: "og:title", content: "XLANS | شريك التحول الرقمي للشركات" },
       {
         property: "og:description",
         content:
-          "XLANS تبني لشركتك موقعًا سريعًا وآمنًا يخدم أهداف البيزنس: مواقع شركات، متاجر إلكترونية وأنظمة حجز.",
+          "نبدأ من فهم تحديات شركتك، ثم نبني الحل الرقمي الذي يصنع أثرًا حقيقيًا في الأداء والقرار والنمو.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
