@@ -141,10 +141,13 @@ function LandingPage() {
 
       <main>
         <Hero onBook={() => openWizard()} />
+        <About />
+        <Approach />
         <PortfolioCTA />
-        <BookingSection onBook={() => openWizard()} />
         <Services onBook={openWizard} />
+        <Values />
         <FAQ />
+        <BookingSection onBook={() => openWizard()} />
       </main>
 
       <Footer onBook={() => openWizard()} />
