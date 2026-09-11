@@ -631,9 +631,9 @@ function PortfolioCTA() {
   return (
     <Section
       id="portfolio"
-      eyebrow="سابقة الأعمال"
-      title="مشاريع حقيقية في 5 دول"
-      intro="نحن نبيع حلولًا تخدم البيزنس — مش مواقع شكلها حلو وخلاص. تصفح المشاريع مباشرة."
+      eyebrow="أثر حقيقي"
+      title="شركات اختارت أن تبدأ من التحدي"
+      intro="كل مشروع بدأ بسؤال عن البيزنس، لا بطلب تقني."
     >
       <AutoRail speed={0.3}>
         {projects.map((p) => (
