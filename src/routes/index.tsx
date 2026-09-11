@@ -842,7 +842,7 @@ function Footer({ onBook }: { onBook: () => void }) {
               <div className="text-base font-black text-white">XLANS Web Solutions</div>
             </div>
             <p className="mt-4 max-w-md text-sm leading-relaxed text-white/70">
-              حلول مواقع احترافية تساعد الشركات على بناء حضور رقمي واضح وتحقيق أهداف البيزنس.
+              شريك تحول رقمي يساعد الشركات على فهم تحدياتها وبناء الحل الصحيح.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               {SOCIALS.map((s) => (
