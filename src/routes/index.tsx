@@ -682,7 +682,7 @@ function PortfolioCTA() {
           className="inline-flex min-h-12 w-full max-w-sm items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
         >
           <WhatsAppIcon className="h-5 w-5" />
-          استلم ملف سابقة الأعمال
+          اطلب ملف الأعمال الكامل
         </a>
         <p className="text-center text-xs text-muted-foreground">
           رد خلال دقائق في أوقات العمل — التزام كامل بالسرية.
@@ -864,8 +864,8 @@ function Footer({ onBook }: { onBook: () => void }) {
             <h4 className="text-sm font-bold text-white">روابط سريعة</h4>
             <ul className="mt-3 space-y-2 text-sm">
               {[
-                { l: "خدماتنا", h: "#services" },
-                { l: "سابقة الأعمال", h: "#portfolio" },
+                { l: "حلولنا", h: "#services" },
+                { l: "أعمالنا", h: "#portfolio" },
                 { l: "الأسئلة الشائعة", h: "#faq" },
               ].map((l) => (
                 <li key={l.h}>
