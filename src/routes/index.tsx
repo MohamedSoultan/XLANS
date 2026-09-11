@@ -73,7 +73,7 @@ export const Route = createFileRoute("/")({
           "@type": "ProfessionalService",
           name: "XLANS Web Solutions",
           description:
-            "تصميم وتطوير مواقع احترافية للشركات، متاجر إلكترونية وأنظمة حجز.",
+            "شريك تحول رقمي للشركات: تحسين الأداء، أنظمة رقمية، أتمتة وذكاء اصطناعي، وتكامل بين الأنظمة.",
           url: "/",
           telephone: "+201140226705",
           areaServed: ["EG", "SA", "QA", "US"],
