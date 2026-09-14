@@ -12,95 +12,127 @@ function WhatsAppIcon({ className = "h-5 w-5" }: { className?: string }) {
 const WA_NUMBER = "201140226705";
 const TOTAL_STEPS = 5;
 
-const SERVICES = [
-  "موقع شركة",
-  "موقع تعريفي",
-  "متجر إلكتروني",
-  "نظام حجز بسيط",
-  "تطوير موقع حالي",
-  "تحسين سرعة وأداء",
-  "مش متأكد وعايز استشارة",
+const ORG_TYPES = [
+  "شركة كبيرة (Enterprise — 250+ موظف)",
+  "شركة متوسطة (50–250 موظف)",
+  "مؤسسة حكومية / شبه حكومية",
+  "منظمة غير ربحية / NGO",
+  "شركة ناشئة سريعة النمو",
 ];
 
-const SECTORS = [
-  "خدمات",
-  "صناعة",
-  "تجارة إلكترونية",
-  "عيادات ومراكز",
-  "عقارات",
-  "هندسة ومقاولات",
-  "تعليم وتدريب",
-  "سياحة",
-  "مطاعم",
-  "أخرى",
+const CHALLENGES = [
+  "تكامل الأنظمة والبيانات المبعثرة",
+  "أتمتة العمليات وتقليل العمل اليدوي",
+  "تحسين تجربة العملاء أو الموظفين",
+  "تحليل البيانات ودعم اتخاذ القرار",
+  "بناء منصة رقمية جديدة",
+  "تحديث بنية تقنية قديمة",
+  "غير محدد / نحتاج تقييم",
+];
+
+const SYSTEMS = [
+  "ERP",
+  "CRM",
+  "موقع إلكتروني",
+  "تطبيق موبايل",
+  "Excel / عمل يدوي",
+  "لا يوجد نظام مركزي",
+  "أنظمة أخرى",
 ];
 
 const GOALS = [
-  "تعريف بالشركة",
-  "استقبال طلبات تواصل",
-  "حجز مواعيد",
-  "طلب عرض سعر",
-  "عرض منتجات",
-  "بيع أونلاين",
-  "تحسين الثقة",
-  "تطوير موقع حالي",
+  "تحسين الكفاءة التشغيلية",
+  "تقليل التكلفة التقنية",
+  "زيادة الإيرادات",
+  "تحسين تجربة العملاء",
+  "دعم اتخاذ القرار بالبيانات",
+  "التوسع الجغرافي أو التشغيلي",
+  "توحيد العمليات بين الفروع",
 ];
 
-const FEATURES = [
-  "واتساب مباشر",
-  "نموذج تواصل",
-  "حجز مواعيد",
-  "كتالوج منتجات",
-  "متجر إلكتروني",
-  "دفع إلكتروني",
-  "لغتين",
-  "مدونة",
-  "طلب عرض سعر",
-  "فلترة وبحث",
-  "مش متأكد",
+const TIMELINES = [
+  "في أسرع وقت",
+  "خلال 3 أشهر",
+  "خلال 6 أشهر",
+  "خلال سنة",
+  "لسه في مرحلة التخطيط",
 ];
 
-const CONTENT_STATUS = ["جاهزين", "متوفر جزء منهم", "محتاج مساعدة", "مش عارف المطلوب"];
-const START_TIMES = ["في أسرع وقت", "خلال أسبوع", "خلال شهر", "لسه بجمع معلومات"];
-const CONTACT_METHODS = ["مكالمة", "واتساب", "رسالة صوتية", "غير محدد"];
+const BUDGET_RANGES = [
+  "أقل من 50,000 ج.م",
+  "50,000 – 150,000 ج.م",
+  "150,000 – 500,000 ج.م",
+  "أكثر من 500,000 ج.م",
+  "نحتاج تقدير أولي",
+];
+
+const TEAM_SIZES = [
+  "أقل من 50",
+  "50 – 250",
+  "250 – 1,000",
+  "أكثر من 1,000",
+];
+
+const CONTACT_METHODS = ["مكالمة", "واتساب", "Zoom", "Microsoft Teams"];
+
+const DISCOVERY_DAYS = [
+  "السبت",
+  "الأحد",
+  "الإثنين",
+  "الثلاثاء",
+  "الأربعاء",
+  "الخميس",
+];
+
+const DISCOVERY_TIMES = [
+  "٩ ص – ١١ ص",
+  "١١ ص – ١ ظ",
+  "١ ظ – ٣ م",
+  "٣ م – ٥ م",
+  "٥ م – ٦ م",
+];
 
 type Data = {
-  service: string;
-  companyName: string;
-  sector: string;
+  orgType: string;
+  challenge: string;
+  systems: string[];
+  teamSize: string;
+  hasPlatform: string;
+  platformUrl: string;
   goal: string;
-  hasWebsite: string;
-  websiteUrl: string;
-  features: string[];
-  contentStatus: string;
-  startTime: string;
-  notes: string;
+  timeline: string;
+  budgetRange: string;
   name: string;
+  role: string;
+  companyName: string;
   phone: string;
   email: string;
   day: string;
   time: string;
   contactMethod: string;
+  notes: string;
   consent: boolean;
 };
 
 const INITIAL: Data = {
-  service: "",
-  companyName: "",
-  sector: "",
+  orgType: "",
+  challenge: "",
+  systems: [],
+  teamSize: "",
+  hasPlatform: "",
+  platformUrl: "",
   goal: "",
-  hasWebsite: "",
-  websiteUrl: "",
-  features: [],
-  contentStatus: "",
-  startTime: "",
-  notes: "",
+  timeline: "",
+  budgetRange: "",
   name: "",
+  role: "",
+  companyName: "",
   phone: "",
   email: "",
   day: "",
   time: "",
   contactMethod: "",
+  notes: "",
   consent: false,
 };
 
@@ -120,8 +152,12 @@ export function validateField(field: keyof Data, d: Data): string | null {
       if (!v) return "من فضلك اكتب اسمك.";
       if (!AR_EN_NAME.test(v)) return "اكتب اسمًا صحيحًا (حروف فقط، 3 أحرف على الأقل).";
       return null;
+    case "role":
+      if (!v) return "اكتب مسمّاك الوظيفي.";
+      if (v.length < 2) return "المسمى الوظيفي قصير جدًا.";
+      return null;
     case "companyName":
-      if (!v) return "اكتب اسم شركتك.";
+      if (!v) return "اكتب اسم المنظمة أو الشركة.";
       if (v.length < 2) return "اسم الشركة قصير جدًا.";
       return null;
     case "phone": {
@@ -133,12 +169,12 @@ export function validateField(field: keyof Data, d: Data): string | null {
       return null;
     }
     case "email":
-      if (!v) return null; // optional
+      if (!v) return "البريد الإلكتروني مطلوب.";
       if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v)) return "صيغة البريد الإلكتروني غير صحيحة.";
       return null;
-    case "websiteUrl": {
-      if (d.hasWebsite !== "نعم") return null;
-      if (!v) return "اكتب رابط موقع شركتك الحالي.";
+    case "platformUrl": {
+      if (d.hasPlatform !== "نعم") return null;
+      if (!v) return "اكتب رابط المنصة أو الموقع الحالي.";
       try {
         const u = new URL(normalizeUrl(v));
         if (!/^https?:$/.test(u.protocol)) return "الرابط لازم يبدأ بـ http أو https.";
@@ -156,73 +192,74 @@ export function validateField(field: keyof Data, d: Data): string | null {
       return null;
     case "consent":
       return d.consent ? null : "لازم توافق على إرسال البيانات على واتساب.";
-    case "service":
-      return v ? null : "اختر الخدمة المطلوبة.";
-    case "sector":
-      return v ? null : "اختر مجال نشاط شركتك.";
+    case "orgType":
+      return v ? null : "اختر حجم المنظمة.";
+    case "challenge":
+      return v ? null : "حدد التحدي الرئيسي.";
+    case "teamSize":
+      return v ? null : "حدد حجم الفريق أو المستخدمين.";
+    case "hasPlatform":
+      return v ? null : "وضّح وجود منصة حالية.";
     case "goal":
-      return v ? null : "اختر الهدف الأساسي من الموقع.";
-    case "hasWebsite":
-      return v ? null : "وضّح لو لدى شركتك موقع حالي.";
-    case "contentStatus":
-      return v ? null : "اختر حالة المحتوى.";
-    case "startTime":
-      return v ? null : "اختر موعد بدء التنفيذ.";
+      return v ? null : "اختر الهدف الرئيسي.";
+    case "timeline":
+      return v ? null : "حدد الجدول الزمني المتوقع.";
+    case "budgetRange":
+      return v ? null : "حدد نطاق الميزانية التقريبي.";
+    case "contactMethod":
+      return v ? null : "اختر طريقة التواصل المفضلة.";
+    case "systems":
     case "notes":
-    case "features":
       return null;
     default:
       return v ? null : "هذا الحقل مطلوب.";
   }
-
 }
 
 function buildMessage(d: Data) {
-  return `مرحبًا XLANS،
-أنا ${d.name.trim()} وأتواصل معكم بخصوص موقع شركتي عبر موقع XLANS.
+  return `مرحبًا فريق XLANS،
+أنا ${d.name.trim()} (${d.role.trim()}) من ${d.companyName.trim()}.
 
-الخدمة المطلوبة:
-${d.service}
+حجم المنظمة:
+${d.orgType}
 
-اسم الشركة:
-${d.companyName.trim()}
+التحدي الرئيسي:
+${d.challenge}
 
-مجال النشاط:
-${d.sector}
+الأنظمة / الأدوات الحالية:
+${d.systems.join("، ") || "—"}
 
-الهدف الأساسي:
+عدد المستخدمين / الموظفين:
+${d.teamSize}
+
+وجود منصة حالية:
+${d.hasPlatform}${d.hasPlatform === "نعم" && d.platformUrl ? ` — ${normalizeUrl(d.platformUrl)}` : ""}
+
+الهدف الرئيسي من التحول:
 ${d.goal}
 
-هل يوجد موقع حالي؟
-${d.hasWebsite}
+الجدول الزمني المتوقع:
+${d.timeline}
 
-رابط الموقع الحالي:
-${d.websiteUrl ? normalizeUrl(d.websiteUrl) : "—"}
-
-الخصائص المطلوبة:
-${d.features.join("، ") || "—"}
-
-حالة المحتوى:
-${d.contentStatus}
-
-موعد بدء التنفيذ:
-${d.startTime}
+نطاق الميزانية التقريبي:
+${d.budgetRange}
 
 طريقة التواصل المفضلة:
 ${d.contactMethod}
 
-اليوم والوقت المناسب:
+موعد Discovery Call المفضل:
 ${d.day} — ${d.time}
 
 رقم التواصل:
-${d.phone.trim()}${d.email.trim() ? `\n\nالبريد الإلكتروني:\n${d.email.trim()}` : ""}
+${d.phone.trim()}
+البريد الإلكتروني:
+${d.email.trim()}
 
-تفاصيل إضافية:
+ملاحظات إضافية:
 ${d.notes.trim() || "—"}
 
-برجاء إفادتي بالخطوة التالية والتكلفة المناسبة.`;
+أرغب في حجز Discovery Call لتحديد نقطة البداية الصحيحة.`;
 }
-
 
 interface Props {
   open: boolean;
@@ -240,7 +277,6 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
   const [editingMessage, setEditingMessage] = useState(false);
   const [touched, setTouched] = useState<Partial<Record<keyof Data, boolean>>>({});
 
-
   const generatedMessage = useMemo(() => buildMessage(data), [data]);
 
   useEffect(() => {
@@ -249,12 +285,11 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
         const saved = localStorage.getItem("xlans_booking");
         if (saved) setData((d) => ({ ...d, ...JSON.parse(saved) }));
       } catch {}
-      if (initialService) setData((d) => ({ ...d, service: initialService }));
       setStep(1);
       setDone(false);
       setEditingMessage(false);
     }
-  }, [open, initialService]);
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -263,7 +298,6 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
     } catch {}
   }, [data, open]);
 
-  // Refresh preview text when reaching step 5 (unless the user is editing)
   useEffect(() => {
     if (step === 5 && !editingMessage) {
       setMessageDraft(generatedMessage);
@@ -285,10 +319,10 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
   if (!open) return null;
 
   const stepFields: Record<number, (keyof Data)[]> = {
-    1: ["service"],
-    2: ["companyName", "sector", "goal", "hasWebsite", "websiteUrl"],
-    3: ["contentStatus", "startTime"],
-    4: ["name", "phone", "email", "day", "time", "contactMethod", "consent"],
+    1: ["orgType", "challenge"],
+    2: ["systems", "teamSize", "hasPlatform", "platformUrl"],
+    3: ["goal", "timeline", "budgetRange"],
+    4: ["name", "role", "companyName", "phone", "email", "day", "time", "contactMethod", "consent"],
   };
 
   const fieldError = (f: keyof Data) => (touched[f] ? validateField(f, data) : null);
@@ -312,7 +346,6 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
     setStep(step + 1);
   };
 
-
   const submit = () => {
     if (submitting || !canNext) return;
     setSubmitting(true);
@@ -326,7 +359,6 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
     setDone(true);
     setSubmitting(false);
   };
-
 
   const progress = (step / TOTAL_STEPS) * 100;
 
@@ -349,7 +381,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
               خطوة {step} من {TOTAL_STEPS}
             </p>
             <h3 id="wizard-title" className="mt-0.5 truncate text-sm font-bold text-foreground sm:text-lg">
-              احجز استشارة مجانية
+              Discovery Call — تقييم احتياج شركتك
             </h3>
           </div>
           <button
@@ -393,49 +425,70 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
           ) : (
             <>
               {step === 1 && (
-                <StepCards
-                  title="محتاج إيه لشركتك؟"
-                  options={SERVICES}
-                  value={data.service}
-                  error={fieldError("service")}
-                  onChange={(v) => setData({ ...data, service: v })}
-                />
+                <div className="space-y-5">
+                  <StepCards
+                    title="ما حجم منظمتك؟"
+                    options={ORG_TYPES}
+                    value={data.orgType}
+                    error={fieldError("orgType")}
+                    onChange={(v) => setData({ ...data, orgType: v })}
+                  />
+                  <StepCards
+                    title="ما التحدي الرئيسي الذي تواجهه؟"
+                    options={CHALLENGES}
+                    value={data.challenge}
+                    error={fieldError("challenge")}
+                    onChange={(v) => setData({ ...data, challenge: v })}
+                  />
+                </div>
               )}
+
               {step === 2 && (
                 <div className="space-y-4 sm:space-y-5">
-                  <Field label="اسم الشركة" error={fieldError("companyName")}>
-                    <input
-                      value={data.companyName}
-                      onChange={(e) => setData({ ...data, companyName: e.target.value })}
-                      onBlur={() => setTouched((t) => ({ ...t, companyName: true }))}
-                      className="input"
-                      placeholder="مثال: شركة النور للخدمات"
-                      aria-invalid={!!fieldError("companyName")}
-                    />
+                  <Field label="ما الأنظمة أو الأدوات المستخدمة حاليًا؟">
+                    <div className="flex flex-wrap gap-2">
+                      {SYSTEMS.map((s) => {
+                        const active = data.systems.includes(s);
+                        return (
+                          <button
+                            key={s}
+                            type="button"
+                            onClick={() =>
+                              setData({
+                                ...data,
+                                systems: active
+                                  ? data.systems.filter((x) => x !== s)
+                                  : [...data.systems, s],
+                              })
+                            }
+                            className={`min-h-11 rounded-full border px-4 text-sm font-medium transition ${
+                              active
+                                ? "border-gold bg-gold/15 text-navy"
+                                : "border-border text-foreground hover:border-gold/40"
+                            }`}
+                          >
+                            {s}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </Field>
-                  <Field label="مجال النشاط" error={fieldError("sector")}>
-                    <Select
-                      options={SECTORS}
-                      value={data.sector}
-                      onChange={(v) => setData({ ...data, sector: v })}
-                    />
-                  </Field>
-                  <Field label="إيه الهدف الأساسي من الموقع؟" error={fieldError("goal")}>
-                    <Select
-                      options={GOALS}
-                      value={data.goal}
-                      onChange={(v) => setData({ ...data, goal: v })}
-                    />
-                  </Field>
-                  <Field label="هل لدى شركتك موقع حالي؟" error={fieldError("hasWebsite")}>
+                  <StepCards
+                    title="كم عدد المستخدمين أو الموظفين؟"
+                    options={TEAM_SIZES}
+                    value={data.teamSize}
+                    error={fieldError("teamSize")}
+                    onChange={(v) => setData({ ...data, teamSize: v })}
+                  />
+                  <Field label="هل يوجد موقع أو تطبيق أو منصة حالية؟" error={fieldError("hasPlatform")}>
                     <div className="flex gap-3">
                       {["لا", "نعم"].map((v) => (
                         <button
                           key={v}
                           type="button"
-                          onClick={() => setData({ ...data, hasWebsite: v })}
+                          onClick={() => setData({ ...data, hasPlatform: v })}
                           className={`min-h-12 flex-1 rounded-xl border-2 px-4 text-sm font-semibold transition ${
-                            data.hasWebsite === v
+                            data.hasPlatform === v
                               ? "border-gold bg-gold/10 text-navy"
                               : "border-border text-foreground hover:border-gold/40"
                           }`}
@@ -445,18 +498,18 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                       ))}
                     </div>
                   </Field>
-                  {data.hasWebsite === "نعم" && (
-                    <Field label="رابط الموقع الحالي" error={fieldError("websiteUrl")}>
+                  {data.hasPlatform === "نعم" && (
+                    <Field label="رابط المنصة أو الموقع الحالي" error={fieldError("platformUrl")}>
                       <input
-                        value={data.websiteUrl}
-                        onChange={(e) => setData({ ...data, websiteUrl: e.target.value })}
-                        onBlur={() => setTouched((t) => ({ ...t, websiteUrl: true }))}
+                        value={data.platformUrl}
+                        onChange={(e) => setData({ ...data, platformUrl: e.target.value })}
+                        onBlur={() => setTouched((t) => ({ ...t, platformUrl: true }))}
                         className="input"
                         type="url"
                         inputMode="url"
                         placeholder="https://example.com"
                         dir="ltr"
-                        aria-invalid={!!fieldError("websiteUrl")}
+                        aria-invalid={!!fieldError("platformUrl")}
                       />
                     </Field>
                   )}
@@ -464,60 +517,40 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
               )}
 
               {step === 3 && (
-                <div className="space-y-4 sm:space-y-5">
-                  <Field label="إيه أهم الخصائص المطلوبة؟">
-                    <div className="flex flex-wrap gap-2">
-                      {FEATURES.map((f) => {
-                        const active = data.features.includes(f);
-                        return (
-                          <button
-                            key={f}
-                            type="button"
-                            onClick={() =>
-                              setData({
-                                ...data,
-                                features: active
-                                  ? data.features.filter((x) => x !== f)
-                                  : [...data.features, f],
-                              })
-                            }
-                            className={`min-h-11 rounded-full border px-4 text-sm font-medium transition ${
-                              active
-                                ? "border-gold bg-gold/15 text-navy"
-                                : "border-border text-foreground hover:border-gold/40"
-                            }`}
-                          >
-                            {f}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </Field>
-                  <Field label="هل المحتوى والصور متوفرين؟" error={fieldError("contentStatus")}>
-                    <Select
-                      options={CONTENT_STATUS}
-                      value={data.contentStatus}
-                      onChange={(v) => setData({ ...data, contentStatus: v })}
-                    />
-                  </Field>
-                  <Field label="موعد بدء تنفيذ موقع شركتك" error={fieldError("startTime")}>
-                    <Select
-                      options={START_TIMES}
-                      value={data.startTime}
-                      onChange={(v) => setData({ ...data, startTime: v })}
-                    />
-                  </Field>
-                  <Field label="تفاصيل إضافية (اختياري)">
+                <div className="space-y-5">
+                  <StepCards
+                    title="ما الهدف الرئيسي من التحول الرقمي؟"
+                    options={GOALS}
+                    value={data.goal}
+                    error={fieldError("goal")}
+                    onChange={(v) => setData({ ...data, goal: v })}
+                  />
+                  <StepCards
+                    title="ما الجدول الزمني المتوقع؟"
+                    options={TIMELINES}
+                    value={data.timeline}
+                    error={fieldError("timeline")}
+                    onChange={(v) => setData({ ...data, timeline: v })}
+                  />
+                  <StepCards
+                    title="ما نطاق الميزانية التقريبي؟"
+                    options={BUDGET_RANGES}
+                    value={data.budgetRange}
+                    error={fieldError("budgetRange")}
+                    onChange={(v) => setData({ ...data, budgetRange: v })}
+                  />
+                  <Field label="ملاحظات إضافية (اختياري)">
                     <textarea
                       value={data.notes}
                       onChange={(e) => setData({ ...data, notes: e.target.value })}
                       rows={3}
                       className="input resize-none"
-                      placeholder="اكتب أي تفاصيل إضافية"
+                      placeholder="أي تفاصيل إضافية تساعدنا في فهم الوضع"
                     />
                   </Field>
                 </div>
               )}
+
               {step === 4 && (
                 <div className="space-y-4 sm:space-y-5">
                   <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
@@ -532,6 +565,28 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                         aria-invalid={!!fieldError("name")}
                       />
                     </Field>
+                    <Field label="المسمى الوظيفي" error={fieldError("role")}>
+                      <input
+                        value={data.role}
+                        onChange={(e) => setData({ ...data, role: e.target.value })}
+                        onBlur={() => setTouched((t) => ({ ...t, role: true }))}
+                        className="input"
+                        placeholder="مثال: مدير العمليات"
+                        aria-invalid={!!fieldError("role")}
+                      />
+                    </Field>
+                  </div>
+                  <Field label="اسم الشركة / المنظمة" error={fieldError("companyName")}>
+                    <input
+                      value={data.companyName}
+                      onChange={(e) => setData({ ...data, companyName: e.target.value })}
+                      onBlur={() => setTouched((t) => ({ ...t, companyName: true }))}
+                      className="input"
+                      placeholder="اسم الشركة"
+                      aria-invalid={!!fieldError("companyName")}
+                    />
+                  </Field>
+                  <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
                     <Field label="رقم الموبايل" error={fieldError("phone")}>
                       <input
                         value={data.phone}
@@ -546,41 +601,42 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                         aria-invalid={!!fieldError("phone")}
                       />
                     </Field>
+                    <Field label="البريد الإلكتروني" error={fieldError("email")}>
+                      <input
+                        value={data.email}
+                        onChange={(e) => setData({ ...data, email: e.target.value })}
+                        onBlur={() => setTouched((t) => ({ ...t, email: true }))}
+                        className="input"
+                        type="email"
+                        autoComplete="email"
+                        dir="ltr"
+                        placeholder="name@company.com"
+                        aria-invalid={!!fieldError("email")}
+                      />
+                    </Field>
                   </div>
-                  <Field label="البريد الإلكتروني (اختياري)" error={fieldError("email")}>
-                    <input
-                      value={data.email}
-                      onChange={(e) => setData({ ...data, email: e.target.value })}
-                      onBlur={() => setTouched((t) => ({ ...t, email: true }))}
-                      className="input"
-                      type="email"
-                      autoComplete="email"
-                      dir="ltr"
-                      placeholder="name@company.com"
-                      aria-invalid={!!fieldError("email")}
-                    />
-                  </Field>
-                  <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
-                    <Field label="اليوم المفضل" error={fieldError("day")}>
-                      <input
-                        value={data.day}
-                        onChange={(e) => setData({ ...data, day: e.target.value })}
-                        onBlur={() => setTouched((t) => ({ ...t, day: true }))}
-                        className="input"
-                        placeholder="مثال: الأحد"
-                        aria-invalid={!!fieldError("day")}
-                      />
-                    </Field>
-                    <Field label="الوقت المفضل" error={fieldError("time")}>
-                      <input
-                        value={data.time}
-                        onChange={(e) => setData({ ...data, time: e.target.value })}
-                        onBlur={() => setTouched((t) => ({ ...t, time: true }))}
-                        className="input"
-                        placeholder="مثال: 6 مساءً"
-                        aria-invalid={!!fieldError("time")}
-                      />
-                    </Field>
+
+                  <div className="rounded-xl bg-muted/60 p-4">
+                    <p className="mb-3 text-sm font-semibold text-foreground">موعد Discovery Call المفضل</p>
+                    <p className="mb-3 text-xs text-muted-foreground">
+                      يوميًا عدا الجمعة، من ٩ صباحًا حتى ٦ مساءً.
+                    </p>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <Field label="اليوم" error={fieldError("day")}>
+                        <Select
+                          options={DISCOVERY_DAYS}
+                          value={data.day}
+                          onChange={(v) => setData({ ...data, day: v })}
+                        />
+                      </Field>
+                      <Field label="الوقت" error={fieldError("time")}>
+                        <Select
+                          options={DISCOVERY_TIMES}
+                          value={data.time}
+                          onChange={(v) => setData({ ...data, time: v })}
+                        />
+                      </Field>
+                    </div>
                   </div>
 
                   <Field label="طريقة التواصل المفضلة" error={fieldError("contactMethod")}>
@@ -601,6 +657,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                       ))}
                     </div>
                   </Field>
+
                   <label className="flex items-start gap-3 rounded-xl bg-muted/60 p-4 text-sm">
                     <input
                       type="checkbox"
@@ -617,14 +674,15 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                   )}
                 </div>
               )}
+
               {step === 5 && (
                 <div className="space-y-4">
                   <div>
                     <h4 className="text-base font-bold text-foreground sm:text-lg">
-                      معاينة الرسالة قبل الإرسال
+                      معاينة رسالة Discovery Call
                     </h4>
                     <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
-                      دي الرسالة اللي هتتبعت على واتساب. راجعها كويس وعدّل عليها لو حابب.
+                      راجع الرسالة قبل إرسالها على واتساب. يمكنك تعديلها مباشرة.
                     </p>
                   </div>
 
@@ -741,7 +799,6 @@ function Field({
     </label>
   );
 }
-
 
 function Select({
   options,
