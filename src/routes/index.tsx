@@ -747,84 +747,84 @@ function BookingSection({ onBook }: { onBook: () => void }) {
 
 /* ============================================================
    FAQ
-============================================================ */
-function FAQ() {
-  const items = [
-    {
-      q: "من أين نبدأ معكم؟",
-      a: "من جلسة قصيرة حول تحدٍّ واحد داخل شركتك. نخرج منها برؤية أولية وأولويات واضحة.",
-    },
-    {
-      q: "هل تبيعون منتجًا جاهزًا؟",
-      a: "لا. نحدد أولًا ما يستحق أن يُبنى ولماذا، ثم نختار التقنية المناسبة لذلك القرار.",
-    },
-    {
-      q: "كيف تُقاس النتائج؟",
-      a: "نتفق مسبقًا على مؤشرات مرتبطة بالأداء التشغيلي أو الإيراد أو سرعة القرار.",
-    },
-    {
-      q: "كم تستغرق رحلة التحول؟",
-      a: "تبدأ بمرحلة اكتشاف قصيرة، ثم تنفيذ على دفعات تُظهر أثرًا مبكرًا بدل انتظار نهاية المشروع.",
-    },
-    {
-      q: "هل تعملون مع فرقنا الداخلية؟",
-      a: "نعم، كامتداد لفريقكم مع نقل معرفة كامل وتوثيق واضح.",
-    },
-    {
-      q: "ما مستوى السرية؟",
-      a: "التزام تعاقدي كامل بسرية بيانات شركتك وعملياتها.",
-    },
-  ];
-  const [open, setOpen] = useState<number | null>(0);
-  return (
-    <Section id="faq" eyebrow="FAQ" title="أسئلة شائعة">
-      <div className="mx-auto max-w-3xl space-y-2.5">
-        {items.map((it, i) => {
-          const isOpen = open === i;
-          return (
-            <div
-              key={it.q}
-              className={`overflow-hidden rounded-2xl border bg-white transition ${
-                isOpen ? "border-gold shadow-md" : "border-border"
-              }`}
-            >
-              <button
-                onClick={() => setOpen(isOpen ? null : i)}
-                aria-expanded={isOpen}
-                className="flex w-full items-center justify-between gap-4 px-5 py-3.5 text-right"
-              >
-                <span className="text-sm font-bold text-navy">{it.q}</span>
-                <ChevronDown
-                  className={`h-5 w-5 shrink-0 text-gold transition ${isOpen ? "rotate-180" : ""}`}
-                />
-              </button>
-              <div
-                className={`grid transition-all duration-300 ${
-                  isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                }`}
-              >
-                <div className="overflow-hidden">
-                  <p className="px-5 pb-4 text-sm leading-relaxed text-muted-foreground">{it.a}</p>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      <div className="mt-6 text-center">
-        <a
-          href={WA_LINK}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
-        >
-          <WhatsAppIcon className="h-5 w-5" />
-          اسأل مباشرة على واتساب
-        </a>
-      </div>
-    </Section>
-  );
-}
+ ============================================================ */
+ function FAQ() {
+   const items = [
+     {
+       q: "هل شركتي جاهزة للتحول الرقمي؟",
+       a: "معظم الشركات لديها البيانات والعمليات، لكنها تحتاج لترتيبها في نظام واحد. خلال Discovery Call نحدد نقطة البداية الصحيحة دون تشتيت.",
+     },
+     {
+       q: "كم تستغرق رحلة التحول؟",
+       a: "تبدأ بمرحلة اكتشاف قصيرة تمتد لأسبوع أو أقل، ثم تنفيذ على دفعات تُظهر أثرًا مبكرًا قبل إكمال باقي الرحلة.",
+     },
+     {
+       q: "هل نحتاج لتغيير كل أنظمتنا؟",
+       a: "لا بالضرورة. أحيانًا الحل يكون في ربط ما لديكم، وتبسيطه، وتغطية الفجوات بدل البدء من الصفر.",
+     },
+     {
+       q: "كيف نضمن عدم تعطيل العمل أثناء التحول؟",
+       a: "ننفذ على مراحل متوازية مع العمل اليومي، ونختبر كل خطوة قبل الاعتماد. التحول لا يعني توقف البيزنس.",
+     },
+     {
+       q: "ما التكلفة المتوقعة؟",
+       a: "التكلفة تختلف حسب حجم العمليات والأنظمة المطلوبة. بعد Discovery Call نرسل خطة واضحة تحتوي على نطاق العمل والتكلفة والجدول الزمني.",
+     },
+   ];
+   const [open, setOpen] = useState<number | null>(0);
+   return (
+     <Section id="faq" eyebrow="FAQ" title="أسئلة في رحلة التحول الرقمي">
+       <div className="mx-auto max-w-3xl space-y-2.5">
+         {items.map((it, i) => {
+           const isOpen = open === i;
+           return (
+             <div
+               key={it.q}
+               className={`overflow-hidden rounded-2xl border bg-white transition ${
+                 isOpen ? "border-gold shadow-md" : "border-border"
+               }`}
+             >
+               <button
+                 onClick={() => setOpen(isOpen ? null : i)}
+                 aria-expanded={isOpen}
+                 className="flex w-full items-center justify-between gap-4 px-5 py-3.5 text-right"
+               >
+                 <span className="text-sm font-bold text-navy">{it.q}</span>
+                 <ChevronDown
+                   className={`h-5 w-5 shrink-0 text-gold transition ${isOpen ? "rotate-180" : ""}`}
+                 />
+               </button>
+               <div
+                 className={`grid transition-all duration-300 ${
+                   isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                 }`}
+               >
+                 <div className="overflow-hidden">
+                   <p className="px-5 pb-4 text-sm leading-relaxed text-muted-foreground">{it.a}</p>
+                 </div>
+               </div>
+             </div>
+           );
+         })}
+       </div>
+       <div className="mt-8 rounded-2xl border border-gold/40 bg-cream/60 p-5 text-center">
+         <h4 className="text-base font-bold text-navy">ابدأ بـ Discovery Call مجانية</h4>
+         <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
+           نتواصل يوميًا عدا الجمعة، من ٩ صباحًا حتى ٦ مساءً. حدد الوقت المناسب ونرسم معك الخطوة الأولى.
+         </p>
+         <a
+           href={WA_LINK}
+           target="_blank"
+           rel="noopener noreferrer"
+           className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white shadow-lg transition hover:brightness-110"
+         >
+           <WhatsAppIcon className="h-5 w-5" />
+           حدد موعد Discovery Call
+         </a>
+       </div>
+     </Section>
+   );
+ }
 
 /* ============================================================
    FOOTER
