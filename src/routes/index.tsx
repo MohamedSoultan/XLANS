@@ -32,7 +32,9 @@ import {
   Linkedin,
 } from "lucide-react";
 import logoAsset from "@/assets/xlans-logo-new.png.asset.json";
-import ownerPhoto from "@/assets/business-owner.jpg";
+import heroBoardroom from "@/assets/hero-boardroom.jpg";
+import aboutDiscovery from "@/assets/about-discovery.jpg";
+import ctaArchitecture from "@/assets/cta-architecture.jpg";
 import { AutoRail } from "@/components/AutoRail";
 import { BookingWizard } from "@/components/BookingWizard";
 
@@ -331,17 +333,21 @@ function Hero({ onBook }: { onBook: () => void }) {
           </div>
 
           <div className="reveal relative mx-auto w-full max-w-sm" style={{ animationDelay: "120ms" }}>
-            <div className="absolute inset-0 rounded-[2rem] gold-gradient" />
-            <div className="relative m-[3px] overflow-hidden rounded-[1.9rem] bg-navy">
+            <div
+              aria-hidden
+              className="absolute -bottom-3 -left-3 h-24 w-24 border-b border-l border-gold/50 md:h-32 md:w-32"
+            />
+            <div className="relative overflow-hidden rounded-sm bg-navy ring-1 ring-navy/10">
               <img
-                src={ownerPhoto}
+                src={heroBoardroom}
                 alt="قيادة تنفيذية تناقش تحول شركتها الرقمي"
                 width={1024}
-                height={1024}
+                height={1280}
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy via-navy/70 to-transparent p-5 pt-12 text-white">
-                <p className="text-sm font-bold leading-snug">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/95 via-navy/45 to-transparent p-5 pt-16 text-white">
+                <span className="block h-px w-10 bg-gold" />
+                <p className="mt-3 text-sm font-semibold leading-snug tracking-wide">
                   القرار الصحيح قبل التنفيذ السريع.
                 </p>
               </div>
@@ -378,16 +384,30 @@ function About() {
       title="التحول الرقمي يبدأ بالفهم، لا بالتقنية"
       intro="الذكاء الاصطناعي يبني أي شيء أسرع من أي وقت. لكن بناء الحل الخاطئ بسرعة لا يصنع قيمة."
     >
-      <div className="mx-auto grid max-w-4xl gap-4 md:grid-cols-3">
-        {points.map((p) => (
-          <article
-            key={p.title}
-            className="rounded-2xl border border-border bg-white p-6 text-center md:text-right"
-          >
-            <h3 className="text-base font-bold text-navy">{p.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
-          </article>
-        ))}
+      <div className="mx-auto grid max-w-5xl items-center gap-8 md:grid-cols-2 md:gap-12">
+        <figure className="relative overflow-hidden rounded-sm ring-1 ring-navy/10">
+          <img
+            src={aboutDiscovery}
+            alt="مراجعة تنفيذية لعمليات الشركة قبل اختيار الحل التقني"
+            width={1280}
+            height={960}
+            loading="lazy"
+            className="h-56 w-full object-cover sm:h-72 md:h-[22rem]"
+          />
+          <span aria-hidden className="absolute inset-0 bg-navy/10" />
+        </figure>
+
+        <div className="grid gap-4">
+          {points.map((p) => (
+            <article
+              key={p.title}
+              className="text-center md:border-r-2 md:border-gold/60 md:pr-4 md:text-right"
+            >
+              <h3 className="text-base font-bold text-navy">{p.title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </Section>
   );
@@ -704,10 +724,20 @@ function BookingSection({ onBook }: { onBook: () => void }) {
       intro="السؤال الحقيقي: هل تُحل بالرؤية الصحيحة؟"
       bg="bg-white"
     >
-      <div className="mx-auto max-w-xl overflow-hidden rounded-2xl border border-border bg-white shadow-lg">
-        <div className="navy-gradient p-5">
-          <div className="flex items-center gap-3 text-navy-foreground">
-            <div className="grid h-11 w-11 place-items-center rounded-xl gold-gradient text-navy">
+      <div className="mx-auto max-w-xl overflow-hidden rounded-sm border border-border bg-white shadow-xl">
+        <div className="relative p-5">
+          <img
+            src={ctaArchitecture}
+            alt=""
+            aria-hidden
+            width={1536}
+            height={864}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <span aria-hidden className="absolute inset-0 bg-navy/80" />
+          <div className="relative flex items-center gap-3 text-navy-foreground">
+            <div className="grid h-11 w-11 place-items-center rounded-sm gold-gradient text-navy">
               <Rocket className="h-5 w-5" />
             </div>
             <div>
