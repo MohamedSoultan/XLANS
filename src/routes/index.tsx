@@ -333,17 +333,21 @@ function Hero({ onBook }: { onBook: () => void }) {
           </div>
 
           <div className="reveal relative mx-auto w-full max-w-sm" style={{ animationDelay: "120ms" }}>
-            <div className="absolute inset-0 rounded-[2rem] gold-gradient" />
-            <div className="relative m-[3px] overflow-hidden rounded-[1.9rem] bg-navy">
+            <div
+              aria-hidden
+              className="absolute -bottom-3 -left-3 h-24 w-24 border-b border-l border-gold/50 md:h-32 md:w-32"
+            />
+            <div className="relative overflow-hidden rounded-sm bg-navy ring-1 ring-navy/10">
               <img
-                src={ownerPhoto}
+                src={heroBoardroom}
                 alt="قيادة تنفيذية تناقش تحول شركتها الرقمي"
                 width={1024}
-                height={1024}
+                height={1280}
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy via-navy/70 to-transparent p-5 pt-12 text-white">
-                <p className="text-sm font-bold leading-snug">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/95 via-navy/45 to-transparent p-5 pt-16 text-white">
+                <span className="block h-px w-10 bg-gold" />
+                <p className="mt-3 text-sm font-semibold leading-snug tracking-wide">
                   القرار الصحيح قبل التنفيذ السريع.
                 </p>
               </div>
