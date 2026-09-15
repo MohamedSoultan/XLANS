@@ -32,7 +32,9 @@ import {
   Linkedin,
 } from "lucide-react";
 import logoAsset from "@/assets/xlans-logo-new.png.asset.json";
-import ownerPhoto from "@/assets/business-owner.jpg";
+import heroBoardroom from "@/assets/hero-boardroom.jpg";
+import aboutDiscovery from "@/assets/about-discovery.jpg";
+import ctaArchitecture from "@/assets/cta-architecture.jpg";
 import { AutoRail } from "@/components/AutoRail";
 import { BookingWizard } from "@/components/BookingWizard";
 
