@@ -401,7 +401,7 @@ function About() {
           {points.map((p) => (
             <article
               key={p.title}
-              className="border-r-2 border-gold/60 pr-4 text-center md:text-right"
+              className="text-center md:border-r-2 md:border-gold/60 md:pr-4 md:text-right"
             >
               <h3 className="text-base font-bold text-navy">{p.title}</h3>
               <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
