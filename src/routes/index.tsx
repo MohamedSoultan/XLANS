@@ -384,16 +384,30 @@ function About() {
       title="التحول الرقمي يبدأ بالفهم، لا بالتقنية"
       intro="الذكاء الاصطناعي يبني أي شيء أسرع من أي وقت. لكن بناء الحل الخاطئ بسرعة لا يصنع قيمة."
     >
-      <div className="mx-auto grid max-w-4xl gap-4 md:grid-cols-3">
-        {points.map((p) => (
-          <article
-            key={p.title}
-            className="rounded-2xl border border-border bg-white p-6 text-center md:text-right"
-          >
-            <h3 className="text-base font-bold text-navy">{p.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
-          </article>
-        ))}
+      <div className="mx-auto grid max-w-5xl items-center gap-8 md:grid-cols-2 md:gap-12">
+        <figure className="relative overflow-hidden rounded-sm ring-1 ring-navy/10">
+          <img
+            src={aboutDiscovery}
+            alt="مراجعة تنفيذية لعمليات الشركة قبل اختيار الحل التقني"
+            width={1280}
+            height={960}
+            loading="lazy"
+            className="h-56 w-full object-cover sm:h-72 md:h-[22rem]"
+          />
+          <span aria-hidden className="absolute inset-0 bg-navy/10" />
+        </figure>
+
+        <div className="grid gap-4">
+          {points.map((p) => (
+            <article
+              key={p.title}
+              className="border-r-2 border-gold/60 pr-4 text-center md:text-right"
+            >
+              <h3 className="text-base font-bold text-navy">{p.title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </Section>
   );
