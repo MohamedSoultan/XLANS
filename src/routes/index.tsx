@@ -724,10 +724,20 @@ function BookingSection({ onBook }: { onBook: () => void }) {
       intro="السؤال الحقيقي: هل تُحل بالرؤية الصحيحة؟"
       bg="bg-white"
     >
-      <div className="mx-auto max-w-xl overflow-hidden rounded-2xl border border-border bg-white shadow-lg">
-        <div className="navy-gradient p-5">
-          <div className="flex items-center gap-3 text-navy-foreground">
-            <div className="grid h-11 w-11 place-items-center rounded-xl gold-gradient text-navy">
+      <div className="mx-auto max-w-xl overflow-hidden rounded-sm border border-border bg-white shadow-xl">
+        <div className="relative p-5">
+          <img
+            src={ctaArchitecture}
+            alt=""
+            aria-hidden
+            width={1536}
+            height={864}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <span aria-hidden className="absolute inset-0 bg-navy/80" />
+          <div className="relative flex items-center gap-3 text-navy-foreground">
+            <div className="grid h-11 w-11 place-items-center rounded-sm gold-gradient text-navy">
               <Rocket className="h-5 w-5" />
             </div>
             <div>
