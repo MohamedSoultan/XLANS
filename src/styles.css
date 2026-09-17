@@ -30,6 +30,8 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-destructive: var(--destructive);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-foreground: var(--whatsapp-foreground);
 
 
   --color-navy: var(--navy);
@@ -68,6 +70,8 @@
   --input: oklch(0.94 0.01 250);
   --ring: var(--gold);
   --destructive: oklch(0.55 0.19 27);
+  --whatsapp: oklch(0.72 0.19 145);
+  --whatsapp-foreground: oklch(1 0 0);
 }
 
 
