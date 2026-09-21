@@ -416,7 +416,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-bold text-white transition hover:brightness-110"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-sm font-bold text-whatsapp-foreground transition hover:brightness-110"
               >
                 <WhatsAppIcon className="h-5 w-5" />
                 فتح واتساب يدويًا
@@ -722,7 +722,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                       dir="rtl"
                     />
                   ) : (
-                    <div className="rounded-2xl border border-border bg-[#E7F5EA] p-4 shadow-inner">
+                    <div className="rounded-2xl border border-border bg-whatsapp/10 p-4 shadow-inner">
                       <div className="max-h-[45vh] overflow-y-auto rounded-xl bg-white p-4 text-sm leading-relaxed text-navy shadow-sm">
                         <pre className="whitespace-pre-wrap break-words font-sans">{messageDraft}</pre>
                       </div>
@@ -769,7 +769,7 @@ export function BookingWizard({ open, onClose, initialService }: Props) {
                 type="button"
                 disabled={!canNext || submitting}
                 onClick={submit}
-                className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-full bg-[#25D366] px-4 text-xs font-bold text-white shadow-lg transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 sm:min-h-12 sm:px-6 sm:text-sm"
+                className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-full bg-whatsapp px-4 text-xs font-bold text-whatsapp-foreground shadow-lg transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 sm:min-h-12 sm:px-6 sm:text-sm"
               >
                 <WhatsAppIcon className="h-5 w-5" />
                 {submitting ? "جاري التجهيز…" : "إرسال على واتساب"}
