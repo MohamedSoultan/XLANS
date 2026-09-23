@@ -1,13 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, Check, ChevronDown } from "lucide-react";
+import { ArrowLeft, Check, ChevronDown, Mail } from "lucide-react";
 import heroBoardroom from "@/assets/hero-boardroom.jpg";
 import aboutDiscovery from "@/assets/about-discovery.jpg";
 import solutionsExecutive from "@/assets/solutions-executive.jpg";
 import valuesPartnership from "@/assets/values-partnership.jpg";
 import ctaArchitecture from "@/assets/cta-architecture.jpg";
 import { BookingWizard } from "@/components/BookingWizard";
-import { SitePage, WA_LINK, WhatsAppIcon } from "@/components/SiteChrome";
+import { CONTACT_EMAIL, MAILTO, SitePage, WA_LINK, WhatsAppIcon } from "@/components/SiteChrome";
 import { services } from "@/lib/site-content";
 
 export const Route = createFileRoute("/")({
@@ -57,6 +57,9 @@ function HomePage() {
               <button type="button" onClick={() => setBookingOpen(true)} className="inline-flex min-h-12 items-center gap-2 rounded-full navy-gradient px-6 font-bold text-navy-foreground">
                 احجز Discovery Call <ArrowLeft className="h-4 w-4" />
               </button>
+              <a href={MAILTO} className="inline-flex min-h-12 items-center gap-2 rounded-full border border-gold/60 bg-background px-5 font-bold text-navy">
+                <Mail className="h-5 w-5 text-gold" /> <span dir="ltr" className="text-sm">{CONTACT_EMAIL}</span>
+              </a>
               <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center gap-2 rounded-full border border-gold/60 bg-background px-6 font-bold text-navy">
                 <WhatsAppIcon className="h-5 w-5 text-whatsapp" /> ناقش احتياجك
               </a>
