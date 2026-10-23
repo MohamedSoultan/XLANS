@@ -20,6 +20,11 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [
+      { rel: "alternate", hrefLang: "ar", href: "https://xlans.lovable.app/" },
+      { rel: "alternate", hrefLang: "en", href: "https://xlans.lovable.app/en" },
+      { rel: "alternate", hrefLang: "x-default", href: "https://xlans.lovable.app/" },
+    ],
   }),
   component: HomePage,
 });
