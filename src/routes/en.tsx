@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, Check, Phone } from "lucide-react";
 import logoAsset from "@/assets/xlans-logo-new.png.asset.json";
-import { CONTACT_EMAIL, MAILTO, PHONE_NUMBER, SiteChrome, WA_LINK, WhatsAppIcon } from "@/components/SiteChrome";
+import { CONTACT_EMAIL, MAILTO, PHONE_NUMBER, WA_LINK, WhatsAppIcon } from "@/components/SiteChrome";
 
 export const Route = createFileRoute("/en")({
   head: () => ({
@@ -109,6 +109,5 @@ function EnglishPage() {
         <p className="text-xs text-navy-foreground/60">All rights reserved © {new Date().getFullYear()} XLANS Web Solutions</p>
       </div>
     </footer>
-    <SiteChrome.HiddenStickyBar />
   </div>;
 }
