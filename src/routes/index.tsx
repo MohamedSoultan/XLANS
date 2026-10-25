@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
-      { rel: "preload", as: "image", href: heroBoardroom, fetchpriority: "high" },
+      { rel: "preload", as: "image", href: heroBoardroom, fetchPriority: "high" } as const,
       { rel: "alternate", hrefLang: "ar", href: "https://xlans.lovable.app/" },
       { rel: "alternate", hrefLang: "en", href: "https://xlans.lovable.app/en" },
       { rel: "alternate", hrefLang: "x-default", href: "https://xlans.lovable.app/" },
