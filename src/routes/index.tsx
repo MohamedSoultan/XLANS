@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, Check, ChevronDown, Mail } from "lucide-react";
-import heroBoardroom from "@/assets/hero-boardroom.jpg";
+import heroBoardroom from "@/assets/hero-boardroom.webp";
 import aboutDiscovery from "@/assets/about-discovery.jpg";
 import solutionsExecutive from "@/assets/solutions-executive.jpg";
 import valuesPartnership from "@/assets/values-partnership.jpg";
@@ -21,6 +21,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
+      { rel: "preload", as: "image", href: heroBoardroom, fetchpriority: "high" },
       { rel: "alternate", hrefLang: "ar", href: "https://xlans.lovable.app/" },
       { rel: "alternate", hrefLang: "en", href: "https://xlans.lovable.app/en" },
       { rel: "alternate", hrefLang: "x-default", href: "https://xlans.lovable.app/" },
