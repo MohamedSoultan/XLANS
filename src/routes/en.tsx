@@ -4,6 +4,7 @@ import logoAsset from "@/assets/xlans-logo-new.png.asset.json";
 import { CONTACT_EMAIL, MAILTO, PHONE_NUMBER, WA_LINK, WhatsAppIcon } from "@/components/SiteChrome";
 
 export const Route = createFileRoute("/en")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "XLANS Web Solutions | Software Solutions for Growing Companies" },
