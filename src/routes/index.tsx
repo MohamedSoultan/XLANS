@@ -11,6 +11,7 @@ import { CONTACT_EMAIL, MAILTO, SitePage, WA_LINK, WhatsAppIcon } from "@/compon
 import { services } from "@/lib/site-content";
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "XLANS | حلول برمجية للشركات" },

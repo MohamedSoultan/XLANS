@@ -6,6 +6,7 @@ import { PageHero, SitePage, WA_LINK } from "@/components/SiteChrome";
 import { services } from "@/lib/site-content";
 
 export const Route = createFileRoute("/services")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "الخدمات | XLANS Web Solutions" },
     { name: "description", content: "حلول برمجية للشركات تشمل المنصات، تطبيقات الويب والموبايل، تكامل الأنظمة، وتحديث الأنظمة القديمة." },

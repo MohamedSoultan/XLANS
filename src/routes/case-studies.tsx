@@ -18,6 +18,7 @@ const images: Record<string, string> = {
 };
 
 export const Route = createFileRoute("/case-studies")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "دراسات الحالة | XLANS Web Solutions" },
     { name: "description", content: "دراسات حالة مختارة من حلول XLANS البرمجية: منصات عقارية، تجارة إلكترونية، منتجات تقنية B2B، ومنصات تصدير." },

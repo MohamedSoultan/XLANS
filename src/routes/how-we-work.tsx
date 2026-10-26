@@ -4,6 +4,7 @@ import { PageHero, SitePage, WA_LINK } from "@/components/SiteChrome";
 import { workSteps } from "@/lib/site-content";
 
 export const Route = createFileRoute("/how-we-work")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "كيفية العمل | XLANS Web Solutions" },
     { name: "description", content: "ثماني خطوات واضحة من استكشاف تحدي الشركة حتى تسليم الحل البرمجي والانطلاق إلى السوق." },
